@@ -53,7 +53,10 @@ def load_master(
     source_tokens: tuple[tuple[str, int, int], ...],
 ) -> pd.DataFrame:
     del source_tokens  # Included in the cache key so controlled workbook edits refresh.
-    master = services.build_master_table(logs.scan_inventory(root_text))
+    inventory = logs.scan_inventory(root_text)
+    if not inventory and services.ONLINE_MODE:
+        inventory = load_portable_inventory()
+    master = services.build_master_table(inventory)
     if "Detailed History Available" not in master.columns:
         master["Detailed History Available"] = master.get(
             "Schematic Available", pd.Series(False, index=master.index)

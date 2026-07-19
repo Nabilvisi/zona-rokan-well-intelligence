@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import json
 import math
@@ -914,10 +915,18 @@ def _load_schematic_cache_index_cached(
         document = json.loads(Path(index_token[0]).read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return {}
-    if (
-        int(document.get("source_size", -1)) != source_token[1]
-        or int(document.get("source_mtime_ns", -1)) != source_token[2]
-    ):
+    if int(document.get("source_size", -1)) != source_token[1]:
+        return {}
+    expected_hash = clean_text(document.get("source_sha256")).lower()
+    if expected_hash:
+        try:
+            digest = hashlib.sha256(Path(source_token[0]).read_bytes()).hexdigest()
+        except OSError:
+            return {}
+        if digest != expected_hash:
+            return {}
+    elif int(document.get("source_mtime_ns", -1)) != source_token[2]:
+        # Backward compatibility for caches generated before stable hashes were added.
         return {}
     return {
         clean_text(entry.get("sheet_name")): entry

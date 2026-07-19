@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import warnings
@@ -13,6 +14,14 @@ from openpyxl import load_workbook
 APP_DIR = Path(__file__).resolve().parent
 WORKBOOK = APP_DIR.parents[1] / "Data Nations" / "well schematic Rokan.xlsx"
 CACHE_DIR = APP_DIR / "data" / "schematic_workbook_cache"
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def clean_text(value: object) -> str:
@@ -181,6 +190,7 @@ def main() -> None:
         "source_path": str(WORKBOOK),
         "source_size": int(stat.st_size),
         "source_mtime_ns": int(stat.st_mtime_ns),
+        "source_sha256": file_sha256(WORKBOOK),
         "entries": entries,
     }
     (CACHE_DIR / "index.json").write_text(
