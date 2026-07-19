@@ -1,0 +1,120 @@
+{
+  "sheet_name": "Kopar 33D",
+  "orientation": "D",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "12.25",
+      "Casing": "Surface 9-5/8\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 991,
+      "Casing Depth (MD)": 991,
+      "Casing Depth (TVD)": null,
+      "Source Row": 12
+    },
+    {
+      "Hole Details": "8.5\"",
+      "Casing": "Production 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 4846,
+      "Casing Depth (MD)": 4846,
+      "Casing Depth (TVD)": null,
+      "Source Row": 32
+    },
+    {
+      "Hole Details": "LS",
+      "Casing": "5158",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 37
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "4652-4665",
+      "Top (ft)": 4652.0,
+      "Base (ft)": 4665.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap NZBP",
+      "Depth (feet)": "4652-4665",
+      "Source Row": 19
+    },
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "4675-4687",
+      "Top (ft)": 4675.0,
+      "Base (ft)": 4687.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap NZBP",
+      "Depth (feet)": "4675-4687",
+      "Source Row": 21
+    },
+    {
+      "Formation": "Bangko",
+      "Sand": "Bangko",
+      "Interval": "4879-4888",
+      "Top (ft)": 4879.0,
+      "Base (ft)": 4888.0,
+      "Status": "Closed",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bangko Closed",
+      "Depth (feet)": "4879-4888",
+      "Source Row": 23
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5116-5126",
+      "Top (ft)": 5116.0,
+      "Base (ft)": 5126.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala Open",
+      "Depth (feet)": "5116-5126",
+      "Source Row": 25
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5134-5148",
+      "Top (ft)": 5134.0,
+      "Base (ft)": 5148.0,
+      "Status": "Closed",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala Closed",
+      "Depth (feet)": "5134-5148",
+      "Source Row": 27
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5170-5176",
+      "Top (ft)": 5170.0,
+      "Base (ft)": 5176.0,
+      "Status": "Closed",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala Closed",
+      "Depth (feet)": "5170-5176",
+      "Source Row": 29
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "5170-5176",
+      "Top (ft)": 5170.0,
+      "Base (ft)": 5176.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "5170-5176",
+      "Source Row": 38
+    }
+  ]
+}

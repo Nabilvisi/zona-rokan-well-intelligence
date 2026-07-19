@@ -1,0 +1,168 @@
+{
+  "sheet_name": "Kopar 14D ",
+  "orientation": "D",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "",
+      "Casing": "Kick Of Point",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 12
+    },
+    {
+      "Hole Details": "12.25",
+      "Casing": "Surface 10-3/4\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 3869,
+      "Casing Depth (MD)": 3869,
+      "Casing Depth (TVD)": null,
+      "Source Row": 15
+    },
+    {
+      "Hole Details": "8.5\"",
+      "Casing": "Production 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 5716,
+      "Casing Depth (MD)": 5716,
+      "Casing Depth (TVD)": null,
+      "Source Row": 35
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "4958-4963",
+      "Top (ft)": 4958.0,
+      "Base (ft)": 4963.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap NZBP",
+      "Depth (feet)": "4958-4963",
+      "Source Row": 19
+    },
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "4974-4988",
+      "Top (ft)": 4974.0,
+      "Base (ft)": 4988.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap Open",
+      "Depth (feet)": "4974-4988",
+      "Source Row": 21
+    },
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "5010-5023",
+      "Top (ft)": 5010.0,
+      "Base (ft)": 5023.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap Open",
+      "Depth (feet)": "5010-5023",
+      "Source Row": 23
+    },
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "5032-5042",
+      "Top (ft)": 5032.0,
+      "Base (ft)": 5042.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap Open",
+      "Depth (feet)": "5032-5042",
+      "Source Row": 25
+    },
+    {
+      "Formation": "Bangko",
+      "Sand": "Bangko",
+      "Interval": "5236-5244",
+      "Top (ft)": 5236.0,
+      "Base (ft)": 5244.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bangko Open",
+      "Depth (feet)": "5236-5244",
+      "Source Row": 27
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5470-5475",
+      "Top (ft)": 5470.0,
+      "Base (ft)": 5475.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala Open",
+      "Depth (feet)": "5470-5475",
+      "Source Row": 29
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5479-5482",
+      "Top (ft)": 5479.0,
+      "Base (ft)": 5482.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala Open",
+      "Depth (feet)": "5479-5482",
+      "Source Row": 31
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5567-5582",
+      "Top (ft)": 5567.0,
+      "Base (ft)": 5582.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala Open",
+      "Depth (feet)": "5567-5582",
+      "Source Row": 33
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5593 -5597",
+      "Top (ft)": 5593.0,
+      "Base (ft)": 5597.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala Open",
+      "Depth (feet)": "5593 -5597",
+      "Source Row": 35
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5601-5606",
+      "Top (ft)": 5601.0,
+      "Base (ft)": 5606.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala Open",
+      "Depth (feet)": "5601-5606",
+      "Source Row": 37
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5610-5614",
+      "Top (ft)": 5610.0,
+      "Base (ft)": 5614.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala Open",
+      "Depth (feet)": "5610-5614",
+      "Source Row": 39
+    }
+  ]
+}

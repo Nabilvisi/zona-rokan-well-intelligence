@@ -1,0 +1,78 @@
+{
+  "sheet_name": "Pemburu 24V",
+  "orientation": "V",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "17.5\"",
+      "Casing": "Conductor 10 3/4",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 11
+    },
+    {
+      "Hole Details": "12.25\"",
+      "Casing": "Surface 9-5/8\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 668,
+      "Casing Depth (MD)": 668,
+      "Casing Depth (TVD)": null,
+      "Source Row": 30
+    },
+    {
+      "Hole Details": "Open",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 34
+    },
+    {
+      "Hole Details": "Open",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 36
+    },
+    {
+      "Hole Details": "8.5\"",
+      "Casing": "Production 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 2234,
+      "Casing Depth (MD)": 2234,
+      "Casing Depth (TVD)": null,
+      "Source Row": 39
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "2010-2015",
+      "Top (ft)": 2010.0,
+      "Base (ft)": 2015.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "2010-2015",
+      "Source Row": 34
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "2116-2126",
+      "Top (ft)": 2116.0,
+      "Base (ft)": 2126.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala",
+      "Depth (feet)": "2116-2126",
+      "Source Row": 36
+    }
+  ]
+}

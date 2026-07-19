@@ -1,0 +1,69 @@
+{
+  "sheet_name": "Petapahan 24V",
+  "orientation": "V",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "17.5\"",
+      "Casing": "Conductor 10 3/4",
+      "Top (ft)": 0.0,
+      "Base (ft)": 409,
+      "Casing Depth (MD)": 409,
+      "Casing Depth (TVD)": null,
+      "Source Row": 11
+    },
+    {
+      "Hole Details": "",
+      "Casing": "Production 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 5522,
+      "Casing Depth (MD)": 5522,
+      "Casing Depth (TVD)": null,
+      "Source Row": 30
+    },
+    {
+      "Hole Details": "Open",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 34
+    },
+    {
+      "Hole Details": "NZBP",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 36
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "5200-5210",
+      "Top (ft)": 5200.0,
+      "Base (ft)": 5210.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "5200-5210",
+      "Source Row": 34
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "5296-5316",
+      "Top (ft)": 5296.0,
+      "Base (ft)": 5316.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "5296-5316",
+      "Source Row": 36
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "sheet_name": "Kopar 11D",
+  "orientation": "D",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "12.25",
+      "Casing": "Surface 10-3/4\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 11
+    },
+    {
+      "Hole Details": "",
+      "Casing": "Kick Of Point",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 15
+    },
+    {
+      "Hole Details": "8.5\"",
+      "Casing": "Production 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 35
+    }
+  ],
+  "intervals": []
+}

@@ -1,0 +1,11 @@
+streamlit==1.59.2
+altair>=5.0
+lasio>=0.31
+dlisio>=1.0.4
+pandas>=2.0
+numpy>=1.24
+matplotlib>=3.7
+pillow>=10.0
+openpyxl>=3.1
+xlrd>=2.0
+pypdfium2>=4.30

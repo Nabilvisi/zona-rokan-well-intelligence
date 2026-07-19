@@ -1,0 +1,168 @@
+{
+  "sheet_name": "Kopar 31H  ",
+  "orientation": "H",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "20\"",
+      "Casing": "Conductor 18.63\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 300,
+      "Casing Depth (MD)": 300,
+      "Casing Depth (TVD)": 300,
+      "Source Row": 10
+    },
+    {
+      "Hole Details": "KOP 1",
+      "Casing": "2000",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 17
+    },
+    {
+      "Hole Details": "17.5\"",
+      "Casing": "Surface 13-3/8",
+      "Top (ft)": 0.0,
+      "Base (ft)": 4000,
+      "Casing Depth (MD)": 4000,
+      "Casing Depth (TVD)": 4000,
+      "Source Row": 20
+    },
+    {
+      "Hole Details": "KOP 2",
+      "Casing": "4000",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 22
+    },
+    {
+      "Hole Details": "12.25",
+      "Casing": "Intermediate 9-5/8\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 6150,
+      "Casing Depth (MD)": 6150,
+      "Casing Depth (TVD)": null,
+      "Source Row": 37
+    },
+    {
+      "Hole Details": "",
+      "Casing": "TOL",
+      "Top (ft)": 0.0,
+      "Base (ft)": 6085,
+      "Casing Depth (MD)": 6085,
+      "Casing Depth (TVD)": null,
+      "Source Row": 39
+    },
+    {
+      "Hole Details": "8.5",
+      "Casing": "Production Liner 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 7574,
+      "Casing Depth (MD)": 7574,
+      "Casing Depth (TVD)": null,
+      "Source Row": 40
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "4674-4698",
+      "Top (ft)": 4674.0,
+      "Base (ft)": 4698.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap NZBP",
+      "Depth (feet)": "4674-4698",
+      "Source Row": 25
+    },
+    {
+      "Formation": "Bangko",
+      "Sand": "Bangko",
+      "Interval": "4877-4887",
+      "Top (ft)": 4877.0,
+      "Base (ft)": 4887.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bangko NZBP",
+      "Depth (feet)": "4877-4887",
+      "Source Row": 27
+    },
+    {
+      "Formation": "Bangko",
+      "Sand": "Bangko",
+      "Interval": "4935-4945",
+      "Top (ft)": 4935.0,
+      "Base (ft)": 4945.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bangko NZBP",
+      "Depth (feet)": "4935-4945",
+      "Source Row": 29
+    },
+    {
+      "Formation": "Bangko",
+      "Sand": "Bangko",
+      "Interval": "5002-5022",
+      "Top (ft)": 5002.0,
+      "Base (ft)": 5022.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bangko NZBP",
+      "Depth (feet)": "5002-5022",
+      "Source Row": 31
+    },
+    {
+      "Formation": "Bangko",
+      "Sand": "Bangko",
+      "Interval": "5212-5227",
+      "Top (ft)": 5212.0,
+      "Base (ft)": 5227.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bangko NZBP",
+      "Depth (feet)": "5212-5227",
+      "Source Row": 33
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5359-5383",
+      "Top (ft)": 5359.0,
+      "Base (ft)": 5383.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala NZBP",
+      "Depth (feet)": "5359-5383",
+      "Source Row": 35
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5456-5469",
+      "Top (ft)": 5456.0,
+      "Base (ft)": 5469.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala NZBP",
+      "Depth (feet)": "5456-5469",
+      "Source Row": 37
+    },
+    {
+      "Formation": "Pematang",
+      "Sand": "Pematang",
+      "Interval": "6178-7492",
+      "Top (ft)": 6178.0,
+      "Base (ft)": 7492.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Pematang",
+      "Depth (feet)": "6178-7492",
+      "Source Row": 42
+    }
+  ]
+}

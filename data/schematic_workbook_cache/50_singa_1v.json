@@ -1,0 +1,141 @@
+{
+  "sheet_name": "Singa-1V",
+  "orientation": "V",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "",
+      "Casing": "Surface 16",
+      "Top (ft)": 0.0,
+      "Base (ft)": 30,
+      "Casing Depth (MD)": 30,
+      "Casing Depth (TVD)": null,
+      "Source Row": 9
+    },
+    {
+      "Hole Details": "17.5\"",
+      "Casing": "Conductor 10-3/4",
+      "Top (ft)": 0.0,
+      "Base (ft)": 496,
+      "Casing Depth (MD)": 496,
+      "Casing Depth (TVD)": null,
+      "Source Row": 11
+    },
+    {
+      "Hole Details": "",
+      "Casing": "TOC",
+      "Top (ft)": 0.0,
+      "Base (ft)": 1950,
+      "Casing Depth (MD)": 1950,
+      "Casing Depth (TVD)": null,
+      "Source Row": 34
+    },
+    {
+      "Hole Details": "8.5\"",
+      "Casing": "Production 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 2298,
+      "Casing Depth (MD)": 2298,
+      "Casing Depth (TVD)": null,
+      "Source Row": 42
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "Petani",
+      "Sand": "Petani",
+      "Interval": "1120-1124",
+      "Top (ft)": 1120.0,
+      "Base (ft)": 1124.0,
+      "Status": "Closed",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Petani Closed",
+      "Depth (feet)": "1120-1124",
+      "Source Row": 32
+    },
+    {
+      "Formation": "Telisa",
+      "Sand": "Telisa",
+      "Interval": "1968-1978",
+      "Top (ft)": 1968.0,
+      "Base (ft)": 1978.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Telisa NZBP",
+      "Depth (feet)": "1968-1978",
+      "Source Row": 36
+    },
+    {
+      "Formation": "Telisa",
+      "Sand": "Telisa",
+      "Interval": "2027-2037",
+      "Top (ft)": 2027.0,
+      "Base (ft)": 2037.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Telisa NZBP",
+      "Depth (feet)": "2027-2037",
+      "Source Row": 38
+    },
+    {
+      "Formation": "Duri",
+      "Sand": "Duri",
+      "Interval": "2093-2013",
+      "Top (ft)": 2013.0,
+      "Base (ft)": 2093.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Duri NZBP",
+      "Depth (feet)": "2093-2013",
+      "Source Row": 40
+    },
+    {
+      "Formation": "Duri",
+      "Sand": "Duri",
+      "Interval": "2188-2193",
+      "Top (ft)": 2188.0,
+      "Base (ft)": 2193.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Duri Open",
+      "Depth (feet)": "2188-2193",
+      "Source Row": 43
+    },
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "2540-2550",
+      "Top (ft)": 2540.0,
+      "Base (ft)": 2550.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap NZBP",
+      "Depth (feet)": "2540-2550",
+      "Source Row": 45
+    },
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "2600-2610",
+      "Top (ft)": 2600.0,
+      "Base (ft)": 2610.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap NZBP",
+      "Depth (feet)": "2600-2610",
+      "Source Row": 47
+    },
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "2650-2680",
+      "Top (ft)": 2650.0,
+      "Base (ft)": 2680.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap NZBP",
+      "Depth (feet)": "2650-2680",
+      "Source Row": 49
+    }
+  ]
+}

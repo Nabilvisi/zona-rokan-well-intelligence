@@ -1,0 +1,75 @@
+{
+  "sheet_name": "Duri-4052",
+  "orientation": "",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "9\"",
+      "Casing": "Casing 7\" 20 ppf",
+      "Top (ft)": 0.0,
+      "Base (ft)": 246,
+      "Casing Depth (MD)": 246,
+      "Casing Depth (TVD)": null,
+      "Source Row": 30
+    },
+    {
+      "Hole Details": "",
+      "Casing": "Casing 3.5\" 9.3 ppf",
+      "Top (ft)": 0.0,
+      "Base (ft)": 455,
+      "Casing Depth (MD)": 455,
+      "Casing Depth (TVD)": null,
+      "Source Row": 44
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "Rindu",
+      "Sand": "Rindu",
+      "Interval": "322-334",
+      "Top (ft)": 322.0,
+      "Base (ft)": 334.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Rindu Open",
+      "Depth (feet)": "322-334",
+      "Source Row": 36
+    },
+    {
+      "Formation": "Rindu",
+      "Sand": "Rindu",
+      "Interval": "338-354",
+      "Top (ft)": 338.0,
+      "Base (ft)": 354.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Rindu Open",
+      "Depth (feet)": "338-354",
+      "Source Row": 38
+    },
+    {
+      "Formation": "Rindu",
+      "Sand": "Rindu",
+      "Interval": "356-366",
+      "Top (ft)": 356.0,
+      "Base (ft)": 366.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Rindu Open",
+      "Depth (feet)": "356-366",
+      "Source Row": 40
+    },
+    {
+      "Formation": "Rindu",
+      "Sand": "Rindu",
+      "Interval": "369-378",
+      "Top (ft)": 369.0,
+      "Base (ft)": 378.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Rindu Open",
+      "Depth (feet)": "369-378",
+      "Source Row": 43
+    }
+  ]
+}

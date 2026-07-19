@@ -1,0 +1,81 @@
+{
+  "sheet_name": "Kelok 7D",
+  "orientation": "D",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "17.5\"",
+      "Casing": "Surface 13-5/8\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 605,
+      "Casing Depth (MD)": 605,
+      "Casing Depth (TVD)": null,
+      "Source Row": 11
+    },
+    {
+      "Hole Details": "",
+      "Casing": "Kick Of Point",
+      "Top (ft)": 0.0,
+      "Base (ft)": 1700,
+      "Casing Depth (MD)": 1700,
+      "Casing Depth (TVD)": null,
+      "Source Row": 15
+    },
+    {
+      "Hole Details": "12.25\"",
+      "Casing": "Intermediate 9-5/8\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 2833,
+      "Casing Depth (MD)": 2833,
+      "Casing Depth (TVD)": null,
+      "Source Row": 24
+    },
+    {
+      "Hole Details": "8.5\"",
+      "Casing": "Production 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 5570,
+      "Casing Depth (MD)": 5570,
+      "Casing Depth (TVD)": null,
+      "Source Row": 35
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "3140-3176",
+      "Top (ft)": 3140.0,
+      "Base (ft)": 3176.0,
+      "Status": "Closed",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala Closed",
+      "Depth (feet)": "3140-3176",
+      "Source Row": 28
+    },
+    {
+      "Formation": "Pematang",
+      "Sand": "Pematang",
+      "Interval": "5138-5202",
+      "Top (ft)": 5138.0,
+      "Base (ft)": 5202.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Pematang Open",
+      "Depth (feet)": "5138-5202",
+      "Source Row": 30
+    },
+    {
+      "Formation": "Pematang",
+      "Sand": "Pematang",
+      "Interval": "5216-5247",
+      "Top (ft)": 5216.0,
+      "Base (ft)": 5247.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Pematang NZBP",
+      "Depth (feet)": "5216-5247",
+      "Source Row": 32
+    }
+  ]
+}

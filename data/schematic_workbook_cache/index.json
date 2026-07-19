@@ -1,0 +1,493 @@
+{
+  "source_path": "D:\\HALLIBURTON CONSULTING\\Data Nations\\well schematic Rokan.xlsx",
+  "source_size": 12811293,
+  "source_mtime_ns": 1784454267967658500,
+  "entries": [
+    {
+      "sheet_name": "Kelok 2D",
+      "orientation": "D",
+      "casing_count": 5,
+      "interval_count": 9,
+      "image_available": true,
+      "data_file": "03_kelok_2d.json",
+      "image_file": "03_kelok_2d.png"
+    },
+    {
+      "sheet_name": "Kelok 7D",
+      "orientation": "D",
+      "casing_count": 4,
+      "interval_count": 3,
+      "image_available": true,
+      "data_file": "04_kelok_7d.json",
+      "image_file": "04_kelok_7d.png"
+    },
+    {
+      "sheet_name": "Kelok 8D ",
+      "orientation": "D",
+      "casing_count": 3,
+      "interval_count": 3,
+      "image_available": true,
+      "data_file": "05_kelok_8d.json",
+      "image_file": "05_kelok_8d.png"
+    },
+    {
+      "sheet_name": "Kelok 9D",
+      "orientation": "D",
+      "casing_count": 3,
+      "interval_count": 2,
+      "image_available": true,
+      "data_file": "06_kelok_9d.json",
+      "image_file": "06_kelok_9d.png"
+    },
+    {
+      "sheet_name": "Kopar 11D",
+      "orientation": "D",
+      "casing_count": 3,
+      "interval_count": 0,
+      "image_available": true,
+      "data_file": "07_kopar_11d.json",
+      "image_file": "07_kopar_11d.png"
+    },
+    {
+      "sheet_name": "Kopar 13D",
+      "orientation": "D",
+      "casing_count": 5,
+      "interval_count": 13,
+      "image_available": true,
+      "data_file": "08_kopar_13d.json",
+      "image_file": "08_kopar_13d.png"
+    },
+    {
+      "sheet_name": "Kopar 14D ",
+      "orientation": "D",
+      "casing_count": 3,
+      "interval_count": 11,
+      "image_available": true,
+      "data_file": "09_kopar_14d.json",
+      "image_file": "09_kopar_14d.png"
+    },
+    {
+      "sheet_name": "Kopar 21D ",
+      "orientation": "D",
+      "casing_count": 4,
+      "interval_count": 15,
+      "image_available": true,
+      "data_file": "10_kopar_21d.json",
+      "image_file": "10_kopar_21d.png"
+    },
+    {
+      "sheet_name": "Kopar 24D",
+      "orientation": "D",
+      "casing_count": 5,
+      "interval_count": 8,
+      "image_available": true,
+      "data_file": "11_kopar_24d.json",
+      "image_file": "11_kopar_24d.png"
+    },
+    {
+      "sheet_name": "Kopar 31H  ",
+      "orientation": "H",
+      "casing_count": 7,
+      "interval_count": 8,
+      "image_available": true,
+      "data_file": "12_kopar_31h.json",
+      "image_file": "12_kopar_31h.png"
+    },
+    {
+      "sheet_name": "Kopar 32H ",
+      "orientation": "H",
+      "casing_count": 6,
+      "interval_count": 1,
+      "image_available": true,
+      "data_file": "13_kopar_32h.json",
+      "image_file": "13_kopar_32h.png"
+    },
+    {
+      "sheet_name": "Kopar 33D",
+      "orientation": "D",
+      "casing_count": 3,
+      "interval_count": 7,
+      "image_available": true,
+      "data_file": "14_kopar_33d.json",
+      "image_file": "14_kopar_33d.png"
+    },
+    {
+      "sheet_name": "Kopar 39H  ",
+      "orientation": "H",
+      "casing_count": 5,
+      "interval_count": 4,
+      "image_available": true,
+      "data_file": "15_kopar_39h.json",
+      "image_file": "15_kopar_39h.png"
+    },
+    {
+      "sheet_name": "Minas 00526V",
+      "orientation": "V",
+      "casing_count": 1,
+      "interval_count": 4,
+      "image_available": true,
+      "data_file": "16_minas_00526v.json",
+      "image_file": "16_minas_00526v.png"
+    },
+    {
+      "sheet_name": "Minas 1255D",
+      "orientation": "D",
+      "casing_count": 4,
+      "interval_count": 11,
+      "image_available": true,
+      "data_file": "17_minas_1255d.json",
+      "image_file": "17_minas_1255d.png"
+    },
+    {
+      "sheet_name": "Minas 1258D",
+      "orientation": "D",
+      "casing_count": 4,
+      "interval_count": 12,
+      "image_available": true,
+      "data_file": "18_minas_1258d.json",
+      "image_file": "18_minas_1258d.png"
+    },
+    {
+      "sheet_name": "Minas 1903D",
+      "orientation": "D",
+      "casing_count": 4,
+      "interval_count": 4,
+      "image_available": true,
+      "data_file": "19_minas_1903d.json",
+      "image_file": "19_minas_1903d.png"
+    },
+    {
+      "sheet_name": "Minas 1929D",
+      "orientation": "D",
+      "casing_count": 3,
+      "interval_count": 4,
+      "image_available": true,
+      "data_file": "20_minas_1929d.json",
+      "image_file": "20_minas_1929d.png"
+    },
+    {
+      "sheet_name": "Minas 1952D",
+      "orientation": "D",
+      "casing_count": 3,
+      "interval_count": 2,
+      "image_available": true,
+      "data_file": "21_minas_1952d.json",
+      "image_file": "21_minas_1952d.png"
+    },
+    {
+      "sheet_name": "Puncak 32D",
+      "orientation": "D",
+      "casing_count": 4,
+      "interval_count": 4,
+      "image_available": true,
+      "data_file": "22_puncak_32d.json",
+      "image_file": "22_puncak_32d.png"
+    },
+    {
+      "sheet_name": "Candi 6D",
+      "orientation": "D",
+      "casing_count": 3,
+      "interval_count": 8,
+      "image_available": true,
+      "data_file": "23_candi_6d.json",
+      "image_file": "23_candi_6d.png"
+    },
+    {
+      "sheet_name": "Fajar 2D",
+      "orientation": "D",
+      "casing_count": 4,
+      "interval_count": 6,
+      "image_available": true,
+      "data_file": "24_fajar_2d.json",
+      "image_file": "24_fajar_2d.png"
+    },
+    {
+      "sheet_name": "LIBO SE 46D",
+      "orientation": "D",
+      "casing_count": 3,
+      "interval_count": 8,
+      "image_available": true,
+      "data_file": "25_libo_se_46d.json",
+      "image_file": "25_libo_se_46d.png"
+    },
+    {
+      "sheet_name": "PETAPAHAN 49D",
+      "orientation": "D",
+      "casing_count": 3,
+      "interval_count": 10,
+      "image_available": true,
+      "data_file": "26_petapahan_49d.json",
+      "image_file": "26_petapahan_49d.png"
+    },
+    {
+      "sheet_name": "Puncak 23V ",
+      "orientation": "V",
+      "casing_count": 13,
+      "interval_count": 9,
+      "image_available": true,
+      "data_file": "27_puncak_23v.json",
+      "image_file": "27_puncak_23v.png"
+    },
+    {
+      "sheet_name": "Puncak 33V",
+      "orientation": "V",
+      "casing_count": 7,
+      "interval_count": 4,
+      "image_available": true,
+      "data_file": "28_puncak_33v.json",
+      "image_file": "28_puncak_33v.png"
+    },
+    {
+      "sheet_name": "Bangko 14V",
+      "orientation": "V",
+      "casing_count": 7,
+      "interval_count": 4,
+      "image_available": true,
+      "data_file": "29_bangko_14v.json",
+      "image_file": "29_bangko_14v.png"
+    },
+    {
+      "sheet_name": "Benar 10V",
+      "orientation": "V",
+      "casing_count": 5,
+      "interval_count": 3,
+      "image_available": true,
+      "data_file": "30_benar_10v.json",
+      "image_file": "30_benar_10v.png"
+    },
+    {
+      "sheet_name": "Balam SE 20V",
+      "orientation": "V",
+      "casing_count": 4,
+      "interval_count": 1,
+      "image_available": true,
+      "data_file": "31_balam_se_20v.json",
+      "image_file": "31_balam_se_20v.png"
+    },
+    {
+      "sheet_name": "Bekasap So 2V",
+      "orientation": "V",
+      "casing_count": 11,
+      "interval_count": 9,
+      "image_available": true,
+      "data_file": "32_bekasap_so_2v.json",
+      "image_file": "32_bekasap_so_2v.png"
+    },
+    {
+      "sheet_name": "Gulamo 1V",
+      "orientation": "V",
+      "casing_count": 23,
+      "interval_count": 19,
+      "image_available": true,
+      "data_file": "33_gulamo_1v.json",
+      "image_file": "33_gulamo_1v.png"
+    },
+    {
+      "sheet_name": "Gulamo 2V",
+      "orientation": "V",
+      "casing_count": 16,
+      "interval_count": 13,
+      "image_available": true,
+      "data_file": "34_gulamo_2v.json",
+      "image_file": "34_gulamo_2v.png"
+    },
+    {
+      "sheet_name": "Intan 4V",
+      "orientation": "V",
+      "casing_count": 13,
+      "interval_count": 11,
+      "image_available": true,
+      "data_file": "35_intan_4v.json",
+      "image_file": "35_intan_4v.png"
+    },
+    {
+      "sheet_name": "Jorang 19V",
+      "orientation": "V",
+      "casing_count": 18,
+      "interval_count": 15,
+      "image_available": true,
+      "data_file": "36_jorang_19v.json",
+      "image_file": "36_jorang_19v.png"
+    },
+    {
+      "sheet_name": "Jorang 20V",
+      "orientation": "V",
+      "casing_count": 9,
+      "interval_count": 6,
+      "image_available": true,
+      "data_file": "37_jorang_20v.json",
+      "image_file": "37_jorang_20v.png"
+    },
+    {
+      "sheet_name": "Jorang 25V",
+      "orientation": "V",
+      "casing_count": 7,
+      "interval_count": 6,
+      "image_available": true,
+      "data_file": "38_jorang_25v.json",
+      "image_file": "38_jorang_25v.png"
+    },
+    {
+      "sheet_name": "Kerang 2V",
+      "orientation": "V",
+      "casing_count": 11,
+      "interval_count": 8,
+      "image_available": true,
+      "data_file": "39_kerang_2v.json",
+      "image_file": "39_kerang_2v.png"
+    },
+    {
+      "sheet_name": "Kerang 9V",
+      "orientation": "V",
+      "casing_count": 11,
+      "interval_count": 9,
+      "image_available": true,
+      "data_file": "40_kerang_9v.json",
+      "image_file": "40_kerang_9v.png"
+    },
+    {
+      "sheet_name": "Libo 12V",
+      "orientation": "V",
+      "casing_count": 10,
+      "interval_count": 7,
+      "image_available": true,
+      "data_file": "41_libo_12v.json",
+      "image_file": "41_libo_12v.png"
+    },
+    {
+      "sheet_name": "Libo 16V ",
+      "orientation": "V",
+      "casing_count": 6,
+      "interval_count": 3,
+      "image_available": true,
+      "data_file": "42_libo_16v.json",
+      "image_file": "42_libo_16v.png"
+    },
+    {
+      "sheet_name": "Libo SE 46V",
+      "orientation": "V",
+      "casing_count": 10,
+      "interval_count": 8,
+      "image_available": true,
+      "data_file": "43_libo_se_46v.json",
+      "image_file": "43_libo_se_46v.png"
+    },
+    {
+      "sheet_name": "OKI-3V",
+      "orientation": "V",
+      "casing_count": 17,
+      "interval_count": 13,
+      "image_available": true,
+      "data_file": "44_oki_3v.json",
+      "image_file": "44_oki_3v.png"
+    },
+    {
+      "sheet_name": "Pager-06V",
+      "orientation": "V",
+      "casing_count": 11,
+      "interval_count": 9,
+      "image_available": true,
+      "data_file": "45_pager_06v.json",
+      "image_file": "45_pager_06v.png"
+    },
+    {
+      "sheet_name": "Pager-13V",
+      "orientation": "V",
+      "casing_count": 13,
+      "interval_count": 11,
+      "image_available": true,
+      "data_file": "46_pager_13v.json",
+      "image_file": "46_pager_13v.png"
+    },
+    {
+      "sheet_name": "Petani-49V",
+      "orientation": "V",
+      "casing_count": 14,
+      "interval_count": 10,
+      "image_available": true,
+      "data_file": "47_petani_49v.json",
+      "image_file": "47_petani_49v.png"
+    },
+    {
+      "sheet_name": "Petapahan 24V",
+      "orientation": "V",
+      "casing_count": 4,
+      "interval_count": 2,
+      "image_available": true,
+      "data_file": "48_petapahan_24v.json",
+      "image_file": "48_petapahan_24v.png"
+    },
+    {
+      "sheet_name": "Pemburu 24V",
+      "orientation": "V",
+      "casing_count": 5,
+      "interval_count": 2,
+      "image_available": true,
+      "data_file": "49_pemburu_24v.json",
+      "image_file": "49_pemburu_24v.png"
+    },
+    {
+      "sheet_name": "Singa-1V",
+      "orientation": "V",
+      "casing_count": 4,
+      "interval_count": 8,
+      "image_available": true,
+      "data_file": "50_singa_1v.json",
+      "image_file": "50_singa_1v.png"
+    },
+    {
+      "sheet_name": "Duri-4043",
+      "orientation": "",
+      "casing_count": 2,
+      "interval_count": 3,
+      "image_available": true,
+      "data_file": "51_duri_4043.json",
+      "image_file": "51_duri_4043.png"
+    },
+    {
+      "sheet_name": "Duri-4052",
+      "orientation": "",
+      "casing_count": 2,
+      "interval_count": 4,
+      "image_available": true,
+      "data_file": "52_duri_4052.json",
+      "image_file": "52_duri_4052.png"
+    },
+    {
+      "sheet_name": "PEBO02V",
+      "orientation": "V",
+      "casing_count": 16,
+      "interval_count": 15,
+      "image_available": true,
+      "data_file": "53_pebo02v.json",
+      "image_file": "53_pebo02v.png"
+    },
+    {
+      "sheet_name": "PEBO03V ",
+      "orientation": "V",
+      "casing_count": 12,
+      "interval_count": 9,
+      "image_available": true,
+      "data_file": "54_pebo03v.json",
+      "image_file": "54_pebo03v.png"
+    },
+    {
+      "sheet_name": "PEBO18V ",
+      "orientation": "V",
+      "casing_count": 12,
+      "interval_count": 11,
+      "image_available": true,
+      "data_file": "55_pebo18v.json",
+      "image_file": "55_pebo18v.png"
+    },
+    {
+      "sheet_name": "PEBO23V",
+      "orientation": "V",
+      "casing_count": 9,
+      "interval_count": 7,
+      "image_available": true,
+      "data_file": "56_pebo23v.json",
+      "image_file": "56_pebo23v.png"
+    }
+  ]
+}

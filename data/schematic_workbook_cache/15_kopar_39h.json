@@ -1,0 +1,102 @@
+{
+  "sheet_name": "Kopar 39H  ",
+  "orientation": "H",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "20\"",
+      "Casing": "Conductor 18.63\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 539,
+      "Casing Depth (MD)": 539,
+      "Casing Depth (TVD)": 539,
+      "Source Row": 10
+    },
+    {
+      "Hole Details": "17.5\"",
+      "Casing": "Surface 13-3/8",
+      "Top (ft)": 0.0,
+      "Base (ft)": 3119,
+      "Casing Depth (MD)": 3119,
+      "Casing Depth (TVD)": 3119,
+      "Source Row": 13
+    },
+    {
+      "Hole Details": "",
+      "Casing": "KOP",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 22
+    },
+    {
+      "Hole Details": "12.25",
+      "Casing": "Intermediate 9-5/8\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 5885,
+      "Casing Depth (MD)": 5885,
+      "Casing Depth (TVD)": null,
+      "Source Row": 27
+    },
+    {
+      "Hole Details": "8.5",
+      "Casing": "Production Liner 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 6850,
+      "Casing Depth (MD)": 6850,
+      "Casing Depth (TVD)": null,
+      "Source Row": 30
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "4910-4920 ft MD",
+      "Top (ft)": 4910.0,
+      "Base (ft)": 4920.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala",
+      "Depth (feet)": "4910-4920 ft MD",
+      "Source Row": 26
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "4920-4927 ft MD",
+      "Top (ft)": 4920.0,
+      "Base (ft)": 4927.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala",
+      "Depth (feet)": "4920-4927 ft MD",
+      "Source Row": 27
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5014-5022 ft MD",
+      "Top (ft)": 5014.0,
+      "Base (ft)": 5022.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala",
+      "Depth (feet)": "5014-5022 ft MD",
+      "Source Row": 28
+    },
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5670-6850 ft MD",
+      "Top (ft)": 5670.0,
+      "Base (ft)": 6850.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala",
+      "Depth (feet)": "5670-6850 ft MD",
+      "Source Row": 31
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "sheet_name": "Minas 1903D",
+  "orientation": "D",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "",
+      "Casing": "Kick Of Point",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 12
+    },
+    {
+      "Hole Details": "17",
+      "Casing": "Surface 13-3/8",
+      "Top (ft)": 0.0,
+      "Base (ft)": 379,
+      "Casing Depth (MD)": 379,
+      "Casing Depth (TVD)": null,
+      "Source Row": 15
+    },
+    {
+      "Hole Details": "12.25",
+      "Casing": "intermediate 9-5/8\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 400,
+      "Casing Depth (MD)": 400,
+      "Casing Depth (TVD)": null,
+      "Source Row": 19
+    },
+    {
+      "Hole Details": "8.5\"",
+      "Casing": "Production 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 2822,
+      "Casing Depth (MD)": 2822,
+      "Casing Depth (TVD)": null,
+      "Source Row": 33
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "2574-2580",
+      "Top (ft)": 2574.0,
+      "Base (ft)": 2580.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Open",
+      "Depth (feet)": "2574-2580",
+      "Source Row": 19
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "2586-2596",
+      "Top (ft)": 2586.0,
+      "Base (ft)": 2596.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "NZBP",
+      "Depth (feet)": "2586-2596",
+      "Source Row": 21
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "2632-2637",
+      "Top (ft)": 2632.0,
+      "Base (ft)": 2637.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Open",
+      "Depth (feet)": "2632-2637",
+      "Source Row": 23
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "2637-2656",
+      "Top (ft)": 2637.0,
+      "Base (ft)": 2656.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "NZBP",
+      "Depth (feet)": "2637-2656",
+      "Source Row": 25
+    }
+  ]
+}

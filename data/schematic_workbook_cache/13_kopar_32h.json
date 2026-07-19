@@ -1,0 +1,75 @@
+{
+  "sheet_name": "Kopar 32H ",
+  "orientation": "H",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "20\"",
+      "Casing": "Conductor 18.63\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 502,
+      "Casing Depth (MD)": 502,
+      "Casing Depth (TVD)": null,
+      "Source Row": 10
+    },
+    {
+      "Hole Details": "KOP 1",
+      "Casing": "1400",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 17
+    },
+    {
+      "Hole Details": "17.5\"",
+      "Casing": "Surface 13-3/8",
+      "Top (ft)": 0.0,
+      "Base (ft)": 3327,
+      "Casing Depth (MD)": 3327,
+      "Casing Depth (TVD)": null,
+      "Source Row": 23
+    },
+    {
+      "Hole Details": "12.25",
+      "Casing": "Intermediate 9-5/8\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 5340,
+      "Casing Depth (MD)": 5340,
+      "Casing Depth (TVD)": null,
+      "Source Row": 41
+    },
+    {
+      "Hole Details": "",
+      "Casing": "TOL",
+      "Top (ft)": 0.0,
+      "Base (ft)": 5340,
+      "Casing Depth (MD)": 5340,
+      "Casing Depth (TVD)": null,
+      "Source Row": 43
+    },
+    {
+      "Hole Details": "8.5",
+      "Casing": "Production Liner 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 5399,
+      "Casing Depth (MD)": 5399,
+      "Casing Depth (TVD)": null,
+      "Source Row": 44
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "Menggala",
+      "Sand": "Menggala",
+      "Interval": "5340-5399",
+      "Top (ft)": 5340.0,
+      "Base (ft)": 5399.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Menggala",
+      "Depth (feet)": "5340-5399",
+      "Source Row": 46
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "sheet_name": "Petani-49V",
+  "orientation": "V",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "17.5\"",
+      "Casing": "Conductor",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 11
+    },
+    {
+      "Hole Details": "",
+      "Casing": "Surface 9 5/8\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 1000,
+      "Casing Depth (MD)": 1000,
+      "Casing Depth (TVD)": null,
+      "Source Row": 23
+    },
+    {
+      "Hole Details": "NZBP",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 34
+    },
+    {
+      "Hole Details": "NZBP",
+      "Casing": "CIBP",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 36
+    },
+    {
+      "Hole Details": "",
+      "Casing": "Production 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 5023,
+      "Casing Depth (MD)": 5023,
+      "Casing Depth (TVD)": null,
+      "Source Row": 37
+    },
+    {
+      "Hole Details": "NZBP",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 38
+    },
+    {
+      "Hole Details": "Open",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 40
+    },
+    {
+      "Hole Details": "Open",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 42
+    },
+    {
+      "Hole Details": "",
+      "Casing": "LS paker (Linier Seal Packer)",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 44
+    },
+    {
+      "Hole Details": "Closed",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 46
+    },
+    {
+      "Hole Details": "Closed",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 48
+    },
+    {
+      "Hole Details": "Closed",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 50
+    },
+    {
+      "Hole Details": "Closed",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 52
+    },
+    {
+      "Hole Details": "Closed",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 54
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "3637-3650",
+      "Top (ft)": 3637.0,
+      "Base (ft)": 3650.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "3637-3650",
+      "Source Row": 34
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "3670-3698",
+      "Top (ft)": 3670.0,
+      "Base (ft)": 3698.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "3670-3698",
+      "Source Row": 36
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "3721-3731",
+      "Top (ft)": 3721.0,
+      "Base (ft)": 3731.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "3721-3731",
+      "Source Row": 38
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "3956-3966",
+      "Top (ft)": 3956.0,
+      "Base (ft)": 3966.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "3956-3966",
+      "Source Row": 40
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "3978-3988",
+      "Top (ft)": 3978.0,
+      "Base (ft)": 3988.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "3978-3988",
+      "Source Row": 42
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "3996-4000",
+      "Top (ft)": 3996.0,
+      "Base (ft)": 4000.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "3996-4000",
+      "Source Row": 46
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "4285-4293",
+      "Top (ft)": 4285.0,
+      "Base (ft)": 4293.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "4285-4293",
+      "Source Row": 48
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "4316-4324",
+      "Top (ft)": 4316.0,
+      "Base (ft)": 4324.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "4316-4324",
+      "Source Row": 50
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "4353-4364",
+      "Top (ft)": 4353.0,
+      "Base (ft)": 4364.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "4353-4364",
+      "Source Row": 52
+    },
+    {
+      "Formation": "",
+      "Sand": "",
+      "Interval": "4946-4951",
+      "Top (ft)": 4946.0,
+      "Base (ft)": 4951.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "",
+      "Depth (feet)": "4946-4951",
+      "Source Row": 54
+    }
+  ]
+}

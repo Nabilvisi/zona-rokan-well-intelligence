@@ -1,0 +1,11 @@
+.venv/
+.venv*/
+runtime_env/
+__pycache__/
+*.py[cod]
+*.log
+app.txt
+.streamlit/secrets.toml
+data/cache/
+data/digitizer_profiles.json
+outputs/

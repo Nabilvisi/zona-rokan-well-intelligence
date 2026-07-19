@@ -1,0 +1,99 @@
+{
+  "sheet_name": "Libo 16V ",
+  "orientation": "V",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "17.5\"",
+      "Casing": "Surface 13 3/8\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 11
+    },
+    {
+      "Hole Details": "",
+      "Casing": "Intermediate 9 5/8\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 30
+    },
+    {
+      "Hole Details": "Open",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 38
+    },
+    {
+      "Hole Details": "Open",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 40
+    },
+    {
+      "Hole Details": "Open",
+      "Casing": "",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 42
+    },
+    {
+      "Hole Details": "",
+      "Casing": "Production 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 5746,
+      "Casing Depth (MD)": 5746,
+      "Casing Depth (TVD)": null,
+      "Source Row": 44
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "5496-5502",
+      "Top (ft)": 5496.0,
+      "Base (ft)": 5502.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap",
+      "Depth (feet)": "5496-5502",
+      "Source Row": 38
+    },
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "5528-5538",
+      "Top (ft)": 5528.0,
+      "Base (ft)": 5538.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap",
+      "Depth (feet)": "5528-5538",
+      "Source Row": 40
+    },
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "5538-5552",
+      "Top (ft)": 5538.0,
+      "Base (ft)": 5552.0,
+      "Status": "",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap",
+      "Depth (feet)": "5538-5552",
+      "Source Row": 42
+    }
+  ]
+}

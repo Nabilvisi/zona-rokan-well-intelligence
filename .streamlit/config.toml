@@ -1,0 +1,52 @@
+# Professional dark dashboard theme adapted from Streamlit's financial-dashboard template.
+[theme]
+base = "dark"
+primaryColor = "#22D3EE"
+backgroundColor = "#0F172A"
+secondaryBackgroundColor = "#1E293B"
+codeBackgroundColor = "#111827"
+textColor = "#F1F5F9"
+linkColor = "#38BDF8"
+borderColor = "#334155"
+codeTextColor = "#CBD5E1"
+showWidgetBorder = true
+showSidebarBorder = true
+baseRadius = "8px"
+buttonRadius = "8px"
+font = "sans-serif"
+headingFont = "sans-serif"
+codeFont = "monospace"
+baseFontSize = 15
+baseFontWeight = 400
+codeFontSize = "13px"
+headingFontSizes = ["30px", "23px", "19px", "16px", "14px", "12px"]
+headingFontWeights = [700, 600, 600, 600, 500, 500]
+linkUnderline = false
+greenColor = "#34D399"
+redColor = "#F87171"
+yellowColor = "#FBBF24"
+orangeColor = "#FB923C"
+blueColor = "#60A5FA"
+violetColor = "#A78BFA"
+grayColor = "#94A3B8"
+chartCategoricalColors = ["#22D3EE", "#34D399", "#A78BFA", "#F87171", "#FBBF24", "#60A5FA", "#94A3B8", "#FB923C"]
+chartSequentialColors = ["#083344", "#164E63", "#155E75", "#0E7490", "#0891B2", "#06B6D4", "#22D3EE", "#67E8F9", "#A5F3FC", "#CFFAFE"]
+dataframeBorderColor = "#334155"
+dataframeHeaderBackgroundColor = "#1E293B"
+
+[theme.sidebar]
+backgroundColor = "#0B1220"
+secondaryBackgroundColor = "#172033"
+codeBackgroundColor = "#111827"
+textColor = "#F1F5F9"
+borderColor = "#334155"
+primaryColor = "#22D3EE"
+headingFontWeights = [700, 600, 600, 600, 500, 500]
+
+[server]
+headless = true
+runOnSave = false
+fileWatcherType = "none"
+
+[browser]
+gatherUsageStats = false

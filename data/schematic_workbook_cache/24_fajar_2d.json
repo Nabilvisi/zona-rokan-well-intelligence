@@ -1,0 +1,117 @@
+{
+  "sheet_name": "Fajar 2D",
+  "orientation": "D",
+  "image_format": "png",
+  "casing": [
+    {
+      "Hole Details": "",
+      "Casing": "Surface",
+      "Top (ft)": 0.0,
+      "Base (ft)": 1482,
+      "Casing Depth (MD)": 1482,
+      "Casing Depth (TVD)": null,
+      "Source Row": 10
+    },
+    {
+      "Hole Details": "",
+      "Casing": "Kick Of Point",
+      "Top (ft)": 0.0,
+      "Base (ft)": 1476,
+      "Casing Depth (MD)": 1476,
+      "Casing Depth (TVD)": null,
+      "Source Row": 12
+    },
+    {
+      "Hole Details": "12.25",
+      "Casing": "Conductor 9 5/8\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 4600,
+      "Casing Depth (MD)": 4600,
+      "Casing Depth (TVD)": null,
+      "Source Row": 15
+    },
+    {
+      "Hole Details": "8.5\"",
+      "Casing": "Production 7\"",
+      "Top (ft)": 0.0,
+      "Base (ft)": 7761,
+      "Casing Depth (MD)": 7761,
+      "Casing Depth (TVD)": null,
+      "Source Row": 33
+    }
+  ],
+  "intervals": [
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "6316-6325",
+      "Top (ft)": 6316.0,
+      "Base (ft)": 6325.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap NZBP",
+      "Depth (feet)": "6316-6325",
+      "Source Row": 19
+    },
+    {
+      "Formation": "Pematang",
+      "Sand": "Pematang",
+      "Interval": "7068-7074",
+      "Top (ft)": 7068.0,
+      "Base (ft)": 7074.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Pematang Open",
+      "Depth (feet)": "7068-7074",
+      "Source Row": 21
+    },
+    {
+      "Formation": "Pematang",
+      "Sand": "Pematang",
+      "Interval": "7380-7388",
+      "Top (ft)": 7380.0,
+      "Base (ft)": 7388.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Pematang Open",
+      "Depth (feet)": "7380-7388",
+      "Source Row": 23
+    },
+    {
+      "Formation": "Pematang",
+      "Sand": "Pematang",
+      "Interval": "7496-7506",
+      "Top (ft)": 7496.0,
+      "Base (ft)": 7506.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Pematang Open",
+      "Depth (feet)": "7496-7506",
+      "Source Row": 25
+    },
+    {
+      "Formation": "Pematang",
+      "Sand": "Pematang",
+      "Interval": "7528-7548",
+      "Top (ft)": 7528.0,
+      "Base (ft)": 7548.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Pematang Open",
+      "Depth (feet)": "7528-7548",
+      "Source Row": 27
+    },
+    {
+      "Formation": "Pematang",
+      "Sand": "Pematang",
+      "Interval": "7562-7574",
+      "Top (ft)": 7562.0,
+      "Base (ft)": 7574.0,
+      "Status": "Open",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Pematang Open",
+      "Depth (feet)": "7562-7574",
+      "Source Row": 29
+    }
+  ]
+}
