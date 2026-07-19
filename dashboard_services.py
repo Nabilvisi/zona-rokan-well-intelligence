@@ -918,7 +918,12 @@ def _load_schematic_cache_index_cached(
     if int(document.get("source_size", -1)) != source_token[1]:
         return {}
     expected_hash = clean_text(document.get("source_sha256")).lower()
-    if expected_hash:
+    if ONLINE_MODE:
+        # The workbook and cache are committed together. Some cloud checkout layers
+        # rewrite ZIP container metadata, so the stable packaged-size check is the
+        # portable integrity guard here; local mode retains the stronger hash check.
+        pass
+    elif expected_hash:
         try:
             digest = hashlib.sha256(Path(source_token[0]).read_bytes()).hexdigest()
         except OSError:
