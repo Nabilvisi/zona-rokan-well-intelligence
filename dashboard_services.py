@@ -57,6 +57,7 @@ PERFORATION_WORKBOOK = _local_or_packaged(
     "Perforation History + NZBP interval review.xlsx",
 )
 ONLINE_MODE = DATA_AVAILABILITY_WORKBOOK.parent == PACKAGED_SOURCE_ROOT
+CLOUD_DEPLOYMENT_VERSION = "2026-07-19.1"
 # Kept for the optional legacy generators, but dashboard results are read from the
 # three controlled workbooks above.
 SCHEMATIC_ROOT = WORKSPACE_ROOT / "Data Nations" / "Final things" / "Zona_Rokan_Well_Schematics"

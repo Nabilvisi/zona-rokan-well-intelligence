@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import io
 import json
 import re
@@ -18,6 +19,14 @@ from PIL import Image, ImageDraw
 
 import dashboard_services as services
 import well_log_core as logs
+
+
+EXPECTED_CLOUD_DEPLOYMENT_VERSION = "2026-07-19.1"
+if (
+    getattr(services, "CLOUD_DEPLOYMENT_VERSION", "")
+    != EXPECTED_CLOUD_DEPLOYMENT_VERSION
+):
+    services = importlib.reload(services)
 
 
 st.set_page_config(
@@ -3847,6 +3856,10 @@ def main() -> None:
             services.SCHEMATIC_WORKBOOK,
             services.PERFORATION_WORKBOOK,
         )
+    )
+    source_tokens = (
+        *source_tokens,
+        (services.CLOUD_DEPLOYMENT_VERSION, 0, 0),
     )
     master = load_master(root_text, source_tokens)
     if page == "Executive overview":
