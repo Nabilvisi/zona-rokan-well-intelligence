@@ -915,24 +915,23 @@ def _load_schematic_cache_index_cached(
         document = json.loads(Path(index_token[0]).read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return {}
-    if int(document.get("source_size", -1)) != source_token[1]:
-        return {}
-    expected_hash = clean_text(document.get("source_sha256")).lower()
-    if ONLINE_MODE:
-        # The workbook and cache are committed together. Some cloud checkout layers
-        # rewrite ZIP container metadata, so the stable packaged-size check is the
-        # portable integrity guard here; local mode retains the stronger hash check.
-        pass
-    elif expected_hash:
-        try:
-            digest = hashlib.sha256(Path(source_token[0]).read_bytes()).hexdigest()
-        except OSError:
+    if not ONLINE_MODE:
+        if int(document.get("source_size", -1)) != source_token[1]:
             return {}
-        if digest != expected_hash:
+        expected_hash = clean_text(document.get("source_sha256")).lower()
+        if expected_hash:
+            try:
+                digest = hashlib.sha256(Path(source_token[0]).read_bytes()).hexdigest()
+            except OSError:
+                return {}
+            if digest != expected_hash:
+                return {}
+        elif int(document.get("source_mtime_ns", -1)) != source_token[2]:
+            # Backward compatibility for caches generated before stable hashes were added.
             return {}
-    elif int(document.get("source_mtime_ns", -1)) != source_token[2]:
-        # Backward compatibility for caches generated before stable hashes were added.
-        return {}
+    # In cloud mode, the workbook and cache are immutable files from one private
+    # Git commit. That commit is the integrity boundary; checkout layers may rewrite
+    # ZIP container metadata and therefore cannot be compared with local fingerprints.
     return {
         clean_text(entry.get("sheet_name")): entry
         for entry in document.get("entries", [])
