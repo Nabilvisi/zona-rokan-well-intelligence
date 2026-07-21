@@ -29,6 +29,7 @@ NULL_VALUES = (-999.25, -9999.0, -999.0, -99999.0)
 SUPPORTED_LOG_EXTENSIONS = {".las", ".dlis", ".lis"}
 DEPTH_ALIASES = ("DEPT", "DEPTH", "TDEP", "MD", "MEASURED_DEPTH", "MDEPTH", "TVD", "TVDSS")
 BINARY_PARSE_TIMEOUT_SECONDS = 60
+WELL_LOG_CORE_VERSION = "2026-07-21.3"
 
 # Aliases are ordered by preference and expanded for the Zona Rokan LAS files.
 CURVE_ALIASES = {

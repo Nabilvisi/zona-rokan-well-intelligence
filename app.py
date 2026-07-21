@@ -21,12 +21,20 @@ import dashboard_services as services
 import well_log_core as logs
 
 
-EXPECTED_CLOUD_DEPLOYMENT_VERSION = "2026-07-21.2"
+EXPECTED_CLOUD_DEPLOYMENT_VERSION = "2026-07-21.3"
 if (
     getattr(services, "CLOUD_DEPLOYMENT_VERSION", "")
     != EXPECTED_CLOUD_DEPLOYMENT_VERSION
 ):
     services = importlib.reload(services)
+
+EXPECTED_WELL_LOG_CORE_VERSION = "2026-07-21.3"
+if (
+    getattr(logs, "WELL_LOG_CORE_VERSION", "")
+    != EXPECTED_WELL_LOG_CORE_VERSION
+    or not hasattr(logs, "merge_loaded_logs")
+):
+    logs = importlib.reload(logs)
 
 
 st.set_page_config(
