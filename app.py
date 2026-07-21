@@ -21,7 +21,7 @@ import dashboard_services as services
 import well_log_core as logs
 
 
-EXPECTED_CLOUD_DEPLOYMENT_VERSION = "2026-07-19.1"
+EXPECTED_CLOUD_DEPLOYMENT_VERSION = "2026-07-21.1"
 if (
     getattr(services, "CLOUD_DEPLOYMENT_VERSION", "")
     != EXPECTED_CLOUD_DEPLOYMENT_VERSION
@@ -507,8 +507,8 @@ def render_executive(master: pd.DataFrame, selected_record: logs.WellRecord) -> 
     hero(
         "Integrated Well Reactivation Command Center",
         "Canonical 100-well portfolio view combining production context, data readiness, "
-        "LAS availability, schematic coverage, perforation history, and a transparent "
-        "three-pillar screening score.",
+        "controlled well coordinates, LAS availability, schematic coverage, perforation "
+        "history, and a transparent three-pillar screening score.",
     )
     if master.empty:
         st.error("The well-level dashboard cache is not available.")
@@ -558,13 +558,17 @@ def render_executive(master: pd.DataFrame, selected_record: logs.WellRecord) -> 
             haystack.str.contains(re.escape(search.strip()), case=False, regex=True)
         ]
 
-    metrics = st.columns(3)
+    metrics = st.columns(4)
     metrics[0].metric("Canonical wells", f"{len(filtered):,}")
     metrics[1].metric(
         "Phase 2 review-ready",
         int((filtered["Phase 2 Candidate"] == "READY FOR REVIEW").sum()),
     )
     metrics[2].metric("Wells with LAS", int((filtered["LAS Files"] > 0).sum()))
+    metrics[3].metric(
+        "Coordinates available",
+        int(filtered["Coordinate Available"].fillna(False).sum()),
+    )
     metrics = st.columns(3)
     metrics[0].metric(
         "Schematics available", int(filtered["Schematic Available"].fillna(False).sum())
@@ -590,13 +594,14 @@ def render_executive(master: pd.DataFrame, selected_record: logs.WellRecord) -> 
         readiness = pd.DataFrame(
             {
                 "Coverage": [
+                    int(filtered["Coordinate Available"].fillna(False).sum()),
                     int((filtered["LAS Files"] > 0).sum()),
                     int(filtered["Schematic Available"].fillna(False).sum()),
                     int(filtered["Detailed History Available"].fillna(False).sum()),
                     int((filtered["Production Files"] > 0).sum()),
                 ]
             },
-            index=["LAS", "Schematic", "Detailed history", "Production"],
+            index=["Coordinates", "LAS", "Schematic", "Detailed history", "Production"],
         )
         st.bar_chart(readiness)
     with right:
@@ -611,6 +616,7 @@ def render_executive(master: pd.DataFrame, selected_record: logs.WellRecord) -> 
         "Last Prod Date",
         "Last Oil Rate (BOPD)",
         "Last Water Cut (%)",
+        "Coordinate Available",
         "Technical Viability",
         "Production Uplift Potential",
         "Execution Complexity",
@@ -698,6 +704,36 @@ def render_well_360(master: pd.DataFrame, selected_record: logs.WellRecord) -> N
     metrics[2].metric(
         "Phase 2 readiness", format_value(row.get("Phase 2 Readiness"), "%")
     )
+
+    with st.container(border=True):
+        st.subheader("Controlled well location")
+        location_metrics = st.columns(4)
+        location_metrics[0].metric(
+            "Easting",
+            format_value(row.get("Coordinate Easting"), " m", 2),
+        )
+        location_metrics[1].metric(
+            "Northing",
+            format_value(row.get("Coordinate Northing"), " m", 2),
+        )
+        location_metrics[2].metric(
+            "Latitude",
+            format_value(row.get("Coordinate Latitude"), digits=6),
+        )
+        location_metrics[3].metric(
+            "Longitude",
+            format_value(row.get("Coordinate Longitude"), digits=6),
+        )
+        if row.get("Coordinate Available"):
+            st.caption(
+                f":material/location_on: {row.get('Coordinate CRS', 'WGS84_UTM47N')} · "
+                f"Source: {services.COORDINATE_SOURCE.name}"
+            )
+        else:
+            st.warning(
+                "No controlled coordinate row matches this canonical well.",
+                icon=":material/location_off:",
+            )
 
     production_tab, completion_tab, evidence_tab = st.tabs(
         ("Production Technology", "Completions / Workover", "Source Evidence")
@@ -966,8 +1002,8 @@ def render_coordinates_and_requests(
 ) -> None:
     hero(
         "Coordinates, data availability, and requests",
-        "Well location evidence, the controlled 001 Rokan availability result, and the "
-        "existing request-action register in one auditable workspace.",
+        "The controlled 47N well-location source, the 001 Rokan availability result, and "
+        "the existing request-action register in one auditable workspace.",
         "Data foundation",
     )
     coordinates = services.selected_coordinate_evidence(selected_record)
@@ -985,16 +1021,111 @@ def render_coordinates_and_requests(
         )
     )
     with coordinate_tab:
+        source_caption(services.COORDINATE_SOURCE)
+        controlled_coordinates = services.load_coordinate_source()
+        canonical_lookup: dict[tuple[str, int], tuple[str, str]] = {}
+        for _, master_row in master.iterrows():
+            signature = services.well_signature(
+                master_row.get("Well"), master_row.get("Field")
+            )
+            if signature is not None:
+                canonical_lookup[signature] = (
+                    str(master_row.get("Well", "")),
+                    str(master_row.get("Field", "")),
+                )
+        coordinate_workspace = controlled_coordinates.copy()
+        canonical_wells: list[str] = []
+        canonical_fields: list[str] = []
+        for _, source_row in coordinate_workspace.iterrows():
+            match = canonical_lookup.get(
+                services.well_signature(source_row.get("Source Well"))
+            )
+            canonical_wells.append(match[0] if match else "")
+            canonical_fields.append(match[1] if match else "Workbook only")
+        coordinate_workspace["Canonical Well"] = canonical_wells
+        coordinate_workspace["Canonical Field"] = canonical_fields
+        coordinate_workspace["Coverage"] = np.where(
+            coordinate_workspace["Canonical Well"].astype(str).str.strip().ne(""),
+            "Canonical match",
+            "Workbook only",
+        )
+
+        screening_register, _, _, _ = services.load_screening_matrix_tables()
+        screening_xy: dict[tuple[str, int], dict[str, Any]] = {}
+        for _, screening_row in screening_register.iterrows():
+            signature = services.well_signature(
+                screening_row.get("Well Name"), screening_row.get("Field")
+            )
+            if signature is not None:
+                screening_xy[signature] = screening_row.to_dict()
+        screening_x_values: list[float] = []
+        screening_y_values: list[float] = []
+        for _, source_row in coordinate_workspace.iterrows():
+            comparison = screening_xy.get(
+                services.well_signature(source_row.get("Source Well")), {}
+            )
+            screening_x_values.append(
+                pd.to_numeric(comparison.get("X"), errors="coerce")
+            )
+            screening_y_values.append(
+                pd.to_numeric(comparison.get("Y"), errors="coerce")
+            )
+        coordinate_workspace["Screening X"] = screening_x_values
+        coordinate_workspace["Screening Y"] = screening_y_values
+        coordinate_workspace["Screening delta (m)"] = np.hypot(
+            pd.to_numeric(
+                coordinate_workspace["Source X / Easting"], errors="coerce"
+            )
+            - pd.to_numeric(coordinate_workspace["Screening X"], errors="coerce"),
+            pd.to_numeric(
+                coordinate_workspace["Source Y / Northing"], errors="coerce"
+            )
+            - pd.to_numeric(coordinate_workspace["Screening Y"], errors="coerce"),
+        )
+        screening_gaps = coordinate_workspace["Screening X"].isna() | coordinate_workspace[
+            "Screening Y"
+        ].isna()
+        material_differences = coordinate_workspace["Screening delta (m)"].gt(1.0)
+
+        with st.container(horizontal=True):
+            st.metric("Coordinate rows", len(coordinate_workspace), border=True)
+            st.metric(
+                "Canonical matches",
+                int(coordinate_workspace["Coverage"].eq("Canonical match").sum()),
+                border=True,
+            )
+            st.metric(
+                "Screening gaps filled", int(screening_gaps.sum()), border=True
+            )
+            st.metric(
+                "Material source differences",
+                int(material_differences.sum()),
+                border=True,
+            )
+        workbook_only = coordinate_workspace.loc[
+            coordinate_workspace["Coverage"].eq("Workbook only"), "Source Well"
+        ]
+        if not workbook_only.empty:
+            st.info(
+                "Workbook-only coordinate coverage is preserved for audit: "
+                f"{', '.join(workbook_only.astype(str))}. It is not silently assigned "
+                "to another canonical well.",
+                icon=":material/info:",
+            )
+
         if coordinates.empty:
             st.warning(
-                "No coordinate values were found in the selected well's LAS headers. "
+                "No controlled coordinate or LAS-header value matches this well. "
                 "REQ-01 remains a data request; coordinates are not estimated."
             )
             default_lat, default_lon = 0.0, 101.0
         else:
-            best = coordinates.sort_values(
-                ["Latitude", "Longitude"], na_position="last"
-            ).iloc[0]
+            preferred = coordinates.loc[
+                coordinates.get("Evidence Type", pd.Series(dtype=str)).eq(
+                    "Controlled coordinate table"
+                )
+            ]
+            best = (preferred if not preferred.empty else coordinates).iloc[0]
             default_lat = (
                 float(best["Latitude"]) if pd.notna(best["Latitude"]) else 0.0
             )
@@ -1005,12 +1136,12 @@ def render_coordinates_and_requests(
             metrics[0].metric("Latitude", format_value(best.get("Latitude"), digits=6))
             metrics[1].metric("Longitude", format_value(best.get("Longitude"), digits=6))
             metrics[2].metric(
-                "Converted UTM X",
-                format_value(best.get("Converted UTM X"), digits=3),
+                "Easting",
+                format_value(best.get("Source X / Easting"), " m", 3),
             )
             metrics[3].metric(
-                "Converted UTM Y",
-                format_value(best.get("Converted UTM Y"), digits=3),
+                "Northing",
+                format_value(best.get("Source Y / Northing"), " m", 3),
             )
             st.dataframe(
                 coordinates,
@@ -1031,6 +1162,119 @@ def render_coordinates_and_requests(
                     "A grid definition or control-point transformation is required when "
                     "latitude/longitude is absent."
                 )
+
+        map_rows = coordinate_workspace.dropna(
+            subset=["Latitude", "Longitude"]
+        ).copy()
+        if not map_rows.empty:
+            map_rows["Display Well"] = np.where(
+                map_rows["Canonical Well"].astype(str).str.strip().ne(""),
+                map_rows["Canonical Well"],
+                map_rows["Source Well"],
+            )
+            map_rows["Selection"] = np.where(
+                map_rows["Canonical Well"].map(services.normalize_well)
+                == services.normalize_well(selected_record.well),
+                "Selected well",
+                "Other controlled well",
+            )
+            spatial_chart = (
+                alt.Chart(map_rows)
+                .mark_circle(opacity=0.82, stroke="white", strokeWidth=0.6)
+                .encode(
+                    x=alt.X(
+                        "Longitude:Q",
+                        title="Longitude (WGS84)",
+                        scale=alt.Scale(zero=False),
+                    ),
+                    y=alt.Y(
+                        "Latitude:Q",
+                        title="Latitude (WGS84)",
+                        scale=alt.Scale(zero=False),
+                    ),
+                    color=alt.Color(
+                        "Selection:N",
+                        scale=alt.Scale(
+                            domain=["Selected well", "Other controlled well"],
+                            range=["#F59E0B", "#2563EB"],
+                        ),
+                        legend=alt.Legend(title=None, orient="top"),
+                    ),
+                    size=alt.Size(
+                        "Selection:N",
+                        scale=alt.Scale(
+                            domain=["Selected well", "Other controlled well"],
+                            range=[180, 55],
+                        ),
+                        legend=None,
+                    ),
+                    tooltip=[
+                        alt.Tooltip("Display Well:N", title="Well"),
+                        alt.Tooltip("Canonical Field:N", title="Field"),
+                        alt.Tooltip("Source X / Easting:Q", format=",.2f"),
+                        alt.Tooltip("Source Y / Northing:Q", format=",.2f"),
+                        alt.Tooltip("Latitude:Q", format=".6f"),
+                        alt.Tooltip("Longitude:Q", format=".6f"),
+                    ],
+                )
+                .properties(height=470)
+                .interactive()
+            )
+            st.subheader("Zona Rokan spatial overview")
+            st.altair_chart(spatial_chart)
+            st.caption(
+                "Interactive WGS84 location view derived from the controlled UTM 47N "
+                "coordinates. Scroll to zoom and drag to pan; the selected well is amber."
+            )
+
+        with st.expander("Coordinate QA and full source table", expanded=False):
+            if material_differences.any():
+                material_count = int(material_differences.sum())
+                st.warning(
+                    f"{material_count} coordinate rows differ from the screening "
+                    "workbook by more "
+                    "than 1 metre. The 47n.csv values drive this coordinate workspace; "
+                    "the comparison remains visible for review.",
+                    icon=":material/rule:",
+                )
+                st.dataframe(
+                    safe_columns(
+                        coordinate_workspace.loc[material_differences],
+                        [
+                            "Source Well",
+                            "Canonical Well",
+                            "Source X / Easting",
+                            "Source Y / Northing",
+                            "Screening X",
+                            "Screening Y",
+                            "Screening delta (m)",
+                        ],
+                    ),
+                    hide_index=True,
+                    width="stretch",
+                )
+            st.dataframe(
+                safe_columns(
+                    coordinate_workspace,
+                    [
+                        "Source Well",
+                        "Canonical Well",
+                        "Canonical Field",
+                        "Coverage",
+                        "Source X / Easting",
+                        "Source Y / Northing",
+                        "Latitude",
+                        "Longitude",
+                        "UTM Zone",
+                        "EPSG",
+                        "Coordinate QC",
+                        "Source Row",
+                    ],
+                ),
+                hide_index=True,
+                width="stretch",
+                height=500,
+            )
 
         st.subheader("Coordinate conversion check")
         conversion = st.columns(3)
@@ -3813,6 +4057,7 @@ def main() -> None:
         for label, path in (
             ("Availability", services.DATA_AVAILABILITY_WORKBOOK),
             ("Screening matrix", services.SCREENING_WORKBOOK),
+            ("Coordinates (UTM 47N)", services.COORDINATE_SOURCE),
             ("Schematic", services.SCHEMATIC_WORKBOOK),
             ("Perforation / NZBP", services.PERFORATION_WORKBOOK),
         ):
@@ -3853,6 +4098,7 @@ def main() -> None:
         for path in (
             services.DATA_AVAILABILITY_WORKBOOK,
             services.SCREENING_WORKBOOK,
+            services.COORDINATE_SOURCE,
             services.SCHEMATIC_WORKBOOK,
             services.PERFORATION_WORKBOOK,
         )

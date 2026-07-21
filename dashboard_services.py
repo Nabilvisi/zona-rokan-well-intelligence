@@ -56,10 +56,19 @@ PERFORATION_WORKBOOK = _local_or_packaged(
     / "Perforation History + NZBP interval review.xlsx",
     "Perforation History + NZBP interval review.xlsx",
 )
+COORDINATE_SOURCE = _local_or_packaged(
+    Path(
+        os.environ.get(
+            "ZONA_ROKAN_COORDINATE_SOURCE",
+            r"C:\Users\HP\OneDrive\Halliburton Consulting\Idle Wells_Nations Petroleum\47n.csv",
+        )
+    ),
+    "47n.csv",
+)
 ONLINE_MODE = DATA_AVAILABILITY_WORKBOOK.parent == PACKAGED_SOURCE_ROOT
-CLOUD_DEPLOYMENT_VERSION = "2026-07-19.1"
+CLOUD_DEPLOYMENT_VERSION = "2026-07-21.1"
 # Kept for the optional legacy generators, but dashboard results are read from the
-# three controlled workbooks above.
+# controlled sources above.
 SCHEMATIC_ROOT = WORKSPACE_ROOT / "Data Nations" / "Final things" / "Zona_Rokan_Well_Schematics"
 PERFORATION_ROOT = WORKSPACE_ROOT / "outputs" / "zona_rokan_perforation_history_detailed_all"
 DATA_REQUEST_WORKBOOK = (
@@ -1102,6 +1111,16 @@ def build_master_table(inventory: Iterable[Any]) -> pd.DataFrame:
         if not availability.empty
         else {}
     )
+    coordinate_source = load_coordinate_source()
+    coordinate_rows = (
+        {
+            well_signature(row.get("Source Well")): row.to_dict()
+            for _, row in coordinate_source.iterrows()
+            if well_signature(row.get("Source Well")) is not None
+        }
+        if not coordinate_source.empty
+        else {}
+    )
     rows: list[dict[str, Any]] = []
 
     for record in inventory:
@@ -1112,6 +1131,9 @@ def build_master_table(inventory: Iterable[Any]) -> pd.DataFrame:
             getattr(record, "well", "")
         )
         data_status = availability_rows.get(
+            well_signature(getattr(record, "well", "")), {}
+        )
+        coordinate = coordinate_rows.get(
             well_signature(getattr(record, "well", "")), {}
         )
         specialized_perforation_count = (
@@ -1158,6 +1180,20 @@ def build_master_table(inventory: Iterable[Any]) -> pd.DataFrame:
                 "LAS Files": len(getattr(record, "las_files", ())),
                 "Scanned Logs": len(scanned_files),
                 "Production Files": len(getattr(record, "production_files", ())),
+                "Coordinate Available": bool(coordinate),
+                "Coordinate Easting": pd.to_numeric(
+                    coordinate.get("Source X / Easting"), errors="coerce"
+                ),
+                "Coordinate Northing": pd.to_numeric(
+                    coordinate.get("Source Y / Northing"), errors="coerce"
+                ),
+                "Coordinate Latitude": pd.to_numeric(
+                    coordinate.get("Latitude"), errors="coerce"
+                ),
+                "Coordinate Longitude": pd.to_numeric(
+                    coordinate.get("Longitude"), errors="coerce"
+                ),
+                "Coordinate CRS": coordinate.get("Original CRS", ""),
                 "Schematic Available": bool(schematic.get("Sheet")),
                 "Schematic Events": pd.to_numeric(schematic.get("Events"), errors="coerce"),
                 "Casing Strings": pd.to_numeric(schematic.get("Casing Strings"), errors="coerce"),
@@ -1194,6 +1230,10 @@ def build_master_table(inventory: Iterable[Any]) -> pd.DataFrame:
         "LAS Files",
         "Scanned Logs",
         "Production Files",
+        "Coordinate Easting",
+        "Coordinate Northing",
+        "Coordinate Latitude",
+        "Coordinate Longitude",
         "Schematic Events",
         "Casing Strings",
         "Sand Intervals",
@@ -1521,6 +1561,244 @@ def latlon_to_utm(
     return easting, northing, f"{zone}{hemisphere}", epsg
 
 
+def utm_to_latlon(
+    easting: float,
+    northing: float,
+    zone: int,
+    hemisphere: str = "N",
+) -> tuple[float, float]:
+    """Convert a WGS84 UTM coordinate to decimal latitude/longitude."""
+    if not 1 <= int(zone) <= 60:
+        raise ValueError("UTM zone must be between 1 and 60.")
+    if not 100000 <= float(easting) <= 1000000:
+        raise ValueError("UTM easting is outside the supported range.")
+    if not 0 <= float(northing) <= 10000000:
+        raise ValueError("UTM northing is outside the supported range.")
+    hemisphere = str(hemisphere).upper()
+    if hemisphere not in {"N", "S"}:
+        raise ValueError("UTM hemisphere must be N or S.")
+
+    scale = 0.9996
+    x_value = float(easting) - 500000.0
+    y_value = float(northing)
+    if hemisphere == "S":
+        y_value -= 10000000.0
+
+    meridional_arc = y_value / scale
+    mu = meridional_arc / (
+        WGS84_A
+        * (
+            1
+            - WGS84_E2 / 4
+            - 3 * WGS84_E2**2 / 64
+            - 5 * WGS84_E2**3 / 256
+        )
+    )
+    e1 = (1 - math.sqrt(1 - WGS84_E2)) / (1 + math.sqrt(1 - WGS84_E2))
+    footprint = (
+        mu
+        + (3 * e1 / 2 - 27 * e1**3 / 32) * math.sin(2 * mu)
+        + (21 * e1**2 / 16 - 55 * e1**4 / 32) * math.sin(4 * mu)
+        + (151 * e1**3 / 96) * math.sin(6 * mu)
+        + (1097 * e1**4 / 512) * math.sin(8 * mu)
+    )
+    sin_fp = math.sin(footprint)
+    cos_fp = math.cos(footprint)
+    tan_fp = math.tan(footprint)
+    n1 = WGS84_A / math.sqrt(1 - WGS84_E2 * sin_fp**2)
+    r1 = (
+        WGS84_A
+        * (1 - WGS84_E2)
+        / (1 - WGS84_E2 * sin_fp**2) ** 1.5
+    )
+    t1 = tan_fp**2
+    c1 = WGS84_EP2 * cos_fp**2
+    d_value = x_value / (n1 * scale)
+
+    latitude = footprint - (n1 * tan_fp / r1) * (
+        d_value**2 / 2
+        - (5 + 3 * t1 + 10 * c1 - 4 * c1**2 - 9 * WGS84_EP2)
+        * d_value**4
+        / 24
+        + (
+            61
+            + 90 * t1
+            + 298 * c1
+            + 45 * t1**2
+            - 252 * WGS84_EP2
+            - 3 * c1**2
+        )
+        * d_value**6
+        / 720
+    )
+    central_meridian = math.radians((int(zone) - 1) * 6 - 180 + 3)
+    longitude = central_meridian + (
+        d_value
+        - (1 + 2 * t1 + c1) * d_value**3 / 6
+        + (
+            5
+            - 2 * c1
+            + 28 * t1
+            - 3 * c1**2
+            + 8 * WGS84_EP2
+            + 24 * t1**2
+        )
+        * d_value**5
+        / 120
+    ) / cos_fp
+    return math.degrees(latitude), math.degrees(longitude)
+
+
+COORDINATE_COLUMNS = (
+    "Evidence Type",
+    "Source Well",
+    "Source File",
+    "Latitude",
+    "Longitude",
+    "Source X / Easting",
+    "Source Y / Northing",
+    "Converted UTM X",
+    "Converted UTM Y",
+    "UTM Zone",
+    "EPSG",
+    "Original CRS",
+    "Source-vs-UTM delta (m)",
+    "Coordinate QC",
+    "Source Row",
+    "Source Path",
+)
+
+
+def _empty_coordinate_frame() -> pd.DataFrame:
+    return pd.DataFrame(columns=COORDINATE_COLUMNS)
+
+
+def _parse_utm_crs(value: object) -> tuple[int, str] | None:
+    text = clean_text(value).upper().replace(" ", "")
+    match = re.search(r"(?:WGS84[_/-]?)?UTM(?:ZONE)?(\d{1,2})([NS])$", text)
+    if match is None:
+        return None
+    zone = int(match.group(1))
+    return (zone, match.group(2)) if 1 <= zone <= 60 else None
+
+
+@lru_cache(maxsize=3)
+def _load_coordinate_source_cached(
+    token: tuple[str, int, int],
+) -> pd.DataFrame:
+    path = Path(token[0])
+    if token[1] < 0:
+        return _empty_coordinate_frame()
+    try:
+        source = pd.read_csv(path, skiprows=1)
+    except Exception:
+        return _empty_coordinate_frame()
+    source = source.rename(
+        columns={
+            "* Well Location UWI": "Source Well",
+            "* Original X/Longitude": "Source X / Easting",
+            "* Original Y/Latitude": "Source Y / Northing",
+            "* Original CRS Name": "Original CRS",
+        }
+    )
+    required = {
+        "Source Well",
+        "Source X / Easting",
+        "Source Y / Northing",
+        "Original CRS",
+    }
+    if not required.issubset(source.columns):
+        return _empty_coordinate_frame()
+
+    source = source.loc[:, list(required)].copy()
+    source["Source Row"] = np.arange(len(source), dtype=int) + 3
+    source["Source Well"] = source["Source Well"].map(clean_text)
+    source["Original CRS"] = source["Original CRS"].map(clean_text)
+    for column in ("Source X / Easting", "Source Y / Northing"):
+        source[column] = pd.to_numeric(source[column], errors="coerce")
+    source = source.loc[
+        source["Source Well"].map(normalize_well).ne("")
+        & source["Source X / Easting"].notna()
+        & source["Source Y / Northing"].notna()
+    ].copy()
+
+    rows: list[dict[str, Any]] = []
+    for source_row in source.to_dict("records"):
+        parsed_crs = _parse_utm_crs(source_row.get("Original CRS"))
+        latitude = longitude = converted_x = converted_y = np.nan
+        delta = np.nan
+        zone_label = ""
+        epsg: int | float = np.nan
+        qc = "UNSUPPORTED OR INVALID CRS"
+        if parsed_crs is not None:
+            zone, hemisphere = parsed_crs
+            try:
+                latitude, longitude = utm_to_latlon(
+                    float(source_row["Source X / Easting"]),
+                    float(source_row["Source Y / Northing"]),
+                    zone,
+                    hemisphere,
+                )
+                converted_x, converted_y, zone_label, epsg = latlon_to_utm(
+                    latitude,
+                    longitude,
+                    zone,
+                )
+                delta = math.hypot(
+                    float(source_row["Source X / Easting"]) - converted_x,
+                    float(source_row["Source Y / Northing"]) - converted_y,
+                )
+                qc = (
+                    "CONTROLLED WGS84 UTM COORDINATE"
+                    if delta <= 0.1
+                    else "REVIEW ROUND-TRIP TRANSFORMATION"
+                )
+            except (TypeError, ValueError):
+                pass
+        rows.append(
+            {
+                "Evidence Type": "Controlled coordinate table",
+                "Source Well": source_row.get("Source Well"),
+                "Source File": path.name,
+                "Latitude": round(latitude, 8) if np.isfinite(latitude) else np.nan,
+                "Longitude": round(longitude, 8) if np.isfinite(longitude) else np.nan,
+                "Source X / Easting": source_row.get("Source X / Easting"),
+                "Source Y / Northing": source_row.get("Source Y / Northing"),
+                "Converted UTM X": round(converted_x, 3)
+                if np.isfinite(converted_x)
+                else np.nan,
+                "Converted UTM Y": round(converted_y, 3)
+                if np.isfinite(converted_y)
+                else np.nan,
+                "UTM Zone": zone_label,
+                "EPSG": epsg,
+                "Original CRS": source_row.get("Original CRS"),
+                "Source-vs-UTM delta (m)": round(delta, 3)
+                if np.isfinite(delta)
+                else np.nan,
+                "Coordinate QC": qc,
+                "Source Row": source_row.get("Source Row"),
+                "Source Path": str(path),
+            }
+        )
+    return pd.DataFrame(rows, columns=COORDINATE_COLUMNS)
+
+
+def load_coordinate_source() -> pd.DataFrame:
+    return _load_coordinate_source_cached(source_file_token(COORDINATE_SOURCE)).copy()
+
+
+def selected_coordinate_source(well: object, field: object = "") -> pd.DataFrame:
+    source = load_coordinate_source()
+    target = well_signature(well, field)
+    if source.empty or target is None:
+        return _empty_coordinate_frame()
+    matched = source["Source Well"].map(
+        lambda value: well_signature(value) == target
+    )
+    return source.loc[matched].copy()
+
+
 def _dms_to_decimal(
     degrees: str,
     minutes: str | None,
@@ -1628,6 +1906,8 @@ def las_coordinate_rows(path_texts: tuple[str, ...]) -> pd.DataFrame:
             qc = "SOURCE GRID ONLY - CRS/TIE POINTS REQUIRED"
         rows.append(
             {
+                "Evidence Type": "LAS header",
+                "Source Well": "",
                 "Source File": path.name,
                 "Latitude": latitude,
                 "Longitude": longitude,
@@ -1659,7 +1939,16 @@ def selected_coordinate_evidence(record: Any) -> pd.DataFrame:
         for path in getattr(record, "las_files", ())
         if Path(path).suffix.lower() == ".las"
     )
-    return las_coordinate_rows(paths).copy()
+    controlled = selected_coordinate_source(
+        getattr(record, "well", ""),
+        getattr(record, "field", ""),
+    )
+    las_rows = las_coordinate_rows(paths).copy()
+    if controlled.empty:
+        return las_rows
+    if las_rows.empty:
+        return controlled
+    return pd.concat((controlled, las_rows), ignore_index=True, sort=False)
 
 
 def trajectory_source_files(record: Any) -> list[Path]:
