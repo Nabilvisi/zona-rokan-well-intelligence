@@ -2,6 +2,7 @@
   "sheet_name": "Pemburu 24V",
   "orientation": "V",
   "image_format": "png",
+  "sheet_render_file": "49_pemburu_24v_sheet.png",
   "casing": [
     {
       "Hole Details": "17.5\"",
@@ -22,24 +23,6 @@
       "Source Row": 30
     },
     {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 34
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 36
-    },
-    {
       "Hole Details": "8.5\"",
       "Casing": "Production 7\"",
       "Top (ft)": 0.0,
@@ -56,9 +39,9 @@
       "Interval": "2010-2015",
       "Top (ft)": 2010.0,
       "Base (ft)": 2015.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "2010-2015",
       "Source Row": 34
     },
@@ -68,9 +51,9 @@
       "Interval": "2116-2126",
       "Top (ft)": 2116.0,
       "Base (ft)": 2126.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Menggala",
+      "Temuan": "Menggala Open",
       "Depth (feet)": "2116-2126",
       "Source Row": 36
     }

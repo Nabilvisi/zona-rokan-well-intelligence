@@ -2,6 +2,7 @@
   "sheet_name": "Puncak 23V ",
   "orientation": "V",
   "image_format": "png",
+  "sheet_render_file": "27_puncak_23v_sheet.png",
   "casing": [
     {
       "Hole Details": "17.5\"",
@@ -31,87 +32,6 @@
       "Source Row": 26
     },
     {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 32
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 33
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 34
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 35
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 36
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 37
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 38
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 39
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 40
-    },
-    {
       "Hole Details": "",
       "Casing": "Production 7\"",
       "Top (ft)": 0.0,
@@ -128,9 +48,9 @@
       "Interval": "1262-1280",
       "Top (ft)": 1262.0,
       "Base (ft)": 1280.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "1262-1280",
       "Source Row": 32
     },
@@ -140,9 +60,9 @@
       "Interval": "1280-1284",
       "Top (ft)": 1280.0,
       "Base (ft)": 1284.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Closed",
       "Depth (feet)": "1280-1284",
       "Source Row": 33
     },
@@ -152,9 +72,9 @@
       "Interval": "1312-1326",
       "Top (ft)": 1312.0,
       "Base (ft)": 1326.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Closed",
       "Depth (feet)": "1312-1326",
       "Source Row": 34
     },
@@ -164,9 +84,9 @@
       "Interval": "1334-1342",
       "Top (ft)": 1334.0,
       "Base (ft)": 1342.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Closed",
       "Depth (feet)": "1334-1342",
       "Source Row": 35
     },
@@ -176,9 +96,9 @@
       "Interval": "1354-1358",
       "Top (ft)": 1354.0,
       "Base (ft)": 1358.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Closed",
       "Depth (feet)": "1354-1358",
       "Source Row": 36
     },
@@ -188,9 +108,9 @@
       "Interval": "1396-1400",
       "Top (ft)": 1396.0,
       "Base (ft)": 1400.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Closed",
       "Depth (feet)": "1396-1400",
       "Source Row": 37
     },
@@ -200,9 +120,9 @@
       "Interval": "1943-1948",
       "Top (ft)": 1943.0,
       "Base (ft)": 1948.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "1943-1948",
       "Source Row": 38
     },
@@ -212,9 +132,9 @@
       "Interval": "2038-2044",
       "Top (ft)": 2038.0,
       "Base (ft)": 2044.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "2038-2044",
       "Source Row": 39
     },
@@ -224,9 +144,9 @@
       "Interval": "2050-2056",
       "Top (ft)": 2050.0,
       "Base (ft)": 2056.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "2050-2056",
       "Source Row": 40
     }

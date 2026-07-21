@@ -2,6 +2,7 @@
   "sheet_name": "Libo 16V ",
   "orientation": "V",
   "image_format": "png",
+  "sheet_render_file": "42_libo_16v_sheet.png",
   "casing": [
     {
       "Hole Details": "17.5\"",
@@ -22,33 +23,6 @@
       "Source Row": 30
     },
     {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 38
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 40
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 42
-    },
-    {
       "Hole Details": "",
       "Casing": "Production 7\"",
       "Top (ft)": 0.0,
@@ -65,9 +39,9 @@
       "Interval": "5496-5502",
       "Top (ft)": 5496.0,
       "Base (ft)": 5502.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Open",
       "Depth (feet)": "5496-5502",
       "Source Row": 38
     },
@@ -77,9 +51,9 @@
       "Interval": "5528-5538",
       "Top (ft)": 5528.0,
       "Base (ft)": 5538.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Open",
       "Depth (feet)": "5528-5538",
       "Source Row": 40
     },
@@ -89,9 +63,9 @@
       "Interval": "5538-5552",
       "Top (ft)": 5538.0,
       "Base (ft)": 5552.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Open",
       "Depth (feet)": "5538-5552",
       "Source Row": 42
     }

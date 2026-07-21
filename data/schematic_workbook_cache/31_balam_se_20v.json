@@ -2,6 +2,7 @@
   "sheet_name": "Balam SE 20V",
   "orientation": "V",
   "image_format": "png",
+  "sheet_render_file": "31_balam_se_20v_sheet.png",
   "casing": [
     {
       "Hole Details": "17.5\"",
@@ -22,15 +23,6 @@
       "Source Row": 26
     },
     {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 38
-    },
-    {
       "Hole Details": "",
       "Casing": "Production 7\"",
       "Top (ft)": 0.0,
@@ -47,9 +39,9 @@
       "Interval": "3280-3290",
       "Top (ft)": 3280.0,
       "Base (ft)": 3290.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "3280-3290",
       "Source Row": 38
     }

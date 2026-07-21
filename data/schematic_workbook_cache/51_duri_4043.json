@@ -2,6 +2,7 @@
   "sheet_name": "Duri-4043",
   "orientation": "",
   "image_format": "png",
+  "sheet_render_file": "51_duri_4043_sheet.png",
   "casing": [
     {
       "Hole Details": "9\"",
@@ -29,9 +30,9 @@
       "Interval": "407-427",
       "Top (ft)": 407.0,
       "Base (ft)": 427.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Rindu Open",
+      "Temuan": "Rindu",
       "Depth (feet)": "407-427",
       "Source Row": 36
     },
@@ -41,9 +42,9 @@
       "Interval": "429-440",
       "Top (ft)": 429.0,
       "Base (ft)": 440.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Rindu Open",
+      "Temuan": "Rindu",
       "Depth (feet)": "429-440",
       "Source Row": 38
     },
@@ -53,9 +54,9 @@
       "Interval": "450-454",
       "Top (ft)": 450.0,
       "Base (ft)": 454.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Rindu Open",
+      "Temuan": "Rindu",
       "Depth (feet)": "450-454",
       "Source Row": 40
     }

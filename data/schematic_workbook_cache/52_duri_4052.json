@@ -2,6 +2,7 @@
   "sheet_name": "Duri-4052",
   "orientation": "",
   "image_format": "png",
+  "sheet_render_file": "52_duri_4052_sheet.png",
   "casing": [
     {
       "Hole Details": "9\"",
@@ -29,9 +30,9 @@
       "Interval": "322-334",
       "Top (ft)": 322.0,
       "Base (ft)": 334.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Rindu Open",
+      "Temuan": "Rindu",
       "Depth (feet)": "322-334",
       "Source Row": 36
     },
@@ -41,9 +42,9 @@
       "Interval": "338-354",
       "Top (ft)": 338.0,
       "Base (ft)": 354.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Rindu Open",
+      "Temuan": "Rindu",
       "Depth (feet)": "338-354",
       "Source Row": 38
     },
@@ -53,9 +54,9 @@
       "Interval": "356-366",
       "Top (ft)": 356.0,
       "Base (ft)": 366.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Rindu Open",
+      "Temuan": "Rindu",
       "Depth (feet)": "356-366",
       "Source Row": 40
     },
@@ -65,9 +66,9 @@
       "Interval": "369-378",
       "Top (ft)": 369.0,
       "Base (ft)": 378.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Rindu Open",
+      "Temuan": "Rindu",
       "Depth (feet)": "369-378",
       "Source Row": 43
     }

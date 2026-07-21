@@ -2,6 +2,7 @@
   "sheet_name": "Minas 1903D",
   "orientation": "D",
   "image_format": "png",
+  "sheet_render_file": "19_minas_1903d_sheet.png",
   "casing": [
     {
       "Hole Details": "",
@@ -47,9 +48,9 @@
       "Interval": "2574-2580",
       "Top (ft)": 2574.0,
       "Base (ft)": 2580.0,
-      "Status": "Open",
+      "Status": "12.25",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "12.25",
       "Depth (feet)": "2574-2580",
       "Source Row": 19
     },
@@ -59,9 +60,9 @@
       "Interval": "2586-2596",
       "Top (ft)": 2586.0,
       "Base (ft)": 2596.0,
-      "Status": "NZBP",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "NZBP",
+      "Temuan": "",
       "Depth (feet)": "2586-2596",
       "Source Row": 21
     },
@@ -71,9 +72,9 @@
       "Interval": "2632-2637",
       "Top (ft)": 2632.0,
       "Base (ft)": 2637.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "2632-2637",
       "Source Row": 23
     },
@@ -83,9 +84,9 @@
       "Interval": "2637-2656",
       "Top (ft)": 2637.0,
       "Base (ft)": 2656.0,
-      "Status": "NZBP",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "NZBP",
+      "Temuan": "",
       "Depth (feet)": "2637-2656",
       "Source Row": 25
     }

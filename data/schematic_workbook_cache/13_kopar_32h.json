@@ -2,6 +2,7 @@
   "sheet_name": "Kopar 32H ",
   "orientation": "H",
   "image_format": "png",
+  "sheet_render_file": "13_kopar_32h_sheet.png",
   "casing": [
     {
       "Hole Details": "20\"",

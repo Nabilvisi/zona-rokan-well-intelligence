@@ -2,6 +2,7 @@
   "sheet_name": "Pager-06V",
   "orientation": "V",
   "image_format": "png",
+  "sheet_render_file": "45_pager_06v_sheet.png",
   "casing": [
     {
       "Hole Details": "17.5\"",
@@ -23,84 +24,12 @@
     },
     {
       "Hole Details": "NZBP",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 34
-    },
-    {
-      "Hole Details": "NZBP",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 36
-    },
-    {
-      "Hole Details": "NZBP",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 38
-    },
-    {
-      "Hole Details": "NZBP",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 40
-    },
-    {
-      "Hole Details": "NZBP",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 42
-    },
-    {
-      "Hole Details": "NZBP",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 44
-    },
-    {
-      "Hole Details": "NZBP",
       "Casing": "Production 7\"",
       "Top (ft)": 0.0,
       "Base (ft)": 4172,
       "Casing Depth (MD)": 4172,
       "Casing Depth (TVD)": null,
       "Source Row": 46
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 48
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 50
     }
   ],
   "intervals": [
@@ -110,9 +39,9 @@
       "Interval": "2776-2786",
       "Top (ft)": 2776.0,
       "Base (ft)": 2786.0,
-      "Status": "",
+      "Status": "NZBP",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "NZBP",
       "Depth (feet)": "2776-2786",
       "Source Row": 34
     },
@@ -122,9 +51,9 @@
       "Interval": "3008-3018",
       "Top (ft)": 3008.0,
       "Base (ft)": 3018.0,
-      "Status": "",
+      "Status": "NZBP",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "NZBP",
       "Depth (feet)": "3008-3018",
       "Source Row": 36
     },
@@ -134,9 +63,9 @@
       "Interval": "3080-3100",
       "Top (ft)": 3080.0,
       "Base (ft)": 3100.0,
-      "Status": "",
+      "Status": "NZBP",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "NZBP",
       "Depth (feet)": "3080-3100",
       "Source Row": 38
     },
@@ -146,9 +75,9 @@
       "Interval": "3180-3200",
       "Top (ft)": 3180.0,
       "Base (ft)": 3200.0,
-      "Status": "",
+      "Status": "NZBP",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "NZBP",
       "Depth (feet)": "3180-3200",
       "Source Row": 40
     },
@@ -158,9 +87,9 @@
       "Interval": "3479-3489",
       "Top (ft)": 3479.0,
       "Base (ft)": 3489.0,
-      "Status": "",
+      "Status": "NZBP",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "NZBP",
       "Depth (feet)": "3479-3489",
       "Source Row": 42
     },
@@ -170,9 +99,9 @@
       "Interval": "3518-3528",
       "Top (ft)": 3518.0,
       "Base (ft)": 3528.0,
-      "Status": "",
+      "Status": "NZBP",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "NZBP",
       "Depth (feet)": "3518-3528",
       "Source Row": 44
     },
@@ -182,9 +111,9 @@
       "Interval": "3690-3700",
       "Top (ft)": 3690.0,
       "Base (ft)": 3700.0,
-      "Status": "",
+      "Status": "NZBP",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "NZBP",
       "Depth (feet)": "3690-3700",
       "Source Row": 46
     },
@@ -194,9 +123,9 @@
       "Interval": "3965-3980",
       "Top (ft)": 3965.0,
       "Base (ft)": 3980.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "3965-3980",
       "Source Row": 48
     },
@@ -206,9 +135,9 @@
       "Interval": "4006-4018",
       "Top (ft)": 4006.0,
       "Base (ft)": 4018.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "4006-4018",
       "Source Row": 50
     }

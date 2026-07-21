@@ -2,6 +2,7 @@
   "sheet_name": "Minas 1952D",
   "orientation": "D",
   "image_format": "png",
+  "sheet_render_file": "21_minas_1952d_sheet.png",
   "casing": [
     {
       "Hole Details": "",
@@ -38,9 +39,9 @@
       "Interval": "2447-2451",
       "Top (ft)": 2447.0,
       "Base (ft)": 2451.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "2447-2451",
       "Source Row": 19
     },
@@ -50,9 +51,9 @@
       "Interval": "2490-2494",
       "Top (ft)": 2490.0,
       "Base (ft)": 2494.0,
-      "Status": "NZBP",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "NZBP",
+      "Temuan": "",
       "Depth (feet)": "2490-2494",
       "Source Row": 21
     }

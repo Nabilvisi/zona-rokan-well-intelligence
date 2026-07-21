@@ -2,6 +2,7 @@
   "sheet_name": "Benar 10V",
   "orientation": "V",
   "image_format": "png",
+  "sheet_render_file": "30_benar_10v_sheet.png",
   "casing": [
     {
       "Hole Details": "",
@@ -20,33 +21,6 @@
       "Casing Depth (MD)": 3068,
       "Casing Depth (TVD)": 3068,
       "Source Row": 29
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 32
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 34
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 36
     }
   ],
   "intervals": [
@@ -56,9 +30,9 @@
       "Interval": "2320-2340",
       "Top (ft)": 2320.0,
       "Base (ft)": 2340.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "2320-2340",
       "Source Row": 32
     },
@@ -68,9 +42,9 @@
       "Interval": "2348-2362",
       "Top (ft)": 2348.0,
       "Base (ft)": 2362.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "2348-2362",
       "Source Row": 34
     },
@@ -80,9 +54,9 @@
       "Interval": "2370-2390",
       "Top (ft)": 2370.0,
       "Base (ft)": 2390.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "2370-2390",
       "Source Row": 36
     }

@@ -422,6 +422,171 @@ def read_log(source: Path | bytes, source_name: str = "") -> LoadedLog:
     )
 
 
+def loaded_log_validation(source_name: str, loaded: LoadedLog) -> dict[str, object]:
+    """Return one auditable validation row for a LAS/DLIS/LIS run."""
+    frame = loaded.data
+    numeric_depth = pd.to_numeric(pd.Index(frame.index), errors="coerce")
+    valid_depth = pd.Series(numeric_depth).dropna()
+    curve_map = auto_curve_map(frame)
+    critical_roles = ("Gamma Ray", "Deep Resistivity", "Density", "Neutron")
+    finite_cells = int(frame.notna().sum().sum()) if not frame.empty else 0
+    total_cells = int(frame.shape[0] * frame.shape[1]) if not frame.empty else 0
+    return {
+        "Source File": source_name,
+        "Format": loaded.source_type,
+        "Parse Status": "READY" if not frame.empty and len(valid_depth) >= 2 else "REVIEW",
+        "Samples": len(frame),
+        "Curves": len(frame.columns),
+        "Top Depth": float(valid_depth.min()) if not valid_depth.empty else np.nan,
+        "Base Depth": float(valid_depth.max()) if not valid_depth.empty else np.nan,
+        "Median Step": estimate_sample_thickness(pd.Index(valid_depth)),
+        "Monotonic Depth": bool(pd.Index(valid_depth).is_monotonic_increasing),
+        "Duplicate Depths": int(pd.Index(valid_depth).duplicated().sum()),
+        "Valid Cell Coverage (%)": 100.0 * finite_cells / total_cells if total_cells else 0.0,
+        "Critical Curves": sum(curve_map.get(role) is not None for role in critical_roles),
+        "Depth Unit": loaded.depth_unit,
+    }
+
+
+def _align_curve_to_reference(
+    series: pd.Series,
+    reference_depth: np.ndarray,
+    gap_multiplier: float = 3.0,
+) -> np.ndarray:
+    work = pd.Series(series.to_numpy(dtype=float), index=pd.to_numeric(series.index, errors="coerce"))
+    work = work.loc[~pd.isna(work.index)].dropna()
+    work = work[~work.index.duplicated(keep="first")].sort_index()
+    if len(work) < 2:
+        output = np.full(reference_depth.shape, np.nan, dtype=float)
+        if len(work) == 1:
+            exact = np.isclose(reference_depth, float(work.index[0]), atol=1e-9)
+            output[exact] = float(work.iloc[0])
+        return output
+    source_depth = work.index.to_numpy(dtype=float)
+    source_values = work.to_numpy(dtype=float)
+    output = np.interp(reference_depth, source_depth, source_values, left=np.nan, right=np.nan)
+    step = estimate_sample_thickness(pd.Index(source_depth))
+    if step <= 0:
+        return output
+    positions = np.searchsorted(source_depth, reference_depth, side="left")
+    left = np.clip(positions - 1, 0, len(source_depth) - 1)
+    right = np.clip(positions, 0, len(source_depth) - 1)
+    source_gap = np.abs(source_depth[right] - source_depth[left])
+    exact = np.isclose(reference_depth, source_depth[right], atol=max(step * 1e-6, 1e-9))
+    output[(source_gap > step * gap_multiplier) & ~exact] = np.nan
+    return output
+
+
+def merge_loaded_logs(
+    runs: list[tuple[str, LoadedLog]],
+    maximum_gr_shift: float = 50.0,
+    shift_step: float = 0.5,
+) -> tuple[LoadedLog, pd.DataFrame, pd.DataFrame]:
+    """Align several log runs to a chosen reference without extrapolation.
+
+    The first run is the reference. Secondary curves are resampled only onto
+    the reference depth grid, large source gaps remain null, and duplicate
+    mnemonics are retained with a source suffix for explicit curve selection.
+    """
+    if not runs:
+        raise ValueError("At least one parsed log run is required")
+    reference_name, reference_log = runs[0]
+    reference = reference_log.data.copy()
+    reference.index = pd.Index(pd.to_numeric(reference.index, errors="coerce"), name=reference.index.name)
+    reference = reference.loc[~pd.isna(reference.index)]
+    reference = reference[~reference.index.duplicated(keep="first")].sort_index()
+    if reference.empty:
+        raise ValueError("The reference log has no valid numeric depth grid")
+    reference_depth = reference.index.to_numpy(dtype=float)
+    merged = reference.copy()
+    units = {
+        str(column): reference_log.curve_unit(str(column))
+        for column in reference.columns
+    }
+    reference_map = auto_curve_map(reference)
+    provenance_rows: list[dict[str, object]] = [
+        {
+            "Source File": reference_name,
+            "Source Type": reference_log.source_type,
+            "Source Mnemonic": column,
+            "Merged Mnemonic": column,
+            "Depth Shift": 0.0,
+        }
+        for column in reference.columns
+    ]
+    alignment_rows = [
+        {
+            **loaded_log_validation(reference_name, reference_log),
+            "Reference Run": True,
+            "GR Depth Correction": 0.0,
+            "GR Correlation": 1.0,
+        }
+    ]
+    for run_number, (source_name, loaded) in enumerate(runs[1:], start=2):
+        moving = loaded.data.copy()
+        moving_map = auto_curve_map(moving)
+        reference_gr = reference_map.get("Gamma Ray")
+        moving_gr = moving_map.get("Gamma Ray")
+        if reference_gr and moving_gr:
+            shift, correlation = estimate_gr_depth_shift(
+                reference[reference_gr],
+                moving[moving_gr],
+                max_shift=maximum_gr_shift,
+                shift_step=shift_step,
+            )
+        else:
+            shift, correlation = 0.0, np.nan
+        moving.index = pd.Index(
+            pd.to_numeric(moving.index, errors="coerce") + shift,
+            name=reference.index.name,
+        )
+        moving = moving.loc[~pd.isna(moving.index)]
+        moving = moving[~moving.index.duplicated(keep="first")].sort_index()
+        suffix = re.sub(r"[^A-Z0-9]+", "_", Path(source_name).stem.upper()).strip("_")
+        suffix = suffix[-24:] or f"RUN_{run_number}"
+        for column in moving.columns:
+            merged_name = str(column)
+            if merged_name in merged.columns:
+                merged_name = f"{merged_name}__{suffix}"
+            while merged_name in merged.columns:
+                merged_name = f"{merged_name}_{run_number}"
+            merged[merged_name] = _align_curve_to_reference(
+                moving[column], reference_depth
+            )
+            units[merged_name] = loaded.curve_unit(str(column))
+            provenance_rows.append(
+                {
+                    "Source File": source_name,
+                    "Source Type": loaded.source_type,
+                    "Source Mnemonic": column,
+                    "Merged Mnemonic": merged_name,
+                    "Depth Shift": shift,
+                }
+            )
+        alignment_rows.append(
+            {
+                **loaded_log_validation(source_name, loaded),
+                "Reference Run": False,
+                "GR Depth Correction": shift,
+                "GR Correlation": correlation,
+            }
+        )
+    combined = LoadedLog(
+        data=merged,
+        source_type=(
+            reference_log.source_type
+            if len(runs) == 1
+            else f"Multi-file evaluation ({len(runs)} runs)"
+        ),
+        depth_mnemonic=reference_log.depth_mnemonic,
+        depth_unit=reference_log.depth_unit,
+        well=next((run.well for _, run in runs if run.well), reference_log.well),
+        field=next((run.field for _, run in runs if run.field), reference_log.field),
+        curve_units=units,
+    )
+    return combined, pd.DataFrame(alignment_rows), pd.DataFrame(provenance_rows)
+
+
 @st.cache_data(show_spinner=False)
 def load_log_path(path_text: str) -> LoadedLog:
     return read_log(Path(path_text))
@@ -1043,6 +1208,7 @@ def lump_net_intervals(
     interval: pd.DataFrame,
     net_flag: pd.Series,
     minimum_thickness: float = 1.0,
+    gap_tolerance: float | None = None,
 ) -> pd.DataFrame:
     """Group contiguous net samples into engineering-ready pay summaries."""
     columns = [
@@ -1064,7 +1230,11 @@ def lump_net_intervals(
     depths = pd.to_numeric(pd.Index(interval.index), errors="coerce").to_numpy(float)
     flags = net_flag.reindex(interval.index).fillna(False).to_numpy(bool)
     step = estimate_sample_thickness(interval.index)
-    gap_limit = max(step * 1.75, step + 1e-6)
+    gap_limit = (
+        max(float(gap_tolerance), step + 1e-6)
+        if gap_tolerance is not None
+        else max(step * 1.75, step + 1e-6)
+    )
     groups: list[tuple[int, int]] = []
     start: int | None = None
     previous: int | None = None

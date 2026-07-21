@@ -2,6 +2,7 @@
   "sheet_name": "Puncak 32D",
   "orientation": "D",
   "image_format": "png",
+  "sheet_render_file": "22_puncak_32d_sheet.png",
   "casing": [
     {
       "Hole Details": "",
@@ -47,9 +48,9 @@
       "Interval": "1577-1584",
       "Top (ft)": 1577.0,
       "Base (ft)": 1584.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "1577-1584",
       "Source Row": 19
     },
@@ -59,9 +60,9 @@
       "Interval": "2058-2064",
       "Top (ft)": 2058.0,
       "Base (ft)": 2064.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "2058-2064",
       "Source Row": 21
     },
@@ -71,9 +72,9 @@
       "Interval": "2142-2146",
       "Top (ft)": 2142.0,
       "Base (ft)": 2146.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "2142-2146",
       "Source Row": 23
     },
@@ -83,9 +84,9 @@
       "Interval": "2160-2175",
       "Top (ft)": 2160.0,
       "Base (ft)": 2175.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "2160-2175",
       "Source Row": 25
     }

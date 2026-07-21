@@ -66,7 +66,7 @@ COORDINATE_SOURCE = _local_or_packaged(
     "47n.csv",
 )
 ONLINE_MODE = DATA_AVAILABILITY_WORKBOOK.parent == PACKAGED_SOURCE_ROOT
-CLOUD_DEPLOYMENT_VERSION = "2026-07-21.1"
+CLOUD_DEPLOYMENT_VERSION = "2026-07-21.2"
 # Kept for the optional legacy generators, but dashboard results are read from the
 # controlled sources above.
 SCHEMATIC_ROOT = WORKSPACE_ROOT / "Data Nations" / "Final things" / "Zona_Rokan_Well_Schematics"
@@ -218,6 +218,13 @@ def well_matches(
 ) -> bool:
     source_signature = well_signature(source_well, source_field)
     return source_signature is not None and source_signature == well_signature(canonical_well)
+
+
+def display_well_name(value: object) -> str:
+    """Return a clean user-facing source label without changing canonical identity."""
+    if well_signature(value) == ("BNKO", 14):
+        return "Bangko-0014"
+    return clean_text(value)
 
 
 def source_file_token(path: Path) -> tuple[str, int, int]:
@@ -602,6 +609,7 @@ def load_screening_matrix_tables(
 
 def selected_screening_row(well: str) -> dict[str, Any]:
     register, _, _, _ = load_screening_matrix_tables()
+    register = reconcile_screening_coordinates(register)
     target = well_signature(well)
     if register.empty or target is None:
         return {}
@@ -642,10 +650,68 @@ def _load_legacy_data_request_cached(token: tuple[str, int, int]) -> pd.DataFram
 
 
 def load_data_request_tables() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """Return the controlled availability result plus the legacy request actions."""
+    """Return controlled availability plus auditable request actions.
+
+    The legacy request workbook is not part of the cloud package.  When it is
+    absent, request actions are deterministically derived from the controlled
+    availability status so the online Data Requests workspace remains useful.
+    """
     definitions, availability = load_data_availability_tables()
     request = _load_legacy_data_request_cached(source_file_token(DATA_REQUEST_WORKBOOK))
+    if request.empty and not availability.empty:
+        request = availability.copy()
+        action_map = {
+            "AVAILABLE": "Validate and use the controlled package; refresh if superseded.",
+            "PARTIAL: NOT COMPREHENSIVE": "Complete the missing scope and reconcile it with the partial controlled package.",
+            "MISSING": "Acquire or request this data package before the next decision gate.",
+        }
+        for column in request.columns:
+            if str(column).startswith("REQ-"):
+                status = request[column].fillna("").astype(str).str.strip().str.upper()
+                request[column] = status.map(action_map).fillna(
+                    "Confirm the source status and responsible data owner."
+                )
+        request["Request Action Basis"] = (
+            "Derived from 001_Rokan Block Data Availability Final.xlsx"
+        )
     return definitions, availability, request.copy()
+
+
+def reconcile_screening_coordinates(register: pd.DataFrame) -> pd.DataFrame:
+    """Fill screening X/Y from 47n.csv while retaining the workbook values."""
+    if register.empty:
+        return register.copy()
+    output = register.copy()
+    output["Workbook X"] = pd.to_numeric(output.get("X"), errors="coerce")
+    output["Workbook Y"] = pd.to_numeric(output.get("Y"), errors="coerce")
+    coordinates = load_coordinate_source()
+    coordinate_map = {
+        well_signature(row.get("Source Well")): row.to_dict()
+        for _, row in coordinates.iterrows()
+        if well_signature(row.get("Source Well")) is not None
+    }
+    controlled_x: list[float] = []
+    controlled_y: list[float] = []
+    coordinate_wells: list[str] = []
+    for _, row in output.iterrows():
+        source = coordinate_map.get(well_signature(row.get("Well Name"), row.get("Field")), {})
+        controlled_x.append(pd.to_numeric(source.get("Source X / Easting"), errors="coerce"))
+        controlled_y.append(pd.to_numeric(source.get("Source Y / Northing"), errors="coerce"))
+        coordinate_wells.append(display_well_name(source.get("Source Well")))
+    output["Controlled X"] = controlled_x
+    output["Controlled Y"] = controlled_y
+    output["Coordinate Source Well"] = coordinate_wells
+    output["X"] = output["Controlled X"].combine_first(output["Workbook X"])
+    output["Y"] = output["Controlled Y"].combine_first(output["Workbook Y"])
+    workbook_missing = output["Workbook X"].isna() | output["Workbook Y"].isna()
+    controlled_available = output["Controlled X"].notna() & output["Controlled Y"].notna()
+    output["Coordinate Reconciliation"] = np.select(
+        [workbook_missing & controlled_available, controlled_available],
+        ["Filled from controlled 47n.csv", "Controlled 47n.csv applied; workbook retained for audit"],
+        default="No controlled coordinate match",
+    )
+    output["Coordinate Source"] = str(COORDINATE_SOURCE)
+    return output
 
 
 @lru_cache(maxsize=3)
@@ -978,6 +1044,7 @@ def _load_schematic_payload_cached(
     source_token: tuple[str, int, int],
     data_token: tuple[str, int, int],
     image_token: tuple[str, int, int],
+    sheet_render_token: tuple[str, int, int],
 ) -> dict[str, Any]:
     if source_token[1] < 0 or data_token[1] < 0:
         return {}
@@ -991,11 +1058,18 @@ def _load_schematic_payload_cached(
             image_bytes = Path(image_token[0]).read_bytes()
         except OSError:
             image_bytes = b""
+    sheet_render_bytes = b""
+    if sheet_render_token[1] >= 0:
+        try:
+            sheet_render_bytes = Path(sheet_render_token[0]).read_bytes()
+        except OSError:
+            sheet_render_bytes = b""
     return {
         "sheet_name": payload.get("sheet_name", ""),
         "orientation": payload.get("orientation", ""),
         "image_format": payload.get("image_format", ""),
         "image_bytes": image_bytes,
+        "sheet_render_bytes": sheet_render_bytes,
         "casing": pd.DataFrame(payload.get("casing", [])),
         "intervals": pd.DataFrame(payload.get("intervals", [])),
         "source_path": source_token[0],
@@ -1008,10 +1082,17 @@ def _select_schematic_payload(well: object) -> dict[str, Any]:
         data_path = SCHEMATIC_CACHE_ROOT / clean_text(entry.get("data_file"))
         image_name = clean_text(entry.get("image_file"))
         image_path = SCHEMATIC_CACHE_ROOT / image_name if image_name else Path("__missing__")
+        sheet_render_name = clean_text(entry.get("sheet_render_file"))
+        sheet_render_path = (
+            SCHEMATIC_CACHE_ROOT / sheet_render_name
+            if sheet_render_name
+            else Path("__missing__")
+        )
         return _load_schematic_payload_cached(
             source_file_token(SCHEMATIC_WORKBOOK),
             source_file_token(data_path),
             source_file_token(image_path),
+            source_file_token(sheet_render_path),
         )
     return {}
 
@@ -1133,6 +1214,7 @@ def build_master_table(inventory: Iterable[Any]) -> pd.DataFrame:
         data_status = availability_rows.get(
             well_signature(getattr(record, "well", "")), {}
         )
+        screening = selected_screening_row(getattr(record, "well", ""))
         coordinate = coordinate_rows.get(
             well_signature(getattr(record, "well", "")), {}
         )
@@ -1171,6 +1253,17 @@ def build_master_table(inventory: Iterable[Any]) -> pd.DataFrame:
         )
         missing_count = sum(value == "MISSING" for value in normalized_statuses)
         scanned_files = getattr(record, "scanned_files", ())
+
+        def request_status(code: str) -> str:
+            return next(
+                (
+                    clean_text(value)
+                    for column, value in data_status.items()
+                    if str(column).startswith(code)
+                ),
+                "",
+            )
+
         row = dict(cached)
         row.update(
             {
@@ -1194,6 +1287,7 @@ def build_master_table(inventory: Iterable[Any]) -> pd.DataFrame:
                     coordinate.get("Longitude"), errors="coerce"
                 ),
                 "Coordinate CRS": coordinate.get("Original CRS", ""),
+                "Screening Available": bool(screening),
                 "Schematic Available": bool(schematic.get("Sheet")),
                 "Schematic Events": pd.to_numeric(schematic.get("Events"), errors="coerce"),
                 "Casing Strings": pd.to_numeric(schematic.get("Casing Strings"), errors="coerce"),
@@ -1207,6 +1301,12 @@ def build_master_table(inventory: Iterable[Any]) -> pd.DataFrame:
                 "Data Request Available": available_count,
                 "Data Request Partial": partial_count,
                 "Data Request Missing": missing_count,
+                "REQ-03 Status": request_status("REQ-03"),
+                "REQ-06 Status": request_status("REQ-06"),
+                "REQ-07 Status": request_status("REQ-07"),
+                "REQ-09 Status": request_status("REQ-09"),
+                "REQ-13 Status": request_status("REQ-13"),
+                "REQ-16 Status": request_status("REQ-16"),
             }
         )
         completeness = pd.to_numeric(row.get("Data Completeness (%)"), errors="coerce")
@@ -1263,6 +1363,7 @@ def apply_screening_scores(master: pd.DataFrame) -> pd.DataFrame:
     uplift_scores: list[float] = []
     complexity_scores: list[float] = []
     readiness_scores: list[float] = []
+    phase3_scores: list[float] = []
     gaps: list[str] = []
 
     for _, row in output.iterrows():
@@ -1323,41 +1424,86 @@ def apply_screening_scores(master: pd.DataFrame) -> pd.DataFrame:
         if _contains(lift, "esp", "gas lift", "srp"):
             complexity += 5
 
-        data_flags = [
-            completeness >= 60,
-            bool(row.get("Schematic Available")),
-            float(row.get("Production Files") or 0) > 0,
-            float(row.get("LAS Files") or 0) > 0,
-            clean_text(integrity) != "",
-            clean_text(completion) != "",
-            clean_text(facility) != "",
-            float(row.get("Perforation Events") or 0) > 0,
+        def status_score(code: str) -> float:
+            value = clean_text(row.get(f"{code} Status")).upper()
+            if value == "AVAILABLE":
+                return 1.0
+            if value == "PARTIAL: NOT COMPREHENSIVE":
+                return 0.5
+            return 0.0
+
+        production_score = max(
+            float(float(row.get("Production Files") or 0) > 0),
+            status_score("REQ-03"),
+        )
+        petrophysics_score = max(
+            float(float(row.get("LAS Files") or 0) > 0),
+            status_score("REQ-09"),
+        )
+        completion_score = max(
+            float(bool(row.get("Schematic Available"))),
+            status_score("REQ-06"),
+        )
+        perforation_score = max(
+            float(float(row.get("Perforation Events") or 0) > 0),
+            status_score("REQ-07"),
+        )
+        integrity_score = max(float(bool(clean_text(integrity))), status_score("REQ-13"))
+        facility_score = max(
+            float(bool(clean_text(facility) or clean_text(access))),
+            status_score("REQ-16"),
+        )
+        readiness_components = [
+            completeness / 100.0,
+            float(bool(row.get("Coordinate Available"))),
+            float(bool(row.get("Screening Available"))),
+            production_score,
+            petrophysics_score,
+            completion_score,
+            perforation_score,
+            integrity_score,
+            facility_score,
         ]
-        readiness = 100.0 * sum(data_flags) / len(data_flags)
+        readiness = 100.0 * sum(readiness_components) / len(readiness_components)
+        phase3_components = [
+            readiness / 100.0,
+            completion_score,
+            float(float(row.get("Casing Strings") or 0) > 0),
+            perforation_score,
+            integrity_score,
+            facility_score,
+        ]
+        phase3_readiness = 100.0 * sum(phase3_components) / len(phase3_components)
         missing: list[str] = []
-        if float(row.get("LAS Files") or 0) <= 0:
-            missing.append("LAS")
-        if not bool(row.get("Schematic Available")):
+        if not bool(row.get("Coordinate Available")):
+            missing.append("coordinates")
+        if not bool(row.get("Screening Available")):
+            missing.append("screening matrix")
+        if petrophysics_score <= 0:
+            missing.append("petrophysical logs")
+        if completion_score <= 0:
             missing.append("schematic")
-        if float(row.get("Perforation Events") or 0) <= 0:
+        if perforation_score <= 0:
             missing.append("perforation history")
-        if not clean_text(integrity):
+        if integrity_score <= 0:
             missing.append("integrity")
-        if not clean_text(completion):
-            missing.append("completion")
-        if not clean_text(facility):
-            missing.append("facility")
+        if production_score <= 0:
+            missing.append("production history")
+        if facility_score <= 0:
+            missing.append("facility/access")
 
         technical_scores.append(clamp(technical))
         uplift_scores.append(clamp(uplift))
         complexity_scores.append(clamp(complexity))
         readiness_scores.append(clamp(readiness))
+        phase3_scores.append(clamp(phase3_readiness))
         gaps.append(", ".join(missing) if missing else "No critical gap flagged")
 
     output["Technical Viability"] = technical_scores
     output["Production Uplift Potential"] = uplift_scores
     output["Execution Complexity"] = complexity_scores
     output["Phase 2 Readiness"] = readiness_scores
+    output["Phase 3 Readiness"] = phase3_scores
     output["Critical Data Gaps"] = gaps
     return rank_candidates(output, 0.4, 0.4, 0.2)
 
@@ -1392,6 +1538,12 @@ def rank_candidates(
         "READY FOR REVIEW",
         "DATA / ENGINEERING HOLD",
     )
+    output["Phase 3 Gate"] = np.where(
+        (output["Phase 2 Candidate"] == "READY FOR REVIEW")
+        & (pd.to_numeric(output.get("Phase 3 Readiness"), errors="coerce") >= 70),
+        "ENGINEERING BASIS REVIEW",
+        "INPUTS REQUIRED",
+    )
     return output.sort_values(
         ["Opportunity Score", "Phase 2 Readiness"], ascending=False
     ).reset_index(drop=True)
@@ -1420,6 +1572,133 @@ def selected_well_evidence(well: str) -> pd.DataFrame:
 
         output[column] = output[column].map(current_workspace_path)
     return output
+
+
+def selected_controlled_source_evidence(well: str) -> pd.DataFrame:
+    """Assemble online-safe source evidence from every controlled workbook."""
+    columns = [
+        "Evidence Source",
+        "Evidence Type",
+        "Source Well",
+        "Source Sheet",
+        "Source Row",
+        "Status / Result",
+        "Evidence Detail",
+        "Source File",
+        "Source Path",
+    ]
+    rows: list[dict[str, Any]] = []
+    definitions, availability_row, request_row = selected_data_request(well)
+    definition_map = (
+        definitions.set_index("Request Code").to_dict("index")
+        if not definitions.empty and "Request Code" in definitions.columns
+        else {}
+    )
+    if not availability_row.empty:
+        availability = availability_row.iloc[0]
+        source_well = display_well_name(availability.get("Well Name"))
+        for column, value in availability.items():
+            code_match = re.match(r"(REQ-\d+)", str(column))
+            if not code_match:
+                continue
+            code = code_match.group(1)
+            detail = definition_map.get(code, {})
+            rows.append(
+                {
+                    "Evidence Source": "Data availability",
+                    "Evidence Type": code,
+                    "Source Well": source_well,
+                    "Source Sheet": "Data_Availability_Matrix",
+                    "Source Row": availability.get("Source Row", ""),
+                    "Status / Result": clean_text(value),
+                    "Evidence Detail": clean_text(detail.get("Data Package")),
+                    "Source File": DATA_AVAILABILITY_WORKBOOK.name,
+                    "Source Path": str(DATA_AVAILABILITY_WORKBOOK),
+                }
+            )
+    if not request_row.empty:
+        request = request_row.iloc[0]
+        for column, value in request.items():
+            code_match = re.match(r"(REQ-\d+)", str(column))
+            if not code_match:
+                continue
+            code = code_match.group(1)
+            rows.append(
+                {
+                    "Evidence Source": "Data request",
+                    "Evidence Type": code,
+                    "Source Well": display_well_name(request.get("Well Name")),
+                    "Source Sheet": "Derived request actions",
+                    "Source Row": request.get("Source Row", ""),
+                    "Status / Result": clean_text(value),
+                    "Evidence Detail": clean_text(
+                        definition_map.get(code, {}).get("Decision Use")
+                    ),
+                    "Source File": DATA_AVAILABILITY_WORKBOOK.name,
+                    "Source Path": str(DATA_AVAILABILITY_WORKBOOK),
+                }
+            )
+    screening = selected_screening_row(well)
+    if screening:
+        rows.append(
+            {
+                "Evidence Source": "Well screening matrix",
+                "Evidence Type": "Controlled screening result",
+                "Source Well": display_well_name(screening.get("Well Name")),
+                "Source Sheet": clean_text(screening.get("Sheet")),
+                "Source Row": screening.get("Source Row", screening.get("Source No", "")),
+                "Status / Result": f"{clean_text(screening.get('Tier'))} | {clean_text(screening.get('Recommendation'))}",
+                "Evidence Detail": f"Weighted score {clean_text(screening.get('Weighted Score'))}; X/Y reconciled from 47n.csv",
+                "Source File": SCREENING_WORKBOOK.name,
+                "Source Path": str(SCREENING_WORKBOOK),
+            }
+        )
+    coordinate = selected_coordinate_source(well)
+    for _, item in coordinate.iterrows():
+        rows.append(
+            {
+                "Evidence Source": "Well coordinates",
+                "Evidence Type": "Controlled coordinate table",
+                "Source Well": display_well_name(item.get("Source Well")),
+                "Source Sheet": "47n.csv",
+                "Source Row": item.get("Source Row", ""),
+                "Status / Result": clean_text(item.get("Coordinate QC")),
+                "Evidence Detail": f"X {item.get('Source X / Easting')}; Y {item.get('Source Y / Northing')}; {clean_text(item.get('Original CRS'))}",
+                "Source File": COORDINATE_SOURCE.name,
+                "Source Path": str(COORDINATE_SOURCE),
+            }
+        )
+    schematic = selected_schematic_row(well)
+    if schematic:
+        rows.append(
+            {
+                "Evidence Source": "Well schematic",
+                "Evidence Type": "Workbook schematic",
+                "Source Well": display_well_name(schematic.get("Sheet")),
+                "Source Sheet": schematic.get("Sheet", ""),
+                "Source Row": "",
+                "Status / Result": "Available",
+                "Evidence Detail": f"{schematic.get('Casing Strings', 0)} casing rows; {schematic.get('Sand Intervals', 0)} completion intervals",
+                "Source File": SCHEMATIC_WORKBOOK.name,
+                "Source Path": str(SCHEMATIC_WORKBOOK),
+            }
+        )
+    perforation = selected_perforation_history(well)
+    for _, item in perforation.iterrows():
+        rows.append(
+            {
+                "Evidence Source": "Perforation / NZBP",
+                "Evidence Type": "Controlled interval",
+                "Source Well": display_well_name(item.get("Well")),
+                "Source Sheet": item.get("Source Sheet", "Existing perfo + NZBP"),
+                "Source Row": item.get("Source Row", ""),
+                "Status / Result": item.get("Action Status", item.get("Status", "")),
+                "Evidence Detail": f"{clean_text(item.get('Formation'))} {clean_text(item.get('Sand'))} {clean_text(item.get('Sand Interval'))}".strip(),
+                "Source File": PERFORATION_WORKBOOK.name,
+                "Source Path": str(PERFORATION_WORKBOOK),
+            }
+        )
+    return pd.DataFrame(rows, columns=columns)
 
 
 def selected_perforation_history(well: str) -> pd.DataFrame:

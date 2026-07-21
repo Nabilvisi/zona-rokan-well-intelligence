@@ -2,6 +2,7 @@
   "sheet_name": "Gulamo 2V",
   "orientation": "V",
   "image_format": "png",
+  "sheet_render_file": "34_gulamo_2v_sheet.png",
   "casing": [
     {
       "Hole Details": "",
@@ -22,51 +23,6 @@
       "Source Row": 30
     },
     {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 32
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 34
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 36
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 38
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 40
-    },
-    {
       "Hole Details": "",
       "Casing": "Liner 5\"",
       "Top (ft)": 0.0,
@@ -74,78 +30,6 @@
       "Casing Depth (MD)": null,
       "Casing Depth (TVD)": null,
       "Source Row": 41
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 42
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 44
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 46
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 48
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 50
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 52
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 54
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 56
     }
   ],
   "intervals": [
@@ -155,9 +39,9 @@
       "Interval": "5118-5124",
       "Top (ft)": 5118.0,
       "Base (ft)": 5124.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "5118-5124",
       "Source Row": 32
     },
@@ -167,9 +51,9 @@
       "Interval": "5124-5126",
       "Top (ft)": 5124.0,
       "Base (ft)": 5126.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Closed",
       "Depth (feet)": "5124-5126",
       "Source Row": 34
     },
@@ -179,9 +63,9 @@
       "Interval": "5156-5160",
       "Top (ft)": 5156.0,
       "Base (ft)": 5160.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Closed",
       "Depth (feet)": "5156-5160",
       "Source Row": 36
     },
@@ -191,9 +75,9 @@
       "Interval": "5804-5812",
       "Top (ft)": 5804.0,
       "Base (ft)": 5812.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Closed",
       "Depth (feet)": "5804-5812",
       "Source Row": 38
     },
@@ -203,9 +87,9 @@
       "Interval": "5812-5816",
       "Top (ft)": 5812.0,
       "Base (ft)": 5816.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "5812-5816",
       "Source Row": 40
     },
@@ -215,9 +99,9 @@
       "Interval": "5832-5840",
       "Top (ft)": 5832.0,
       "Base (ft)": 5840.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "5832-5840",
       "Source Row": 42
     },
@@ -227,9 +111,9 @@
       "Interval": "5840-5846",
       "Top (ft)": 5840.0,
       "Base (ft)": 5846.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Closed",
       "Depth (feet)": "5840-5846",
       "Source Row": 44
     },
@@ -239,9 +123,9 @@
       "Interval": "6113-6119",
       "Top (ft)": 6113.0,
       "Base (ft)": 6119.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Closed",
       "Depth (feet)": "6113-6119",
       "Source Row": 46
     },
@@ -251,9 +135,9 @@
       "Interval": "6128-6132",
       "Top (ft)": 6128.0,
       "Base (ft)": 6132.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "6128-6132",
       "Source Row": 48
     },
@@ -263,9 +147,9 @@
       "Interval": "6132-6139",
       "Top (ft)": 6132.0,
       "Base (ft)": 6139.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Closed",
       "Depth (feet)": "6132-6139",
       "Source Row": 50
     },
@@ -275,9 +159,9 @@
       "Interval": "6146-6154",
       "Top (ft)": 6146.0,
       "Base (ft)": 6154.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "6146-6154",
       "Source Row": 52
     },
@@ -287,9 +171,9 @@
       "Interval": "6154-6161",
       "Top (ft)": 6154.0,
       "Base (ft)": 6161.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Closed",
       "Depth (feet)": "6154-6161",
       "Source Row": 54
     },
@@ -299,9 +183,9 @@
       "Interval": "6198-6332",
       "Top (ft)": 6198.0,
       "Base (ft)": 6332.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "6198-6332",
       "Source Row": 56
     }

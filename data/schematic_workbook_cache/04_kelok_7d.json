@@ -2,6 +2,7 @@
   "sheet_name": "Kelok 7D",
   "orientation": "D",
   "image_format": "png",
+  "sheet_render_file": "04_kelok_7d_sheet.png",
   "casing": [
     {
       "Hole Details": "17.5\"",
@@ -47,9 +48,9 @@
       "Interval": "3140-3176",
       "Top (ft)": 3140.0,
       "Base (ft)": 3176.0,
-      "Status": "Closed",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Menggala Closed",
+      "Temuan": "Menggala",
       "Depth (feet)": "3140-3176",
       "Source Row": 28
     },
@@ -59,9 +60,9 @@
       "Interval": "5138-5202",
       "Top (ft)": 5138.0,
       "Base (ft)": 5202.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Pematang Open",
+      "Temuan": "Pematang",
       "Depth (feet)": "5138-5202",
       "Source Row": 30
     },
@@ -71,9 +72,9 @@
       "Interval": "5216-5247",
       "Top (ft)": 5216.0,
       "Base (ft)": 5247.0,
-      "Status": "NZBP",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Pematang NZBP",
+      "Temuan": "Pematang",
       "Depth (feet)": "5216-5247",
       "Source Row": 32
     }

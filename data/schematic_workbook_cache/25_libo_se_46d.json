@@ -2,6 +2,7 @@
   "sheet_name": "LIBO SE 46D",
   "orientation": "D",
   "image_format": "png",
+  "sheet_render_file": "25_libo_se_46d_sheet.png",
   "casing": [
     {
       "Hole Details": "",
@@ -38,9 +39,9 @@
       "Interval": "5684-5694",
       "Top (ft)": 5684.0,
       "Base (ft)": 5694.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap Open",
+      "Temuan": "Bekasap",
       "Depth (feet)": "5684-5694",
       "Source Row": 19
     },
@@ -50,9 +51,9 @@
       "Interval": "5863-5867",
       "Top (ft)": 5863.0,
       "Base (ft)": 5867.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bangko Open",
+      "Temuan": "Bangko",
       "Depth (feet)": "5863-5867",
       "Source Row": 21
     },
@@ -62,9 +63,9 @@
       "Interval": "5874-5882",
       "Top (ft)": 5874.0,
       "Base (ft)": 5882.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bangko Open",
+      "Temuan": "Bangko",
       "Depth (feet)": "5874-5882",
       "Source Row": 23
     },
@@ -74,9 +75,9 @@
       "Interval": "5896-5900",
       "Top (ft)": 5896.0,
       "Base (ft)": 5900.0,
-      "Status": "Closed",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bangko Closed",
+      "Temuan": "Bangko",
       "Depth (feet)": "5896-5900",
       "Source Row": 25
     },
@@ -86,9 +87,9 @@
       "Interval": "5948-5956",
       "Top (ft)": 5948.0,
       "Base (ft)": 5956.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bangko Open",
+      "Temuan": "Bangko",
       "Depth (feet)": "5948-5956",
       "Source Row": 27
     },
@@ -98,9 +99,9 @@
       "Interval": "6003-6030",
       "Top (ft)": 6003.0,
       "Base (ft)": 6030.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Menggala Open",
+      "Temuan": "Menggala",
       "Depth (feet)": "6003-6030",
       "Source Row": 29
     },
@@ -110,9 +111,9 @@
       "Interval": "6068-6078",
       "Top (ft)": 6068.0,
       "Base (ft)": 6078.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Menggala Open",
+      "Temuan": "Menggala",
       "Depth (feet)": "6068-6078",
       "Source Row": 31
     },
@@ -122,9 +123,9 @@
       "Interval": "6040-6050",
       "Top (ft)": 6040.0,
       "Base (ft)": 6050.0,
-      "Status": "NZBP",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Menggala NZBP",
+      "Temuan": "Menggala",
       "Depth (feet)": "6040-6050",
       "Source Row": 33
     }

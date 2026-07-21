@@ -2,6 +2,7 @@
   "sheet_name": "Puncak 33V",
   "orientation": "V",
   "image_format": "png",
+  "sheet_render_file": "28_puncak_33v_sheet.png",
   "casing": [
     {
       "Hole Details": "17.5\"",
@@ -22,42 +23,6 @@
       "Source Row": 26
     },
     {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 32
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 34
-    },
-    {
-      "Hole Details": "NZBP",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 36
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 38
-    },
-    {
       "Hole Details": "",
       "Casing": "Production 7\"",
       "Top (ft)": 0.0,
@@ -74,9 +39,9 @@
       "Interval": "2011-2013",
       "Top (ft)": 2011.0,
       "Base (ft)": 2013.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bangko",
+      "Temuan": "Bangko Open",
       "Depth (feet)": "2011-2013",
       "Source Row": 32
     },
@@ -86,9 +51,9 @@
       "Interval": "2065-2067",
       "Top (ft)": 2065.0,
       "Base (ft)": 2067.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bangko",
+      "Temuan": "Bangko Open",
       "Depth (feet)": "2065-2067",
       "Source Row": 34
     },
@@ -98,9 +63,9 @@
       "Interval": "2102-2108",
       "Top (ft)": 2102.0,
       "Base (ft)": 2108.0,
-      "Status": "",
+      "Status": "NZBP",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Menggala",
+      "Temuan": "Menggala NZBP",
       "Depth (feet)": "2102-2108",
       "Source Row": 36
     },
@@ -110,9 +75,9 @@
       "Interval": "2128-2131",
       "Top (ft)": 2128.0,
       "Base (ft)": 2131.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Menggala",
+      "Temuan": "Menggala Open",
       "Depth (feet)": "2128-2131",
       "Source Row": 38
     }

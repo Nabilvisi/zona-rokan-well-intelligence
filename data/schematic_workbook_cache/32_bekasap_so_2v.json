@@ -2,6 +2,7 @@
   "sheet_name": "Bekasap So 2V",
   "orientation": "V",
   "image_format": "png",
+  "sheet_render_file": "32_bekasap_so_2v_sheet.png",
   "casing": [
     {
       "Hole Details": "17.5\"",
@@ -13,51 +14,6 @@
       "Source Row": 11
     },
     {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 32
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 34
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 36
-    },
-    {
-      "Hole Details": "NZBP",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 38
-    },
-    {
-      "Hole Details": "NZBP",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 40
-    },
-    {
       "Hole Details": "",
       "Casing": "Production 7\"",
       "Top (ft)": 0.0,
@@ -65,42 +21,6 @@
       "Casing Depth (MD)": 4320,
       "Casing Depth (TVD)": null,
       "Source Row": 41
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 42
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 44
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 46
-    },
-    {
-      "Hole Details": "NZBP",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 48
     }
   ],
   "intervals": [
@@ -110,9 +30,9 @@
       "Interval": "3288-3294",
       "Top (ft)": 3288.0,
       "Base (ft)": 3294.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Closed",
       "Depth (feet)": "3288-3294",
       "Source Row": 32
     },
@@ -122,9 +42,9 @@
       "Interval": "3320-3326",
       "Top (ft)": 3320.0,
       "Base (ft)": 3326.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Closed",
       "Depth (feet)": "3320-3326",
       "Source Row": 34
     },
@@ -134,9 +54,9 @@
       "Interval": "3383-3389",
       "Top (ft)": 3383.0,
       "Base (ft)": 3389.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Closed",
       "Depth (feet)": "3383-3389",
       "Source Row": 36
     },
@@ -146,9 +66,9 @@
       "Interval": "3482-3488",
       "Top (ft)": 3482.0,
       "Base (ft)": 3488.0,
-      "Status": "",
+      "Status": "NZBP",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "NZBP",
       "Depth (feet)": "3482-3488",
       "Source Row": 38
     },
@@ -158,9 +78,9 @@
       "Interval": "3570-3575",
       "Top (ft)": 3570.0,
       "Base (ft)": 3575.0,
-      "Status": "",
+      "Status": "NZBP",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "NZBP",
       "Depth (feet)": "3570-3575",
       "Source Row": 40
     },
@@ -170,9 +90,9 @@
       "Interval": "3583-3589",
       "Top (ft)": 3583.0,
       "Base (ft)": 3589.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bangko",
+      "Temuan": "Bangko Closed",
       "Depth (feet)": "3583-3589",
       "Source Row": 42
     },
@@ -182,9 +102,9 @@
       "Interval": "3747-3757",
       "Top (ft)": 3747.0,
       "Base (ft)": 3757.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Menggala",
+      "Temuan": "Menggala Closed",
       "Depth (feet)": "3747-3757",
       "Source Row": 44
     },
@@ -194,9 +114,9 @@
       "Interval": "3825-3837",
       "Top (ft)": 3825.0,
       "Base (ft)": 3837.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Menggala",
+      "Temuan": "Menggala Closed",
       "Depth (feet)": "3825-3837",
       "Source Row": 46
     },
@@ -206,9 +126,9 @@
       "Interval": "3840-3855",
       "Top (ft)": 3840.0,
       "Base (ft)": 3855.0,
-      "Status": "",
+      "Status": "NZBP",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "NZBP",
       "Depth (feet)": "3840-3855",
       "Source Row": 48
     }

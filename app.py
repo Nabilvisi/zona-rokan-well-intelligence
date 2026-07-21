@@ -21,7 +21,7 @@ import dashboard_services as services
 import well_log_core as logs
 
 
-EXPECTED_CLOUD_DEPLOYMENT_VERSION = "2026-07-21.1"
+EXPECTED_CLOUD_DEPLOYMENT_VERSION = "2026-07-21.2"
 if (
     getattr(services, "CLOUD_DEPLOYMENT_VERSION", "")
     != EXPECTED_CLOUD_DEPLOYMENT_VERSION
@@ -325,38 +325,84 @@ def perforation_interval_chart(history: pd.DataFrame) -> alt.Chart:
     frame["Top"] = pd.to_numeric(frame["Perforation Top (ft)"], errors="coerce")
     frame["Base"] = pd.to_numeric(frame["Perforation Base (ft)"], errors="coerce")
     frame = frame.dropna(subset=["Top", "Base"])
-    frame["Formation label"] = frame.get("Formation", "Unspecified").fillna("Unspecified")
-    frame["Source status"] = frame.get("Status", frame.get("Action Status", "Unspecified")).fillna("Unspecified")
-    return (
+    frame[["Top", "Base"]] = np.sort(frame[["Top", "Base"]].to_numpy(), axis=1)
+    frame["Formation label"] = (
+        frame.get("Formation", pd.Series("Unspecified", index=frame.index))
+        .fillna("Unspecified")
+        .astype(str)
+    )
+    frame["Sand label"] = (
+        frame.get("Sand", pd.Series("", index=frame.index)).fillna("").astype(str)
+    )
+    source_status = frame.get(
+        "Action Status", frame.get("Status", pd.Series("Unspecified", index=frame.index))
+    ).fillna("Unspecified").astype(str).str.upper()
+    frame["Interval state"] = source_status.replace(
+        {"CLOSED": "CLOSE", "OPENED": "OPEN"}
+    )
+    frame["Interval state"] = frame["Interval state"].where(
+        frame["Interval state"].isin(["OPEN", "CLOSE", "NZBP"]), "OTHER"
+    )
+    frame["Interval label"] = (
+        frame["Formation label"]
+        + np.where(frame["Sand label"].str.strip().ne(""), " / " + frame["Sand label"], "")
+        + "  "
+        + frame["Top"].round(0).astype(int).astype(str)
+        + "–"
+        + frame["Base"].round(0).astype(int).astype(str)
+        + " ft"
+    )
+    frame["Mid depth"] = (frame["Top"] + frame["Base"]) / 2.0
+    qa = frame.get("QA Status", pd.Series("", index=frame.index)).fillna("").astype(str)
+    frame["QA review"] = np.where(qa.str.upper().str.startswith("REVIEW"), "Review", "Checked")
+    order = ["OPEN", "CLOSE", "NZBP", "OTHER"]
+    colors = ["#2563EB", "#64748B", "#F59E0B", "#94A3B8"]
+    base = alt.Chart(frame).encode(
+        x=alt.X("Interval state:N", title=None, sort=order),
+        y=alt.Y("Top:Q", title="Measured depth (ft)", scale=alt.Scale(reverse=True)),
+        y2="Base:Q",
+        color=alt.Color(
+            "Interval state:N",
+            title="Interval state",
+            scale=alt.Scale(domain=order, range=colors),
+            legend=alt.Legend(orient="top", direction="horizontal"),
+        ),
+        tooltip=[
+            alt.Tooltip("Well:N"),
+            alt.Tooltip("Formation label:N", title="Formation"),
+            alt.Tooltip("Sand label:N", title="Sand"),
+            alt.Tooltip("Top:Q", format=",.1f"),
+            alt.Tooltip("Base:Q", format=",.1f"),
+            alt.Tooltip("Interval state:N", title="State"),
+            alt.Tooltip("QA review:N"),
+            alt.Tooltip("Noted:N"),
+        ],
+    )
+    intervals = base.mark_bar(size=30, cornerRadius=4, opacity=0.86).encode(
+        stroke=alt.condition(
+            alt.datum["QA review"] == "Review",
+            alt.value("#DC2626"),
+            alt.value("#FFFFFF"),
+        ),
+        strokeWidth=alt.condition(
+            alt.datum["QA review"] == "Review", alt.value(2.5), alt.value(0.5)
+        ),
+    )
+    labels = (
         alt.Chart(frame)
-        .mark_bar(size=18, cornerRadius=3)
+        .mark_text(align="left", dx=22, fontSize=11, color="#0F172A")
         .encode(
-            x=alt.X("Formation label:N", title="Formation", sort=None),
-            y=alt.Y(
-                "Top:Q",
-                title="Measured depth (ft)",
-                scale=alt.Scale(reverse=True),
-            ),
-            y2="Base:Q",
-            color=alt.Color(
-                "Source status:N",
-                title="Workbook status",
-                scale=alt.Scale(
-                    domain=["Open", "Closed", "NZBP"],
-                    range=["#34D399", "#94A3B8", "#FBBF24"],
-                ),
-            ),
-            tooltip=[
-                alt.Tooltip("Well:N"),
-                alt.Tooltip("Formation label:N", title="Formation"),
-                alt.Tooltip("Sand:N"),
-                alt.Tooltip("Top:Q", format=",.1f"),
-                alt.Tooltip("Base:Q", format=",.1f"),
-                alt.Tooltip("Source status:N", title="Status"),
-                alt.Tooltip("Noted:N"),
-            ],
+            x=alt.X("Interval state:N", sort=order),
+            y=alt.Y("Mid depth:Q", scale=alt.Scale(reverse=True)),
+            text="Interval label:N",
         )
-        .properties(height=540)
+    )
+    return (
+        (intervals + labels)
+        .properties(
+            height=620,
+            title="Completion-state depth track — labels show formation / sand and MD interval",
+        )
         .interactive()
     )
 
@@ -494,11 +540,7 @@ def selected_record_controls(
         "Canonical well",
         [record.well for record in field_records],
         key="global_well",
-        format_func=lambda value: (
-            f"{value} | "
-            f"{len(next(record for record in field_records if record.well == value).las_files)} logs | "
-            f"{len(next(record for record in field_records if record.well == value).scanned_files)} scans"
-        ),
+        format_func=lambda value: services.display_well_name(value),
     )
     return next(record for record in field_records if record.well == well), field
 
@@ -621,9 +663,11 @@ def render_executive(master: pd.DataFrame, selected_record: logs.WellRecord) -> 
         "Production Uplift Potential",
         "Execution Complexity",
         "Phase 2 Readiness",
+        "Phase 3 Readiness",
         "Opportunity Score",
         "Priority Tier",
         "Phase 2 Candidate",
+        "Phase 3 Gate",
         "Critical Data Gaps",
     ]
     st.subheader("Ranked well portfolio")
@@ -637,6 +681,9 @@ def render_executive(master: pd.DataFrame, selected_record: logs.WellRecord) -> 
                 min_value=0, max_value=100, format="%.1f"
             ),
             "Phase 2 Readiness": st.column_config.ProgressColumn(
+                min_value=0, max_value=100, format="%.1f"
+            ),
+            "Phase 3 Readiness": st.column_config.ProgressColumn(
                 min_value=0, max_value=100, format="%.1f"
             ),
         },
@@ -739,6 +786,9 @@ def render_well_360(master: pd.DataFrame, selected_record: logs.WellRecord) -> N
         ("Production Technology", "Completions / Workover", "Source Evidence")
     )
     evidence = load_raw_evidence(selected_record.well)
+    controlled_evidence = services.selected_controlled_source_evidence(
+        selected_record.well
+    )
     definitions, availability_row, request_row = services.selected_data_request(
         selected_record.well
     )
@@ -931,9 +981,50 @@ def render_well_360(master: pd.DataFrame, selected_record: logs.WellRecord) -> N
         context[2].metric("Active perforation intervals", len(services.active_perforation_intervals(perf)))
 
     with evidence_tab:
-        if evidence.empty:
-            st.info("No source evidence rows found.")
+        if controlled_evidence.empty:
+            st.warning(
+                "No controlled-source evidence row matches this well.",
+                icon=":material/data_alert:",
+            )
         else:
+            with st.container(horizontal=True):
+                st.metric(
+                    "Controlled evidence rows", len(controlled_evidence), border=True
+                )
+                st.metric(
+                    "Controlled sources",
+                    controlled_evidence["Evidence Source"].nunique(),
+                    border=True,
+                )
+                st.metric(
+                    "Availability / request rows",
+                    int(
+                        controlled_evidence["Evidence Source"]
+                        .isin(["Data availability", "Data request"])
+                        .sum()
+                    ),
+                    border=True,
+                )
+            st.dataframe(
+                controlled_evidence,
+                hide_index=True,
+                width="stretch",
+                height=560,
+                column_config={
+                    "Evidence Source": st.column_config.TextColumn(pinned=True),
+                    "Evidence Type": st.column_config.TextColumn(pinned=True),
+                },
+            )
+        with st.expander(
+            f"Local normalized evidence cache ({len(evidence)} rows)",
+            expanded=False,
+        ):
+            if evidence.empty:
+                st.caption(
+                    "The local raw cache is not packaged in cloud mode; the controlled "
+                    "workbook evidence above remains available online."
+                )
+                return
             evidence_columns = [
                 "File Name",
                 "Source Category",
@@ -1049,6 +1140,9 @@ def render_coordinates_and_requests(
             "Canonical match",
             "Workbook only",
         )
+        coordinate_workspace["Display Source Well"] = coordinate_workspace[
+            "Source Well"
+        ].map(services.display_well_name)
 
         screening_register, _, _, _ = services.load_screening_matrix_tables()
         screening_xy: dict[tuple[str, int], dict[str, Any]] = {}
@@ -1108,7 +1202,7 @@ def render_coordinates_and_requests(
         if not workbook_only.empty:
             st.info(
                 "Workbook-only coordinate coverage is preserved for audit: "
-                f"{', '.join(workbook_only.astype(str))}. It is not silently assigned "
+                f"{', '.join(workbook_only.map(services.display_well_name))}. It is not silently assigned "
                 "to another canonical well.",
                 icon=":material/info:",
             )
@@ -1170,7 +1264,7 @@ def render_coordinates_and_requests(
             map_rows["Display Well"] = np.where(
                 map_rows["Canonical Well"].astype(str).str.strip().ne(""),
                 map_rows["Canonical Well"],
-                map_rows["Source Well"],
+                map_rows["Display Source Well"],
             )
             map_rows["Selection"] = np.where(
                 map_rows["Canonical Well"].map(services.normalize_well)
@@ -1258,6 +1352,7 @@ def render_coordinates_and_requests(
                     coordinate_workspace,
                     [
                         "Source Well",
+                        "Display Source Well",
                         "Canonical Well",
                         "Canonical Field",
                         "Coverage",
@@ -1342,7 +1437,9 @@ def render_coordinates_and_requests(
         overview[3].metric("Request categories", len(request_columns), border=True)
         if (~matched_rows).any():
             workbook_only = ", ".join(
-                all_availability.loc[~matched_rows, "Well Name"].astype(str)
+                all_availability.loc[~matched_rows, "Well Name"].map(
+                    services.display_well_name
+                )
             )
             st.info(
                 f"Workbook-only coverage is preserved for audit: {workbook_only}. "
@@ -1414,10 +1511,14 @@ def render_coordinates_and_requests(
             )
 
     with request_tab:
-        source_caption(services.DATA_REQUEST_WORKBOOK, "A.Data Available&B.Data Request")
+        source_caption(
+            services.DATA_AVAILABILITY_WORKBOOK,
+            "Data_Availability_Matrix + Data_Package_Index",
+        )
         st.caption(
-            "Request actions remain sourced from the existing request register; "
-            "availability status is sourced only from 001_Rokan Block Data Availability Final.xlsx."
+            "Request actions are synchronized with the controlled availability result: "
+            "Available packages are validated, partial packages are completed and "
+            "reconciled, and missing packages are requested before the next gate."
         )
         selected_request = request_row_to_long(
             request_row, definitions, "Request Action"
@@ -1428,7 +1529,7 @@ def render_coordinates_and_requests(
             actionable = selected_request.loc[
                 ~selected_request["Request Action"].fillna("").astype(str).isin(["", "—"])
             ]
-            st.metric("Open request packages", len(actionable))
+            st.metric("Request actions", len(actionable), border=True)
             st.dataframe(
                 selected_request,
                 hide_index=True,
@@ -1461,65 +1562,161 @@ def render_coordinates_and_requests(
 
 def load_selected_log(
     selected_record: logs.WellRecord,
-) -> tuple[logs.LoadedLog, pd.DataFrame, str, str, str, Path | None] | None:
+) -> tuple[
+    logs.LoadedLog,
+    pd.DataFrame,
+    str,
+    str,
+    str,
+    Path | None,
+    pd.DataFrame,
+    pd.DataFrame,
+    list[str],
+] | None:
     digitized = services.collect_digitized_las(selected_record.field, selected_record.well)
     source_options = (
         ("Upload log",)
         if services.ONLINE_MODE
         else ("Canonical inventory", "Dashboard digitization output", "Upload log")
     )
-    source_mode = st.radio(
+    source_mode = st.segmented_control(
         "Log source",
         source_options,
-        horizontal=True,
+        default=source_options[0],
     )
-    selected_path: Path | None = None
-    uploaded = None
+    if source_mode is None:
+        return None
+    selected_sources: list[tuple[str, Path | Any]] = []
     if source_mode == "Canonical inventory":
         if not selected_record.las_files:
             st.warning("This canonical well has no LAS, DLIS, or LIS file.")
             return None
-        selected_path = st.selectbox(
-            "Log file",
+        selected_paths = st.multiselect(
+            "Log runs for this evaluation",
             selected_record.las_files,
+            default=[selected_record.las_files[0]],
             format_func=lambda path: f"{path.name} ({path.stat().st_size / 1024 / 1024:.1f} MB)",
         )
+        selected_sources = [(path.name, path) for path in selected_paths]
     elif source_mode == "Dashboard digitization output":
         if not digitized:
             st.warning("No digitized LAS output exists for this selected well.")
             return None
-        selected_path = st.selectbox(
-            "Digitized LAS file", digitized, format_func=lambda path: path.name
+        selected_paths = st.multiselect(
+            "Digitized log runs for this evaluation",
+            digitized,
+            default=[digitized[0]],
+            format_func=lambda path: path.name,
         )
+        selected_sources = [(path.name, path) for path in selected_paths]
     else:
-        uploaded = st.file_uploader("Upload log", type=["las", "dlis", "lis"])
-        if uploaded is None:
-            st.info("Upload a LAS, DLIS, or LIS file to begin.")
-            return None
-    try:
-        loaded_log = logs.read_log(
-            selected_path if selected_path else uploaded.getvalue(),
-            "" if selected_path else uploaded.name,
+        uploaded_files = st.file_uploader(
+            "Upload one or more log runs for the same well",
+            type=["las", "dlis", "lis"],
+            accept_multiple_files=True,
+            help=(
+                "Choose all LAS, DLIS, and LIS runs that belong to this evaluation. "
+                "Each file is parsed and validated independently before merging."
+            ),
         )
-        raw = loaded_log.data
+        if not uploaded_files:
+            st.info("Upload one or more LAS, DLIS, or LIS files to begin.")
+            return None
+        selected_sources = [(uploaded.name, uploaded) for uploaded in uploaded_files]
+    if not selected_sources:
+        st.info("Select at least one log run for the evaluation.")
+        return None
+
+    parsed_runs: list[tuple[str, logs.LoadedLog, Path | None]] = []
+    failures: list[dict[str, Any]] = []
+    for source_name, source in selected_sources:
+        try:
+            source_path = source if isinstance(source, Path) else None
+            loaded = logs.read_log(
+                source_path if source_path else source.getvalue(),
+                "" if source_path else source_name,
+            )
+            if loaded.data.empty:
+                raise ValueError("no readable curve samples")
+            parsed_runs.append((source_name, loaded, source_path))
+        except Exception as exc:
+            failures.append(
+                {
+                    "Source File": source_name,
+                    "Parse Status": "FAILED",
+                    "Issue": str(exc),
+                }
+            )
+    if not parsed_runs:
+        st.error("None of the selected files could be parsed into a depth-indexed log.")
+        if failures:
+            st.dataframe(pd.DataFrame(failures), hide_index=True, width="stretch")
+        return None
+    reference_name = st.selectbox(
+        "Reference depth run",
+        [name for name, _, _ in parsed_runs],
+        help=(
+            "All secondary curves are aligned to this run's depth grid. No extrapolation "
+            "is performed and large source gaps remain null."
+        ),
+    )
+    ordered_runs = sorted(parsed_runs, key=lambda item: item[0] != reference_name)
+    with st.expander("Multi-run alignment controls", expanded=len(parsed_runs) > 1):
+        alignment_controls = st.columns(2)
+        maximum_shift = alignment_controls[0].number_input(
+            "Maximum GR depth shift",
+            min_value=1.0,
+            value=50.0,
+            step=5.0,
+            key=f"multi_max_shift_{selected_record.well}",
+        )
+        shift_step = alignment_controls[1].number_input(
+            "GR shift search step",
+            min_value=0.1,
+            value=0.5,
+            step=0.1,
+            key=f"multi_shift_step_{selected_record.well}",
+        )
+    try:
+        loaded_log, manifest, curve_provenance = logs.merge_loaded_logs(
+            [(name, loaded) for name, loaded, _ in ordered_runs],
+            maximum_gr_shift=float(maximum_shift),
+            shift_step=float(shift_step),
+        )
     except Exception as exc:
-        st.error(f"Log loading failed: {exc}")
+        st.error(f"Multi-run alignment failed: {exc}")
         return None
-    if raw.empty:
-        st.error("The selected log contains no readable curve samples.")
-        return None
+    if failures:
+        manifest = pd.concat(
+            (manifest, pd.DataFrame(failures)), ignore_index=True, sort=False
+        )
+    raw = loaded_log.data
+    reference_path = next(
+        (path for name, _, path in ordered_runs if name == reference_name), None
+    )
     well_name = (
         selected_record.well
-        if selected_path
-        else loaded_log.well or uploaded.name
+        if source_mode != "Upload log"
+        else loaded_log.well or selected_record.well
     )
     field_name = (
         selected_record.field
-        if selected_path
+        if source_mode != "Upload log"
         else loaded_log.field or "Zona Rokan"
     )
     depth_unit = loaded_log.depth_unit
-    return loaded_log, raw, field_name, well_name, depth_unit, selected_path
+    source_names = [name for name, _, _ in ordered_runs]
+    return (
+        loaded_log,
+        raw,
+        field_name,
+        well_name,
+        depth_unit,
+        reference_path,
+        manifest,
+        curve_provenance,
+        source_names,
+    )
 
 
 def render_las_and_nzbp(
@@ -1544,7 +1741,17 @@ def render_las_and_nzbp(
     loaded = load_selected_log(selected_record)
     if loaded is None:
         return
-    loaded_log, raw, field_name, well_name, depth_unit, selected_path = loaded
+    (
+        loaded_log,
+        raw,
+        field_name,
+        well_name,
+        depth_unit,
+        selected_path,
+        source_manifest,
+        curve_provenance,
+        source_names,
+    ) = loaded
     autonomous = st.toggle(
         "Autonomous Formation Evaluation",
         value=True,
@@ -1558,77 +1765,6 @@ def render_las_and_nzbp(
     casing = schematic_source.get("casing", pd.DataFrame()).copy()
     sands = schematic_source.get("intervals", pd.DataFrame()).copy()
 
-    shift_rows: list[dict[str, Any]] = []
-    if selected_path is not None and len(selected_record.las_files) > 1:
-        with st.expander("Data conditioning - depth shift, splice, and merge", expanded=False):
-            other_runs = [
-                path for path in selected_record.las_files if path != selected_path
-            ]
-            selected_runs = st.multiselect(
-                "Additional LAS runs to align and splice",
-                other_runs,
-                default=other_runs if autonomous else [],
-                format_func=lambda path: path.name,
-            )
-            shift_controls = st.columns(2)
-            maximum_shift = shift_controls[0].number_input(
-                "Maximum GR depth shift",
-                min_value=1.0,
-                value=50.0,
-                step=5.0,
-            )
-            shift_step = shift_controls[1].number_input(
-                "Shift search step",
-                min_value=0.1,
-                value=0.5,
-                step=0.1,
-            )
-            reference_map = logs.auto_curve_map(raw)
-            reference_gr_name = reference_map.get("Gamma Ray")
-            moving_runs: list[tuple[pd.DataFrame, float]] = []
-            for path in selected_runs:
-                try:
-                    moving = load_log_path(str(path))
-                    moving_map = logs.auto_curve_map(moving)
-                    moving_gr_name = moving_map.get("Gamma Ray")
-                    if reference_gr_name and moving_gr_name:
-                        shift, correlation = logs.estimate_gr_depth_shift(
-                            raw[reference_gr_name],
-                            moving[moving_gr_name],
-                            max_shift=float(maximum_shift),
-                            shift_step=float(shift_step),
-                        )
-                    else:
-                        shift, correlation = 0.0, np.nan
-                    moving_runs.append((moving, shift))
-                    shift_rows.append(
-                        {
-                            "Run": path.name,
-                            "GR depth correction": shift,
-                            "GR correlation": correlation,
-                            "Samples": len(moving),
-                            "Status": (
-                                "ALIGNED BY GR"
-                                if np.isfinite(correlation)
-                                else "MERGED WITHOUT GR SHIFT"
-                            ),
-                        }
-                    )
-                except Exception as exc:
-                    shift_rows.append(
-                        {
-                            "Run": path.name,
-                            "GR depth correction": np.nan,
-                            "GR correlation": np.nan,
-                            "Samples": 0,
-                            "Status": f"FAILED: {exc}",
-                        }
-                    )
-            if moving_runs:
-                raw = logs.merge_shifted_runs(raw, moving_runs)
-            if shift_rows:
-                st.dataframe(pd.DataFrame(shift_rows), hide_index=True, width="stretch")
-
     auto_map = logs.auto_curve_map(raw)
 
     summary_metrics = st.columns(6)
@@ -1638,6 +1774,27 @@ def render_las_and_nzbp(
     summary_metrics[3].metric("Base MD", logs.format_number(float(raw.index.max())))
     summary_metrics[4].metric("Source type", loaded_log.source_type)
     summary_metrics[5].metric("Depth unit", depth_unit or "Source units")
+
+    with st.expander("File validation and curve provenance", expanded=True):
+        st.dataframe(
+            source_manifest,
+            hide_index=True,
+            width="stretch",
+            column_config={
+                "Valid Cell Coverage (%)": st.column_config.ProgressColumn(
+                    "Valid-cell coverage",
+                    min_value=0,
+                    max_value=100,
+                    format="%.1f%%",
+                )
+            },
+        )
+        st.dataframe(
+            curve_provenance,
+            hide_index=True,
+            width="stretch",
+            height=300,
+        )
 
     with st.expander("Curve mapping", expanded=False):
         options = ["-- Not available --", *raw.columns.tolist()]
@@ -1653,6 +1810,43 @@ def render_las_and_nzbp(
                 key=f"las_map_{selected_record.well}_{role}",
             )
             mapping[role] = None if selected == options[0] else selected
+
+    provenance_lookup = (
+        curve_provenance.set_index("Merged Mnemonic").to_dict("index")
+        if not curve_provenance.empty
+        else {}
+    )
+    mapping_audit = pd.DataFrame(
+        [
+            {
+                "Petrophysical Role": role,
+                "Mapped Curve": mnemonic or "Not available",
+                "Unit": loaded_log.curve_unit(mnemonic),
+                "Source File": provenance_lookup.get(mnemonic, {}).get(
+                    "Source File", ""
+                ),
+            }
+            for role, mnemonic in mapping.items()
+        ]
+    )
+    basis_checks = {
+        "Vsh basis": bool(mapping.get("Gamma Ray") or mapping.get("Interpreted Vsh")),
+        "Porosity basis": bool(
+            mapping.get("Density") or mapping.get("Interpreted Porosity")
+        ),
+        "Water-saturation basis": bool(
+            mapping.get("Deep Resistivity") or mapping.get("Water Saturation")
+        ),
+    }
+    if not all(basis_checks.values()):
+        st.error(
+            "Formation evaluation is blocked until Vsh, porosity, and water-saturation "
+            "bases are mapped. Missing: "
+            + ", ".join(name for name, ready in basis_checks.items() if not ready),
+            icon=":material/error:",
+        )
+        st.dataframe(mapping_audit, hide_index=True, width="stretch")
+        return
 
     def series(role: str) -> pd.Series:
         mnemonic = mapping[role]
@@ -1886,6 +2080,35 @@ def render_las_and_nzbp(
     manual_permeability_cutoff = settings_right.number_input(
         "Minimum permeability (mD)", min_value=0.0, value=1.0, step=0.5
     )
+    lumping_controls = st.columns(2)
+    minimum_pay_thickness = lumping_controls[0].number_input(
+        "Minimum pay-lump thickness",
+        min_value=0.1,
+        value=1.0,
+        step=0.5,
+        help="Net groups thinner than this measured-depth thickness are excluded.",
+    )
+    gap_tolerance_samples = lumping_controls[1].number_input(
+        "Maximum lumping gap (samples)",
+        min_value=1.0,
+        max_value=10.0,
+        value=1.75,
+        step=0.25,
+        help="A larger missing-depth gap starts a new lump; null/non-net samples are never bridged.",
+    )
+
+    if clean_gr >= shale_gr:
+        st.error(
+            "Clean GR must be lower than shale GR before Vsh can be calculated.",
+            icon=":material/error:",
+        )
+        return
+    if matrix_density <= fluid_density:
+        st.error(
+            "Matrix density must be greater than fluid density for density porosity.",
+            icon=":material/error:",
+        )
+        return
 
     preview_vsh = logs.calculate_vsh(gr, clean_gr, shale_gr, vsh_method)
     preview_phi_density = logs.density_porosity(
@@ -2139,10 +2362,12 @@ def render_las_and_nzbp(
     interval["RESERVOIR_FLAG"] = reservoir_flag.fillna(False)
     core_validation, core_metrics = logs.validate_core_measurements(core_source, interval)
 
+    sample_thickness = logs.estimate_sample_thickness(interval.index)
     lumps = logs.lump_net_intervals(
         interval,
         interval["RESERVOIR_FLAG"],
-        minimum_thickness=1.0,
+        minimum_thickness=float(minimum_pay_thickness),
+        gap_tolerance=float(sample_thickness * gap_tolerance_samples),
     )
     candidates = services.find_nzbp_candidates(
         interval,
@@ -2151,10 +2376,52 @@ def render_las_and_nzbp(
         minimum_nzbp,
         bool(has_perforation_intervals),
     )
-    sample_thickness = logs.estimate_sample_thickness(interval.index)
     gross = max(float(interval.index.max() - interval.index.min()), 0.0)
     net = float(interval["RESERVOIR_FLAG"].sum()) * sample_thickness
     ntg = net / gross if gross else np.nan
+    complete_interpretation_samples = int(
+        interval[["VSH", "PHIE", "SW", "PERM_MD"]].notna().all(axis=1).sum()
+    )
+    validation_checks = pd.DataFrame(
+        [
+            (
+                "Source files parsed",
+                bool(source_manifest.get("Parse Status", pd.Series(dtype=str)).eq("READY").any()),
+                f"{len(source_names)} selected; "
+                f"{int(source_manifest.get('Parse Status', pd.Series(dtype=str)).eq('FAILED').sum())} failed",
+            ),
+            (
+                "Reference depth grid",
+                bool(interval.index.is_monotonic_increasing and sample_thickness > 0),
+                f"Median step {sample_thickness:g} {depth_unit or 'source units'}",
+            ),
+            (
+                "Critical curve bases",
+                all(basis_checks.values()),
+                ", ".join(name for name, ready in basis_checks.items() if ready),
+            ),
+            (
+                "Complete interpretation samples",
+                complete_interpretation_samples >= 10,
+                f"{complete_interpretation_samples:,} samples have Vsh, PhiE, Sw, and permeability",
+            ),
+            (
+                "Cutoff bounds",
+                0 <= vsh_cutoff <= 1
+                and 0 <= phi_cutoff <= 0.6
+                and 0 <= sw_cutoff <= 1
+                and permeability_cutoff >= 0,
+                f"Vsh≤{vsh_cutoff:.2f}; PhiE≥{phi_cutoff:.2f}; Sw≤{sw_cutoff:.2f}; K≥{permeability_cutoff:g}",
+            ),
+            (
+                "Lumping controls",
+                minimum_pay_thickness > 0 and gap_tolerance_samples >= 1,
+                f"Minimum {minimum_pay_thickness:g}; gap {gap_tolerance_samples:g} samples",
+            ),
+        ],
+        columns=["Validation Check", "Pass", "Evidence"],
+    )
+    evaluation_ready = bool(validation_checks["Pass"].all())
 
     core_files = services.supporting_files(selected_record, "core")
     fluid_files = services.supporting_files(selected_record, "fluid")
@@ -2266,7 +2533,7 @@ def render_las_and_nzbp(
     )
     with tabs[0]:
         conditioning_metrics = st.columns(5)
-        conditioning_metrics[0].metric("Merged runs", 1 + len(shift_rows))
+        conditioning_metrics[0].metric("Evaluation runs", len(source_names))
         conditioning_metrics[1].metric(
             "Unrealistic samples removed", int(interval["UNREALISTIC_REMOVED"].sum())
         )
@@ -2280,7 +2547,11 @@ def render_las_and_nzbp(
         st.dataframe(
             pd.DataFrame(
                 [
-                    ("Depth matching", "Gamma-ray cross-correlation", len(shift_rows)),
+                    (
+                        "Depth matching",
+                        "Reference-grid resampling with GR cross-correlation and no extrapolation",
+                        len(source_names),
+                    ),
                     ("Splicing", "Reference-first combine across aligned runs", len(raw)),
                     ("Badhole", "CALI > bit size + tolerance or |DRHO| > 0.15", int(qc["BADHOLE_FLAG"].sum())),
                     ("Coal", "Low RHOB and high NPHI configurable flag", int(coal_flag.sum())),
@@ -2296,8 +2567,8 @@ def render_las_and_nzbp(
             hide_index=True,
             width="stretch",
         )
-        if shift_rows:
-            st.dataframe(pd.DataFrame(shift_rows), hide_index=True, width="stretch")
+        if not source_manifest.empty:
+            st.dataframe(source_manifest, hide_index=True, width="stretch")
 
     with tabs[1]:
         try:
@@ -2335,6 +2606,24 @@ def render_las_and_nzbp(
         )
 
     with tabs[2]:
+        if evaluation_ready:
+            st.success(
+                "Validation gate passed for interpretation and export.",
+                icon=":material/check_circle:",
+            )
+        else:
+            st.error(
+                "Validation gate requires review before the result is used for a decision.",
+                icon=":material/error:",
+            )
+        st.dataframe(
+            validation_checks,
+            hide_index=True,
+            width="stretch",
+            column_config={"Pass": st.column_config.CheckboxColumn("Pass")},
+        )
+        st.subheader("Curve mapping and provenance")
+        st.dataframe(mapping_audit, hide_index=True, width="stretch")
         st.pyplot(logs.make_validation_dashboard(interval), width="stretch")
         crossplot = logs.make_crossplot(interval)
         pickett = logs.make_pickett_plot(interval, float(archie_a), float(archie_m))
@@ -2539,7 +2828,7 @@ def render_las_and_nzbp(
                 ("Porosity", "Density + neutron-constrained bound water", f"rho_ma={matrix_density:.3f}; rho_fl={fluid_density:.3f}"),
                 ("Permeability", "Timur-Coates proxy", f"A={perm_coefficient:g}; B={perm_phi_exp:.2f}; C={perm_ratio_exp:.2f}; Swirr={swirr_floor:.2f}"),
                 ("Water saturation", "Modified Simandoux", f"Rw={rw:.4f}; Rsh={rsh:.2f}; a={archie_a:.2f}; m={archie_m:.2f}; n={archie_n:.2f}"),
-                ("Net pay", "Vsh + PhiE + Sw + permeability + environmental QC", f"Vsh<={vsh_cutoff:.2f}; PhiE>={phi_cutoff:.2f}; Sw<={sw_cutoff:.2f}; K>={permeability_cutoff:g}"),
+                ("Net pay", "Vsh + PhiE + Sw + permeability + environmental QC", f"Vsh<={vsh_cutoff:.2f}; PhiE>={phi_cutoff:.2f}; Sw<={sw_cutoff:.2f}; K>={permeability_cutoff:g}; min lump={minimum_pay_thickness:g}; gap={gap_tolerance_samples:g} samples"),
             ],
             columns=["Calculation", "Method", "Inputs"],
         )
@@ -2547,7 +2836,11 @@ def render_las_and_nzbp(
             {
                 "Computed logs": export,
                 "Net lumps": lumps,
-                "Run alignment": pd.DataFrame(shift_rows),
+                "Source files": source_manifest,
+                "Curve provenance": curve_provenance,
+                "Curve mapping": mapping_audit,
+                "Validation checks": validation_checks,
+                "Run alignment": source_manifest,
                 "Water zones": rw_intervals,
                 "Evidence": evidence,
                 "Core validation": core_validation,
@@ -2593,12 +2886,15 @@ def render_las_and_nzbp(
                     {
                         "field": field_name,
                         "well": well_name,
-                        "source_log": str(selected_path or "uploaded"),
+                        "source_logs": source_names,
                         "tvd": tvd_metadata,
                         "matrix_basis": mineral_basis,
                         "matrix_density": matrix_density,
                         "rw": rw,
                         "cutoffs": applied_cutoffs,
+                        "minimum_pay_thickness": minimum_pay_thickness,
+                        "gap_tolerance_samples": gap_tolerance_samples,
+                        "validation_ready": evaluation_ready,
                     },
                     indent=2,
                     default=str,
@@ -3055,10 +3351,25 @@ def render_schematic(selected_record: logs.WellRecord) -> None:
     metrics[2].metric("Casing rows", len(casing), border=True)
     metrics[3].metric("Completion intervals", len(intervals), border=True)
 
+    sheet_render_bytes = payload.get("sheet_render_bytes", b"")
+    with st.container(border=True):
+        st.subheader("Workbook schematic — source-faithful view")
+        if sheet_render_bytes:
+            st.image(
+                sheet_render_bytes,
+                caption=f"Worksheet {payload.get('sheet_name')} rendered from well schematic Rokan.xlsx",
+                width="stretch",
+            )
+        else:
+            st.info(
+                "The worksheet render is not packaged yet; the structured engineering "
+                "view below remains sourced from the same casing and interval cells."
+            )
+
     diagram_column, image_column = st.columns([1.65, 1])
     with diagram_column:
         with st.container(border=True):
-            st.subheader("Measured-depth completion schematic")
+            st.subheader("Measured-depth engineering view")
             figure = make_workbook_schematic_figure(
                 selected_record.well,
                 str(payload.get("orientation", "")),
@@ -3069,7 +3380,7 @@ def render_schematic(selected_record: logs.WellRecord) -> None:
             plt.close(figure)
     with image_column:
         with st.container(border=True):
-            st.subheader("Embedded workbook image")
+            st.subheader("Workbook wellhead image")
             image_bytes = payload.get("image_bytes", b"")
             if image_bytes:
                 st.image(
@@ -3083,9 +3394,9 @@ def render_schematic(selected_record: logs.WellRecord) -> None:
             else:
                 st.info("No supported embedded image was found on this worksheet.")
             st.caption(
-                "The engineering schematic is plotted from workbook casing depths and "
-                "completion intervals. The embedded source image is shown separately so "
-                "worksheet graphics are not mistaken for depth-scaled geometry."
+                "This is the worksheet's embedded equipment image. The source-faithful "
+                "worksheet render above preserves the Excel well diagram, while the "
+                "engineering view plots measured-depth evidence."
             )
 
     trajectory_evidence = services.selected_trajectory_evidence(selected_record)
@@ -3110,7 +3421,16 @@ def render_schematic(selected_record: logs.WellRecord) -> None:
             st.info("No casing row was parsed from the selected worksheet.")
         else:
             st.dataframe(
-                services.clean_display_frame(casing),
+                safe_columns(
+                    services.clean_display_frame(casing),
+                    [
+                        "Hole Details",
+                        "Casing",
+                        "Casing Depth (MD)",
+                        "Casing Depth (TVD)",
+                        "Source Row",
+                    ],
+                ),
                 hide_index=True,
                 width="stretch",
                 height=470,
@@ -3127,7 +3447,18 @@ def render_schematic(selected_record: logs.WellRecord) -> None:
             st.info("No completion interval was parsed from the selected worksheet.")
         else:
             st.dataframe(
-                services.clean_display_frame(intervals),
+                safe_columns(
+                    services.clean_display_frame(intervals),
+                    [
+                        "Formation",
+                        "Sand",
+                        "Interval",
+                        "Top (ft)",
+                        "Base (ft)",
+                        "Status",
+                        "Source Row",
+                    ],
+                ),
                 hide_index=True,
                 width="stretch",
                 height=470,
@@ -3430,6 +3761,7 @@ def render_screening_matrix(
             icon=":material/error:",
         )
         return
+    register = services.reconcile_screening_coordinates(register)
 
     canonical_lookup: dict[tuple[str, int], tuple[str, str]] = {}
     for _, master_row in master.iterrows():
@@ -3464,7 +3796,7 @@ def render_screening_matrix(
     matrix["Display Well"] = np.where(
         matrix["Canonical Well"].astype(str).str.strip().ne(""),
         matrix["Canonical Well"],
-        matrix["Well Name"],
+        matrix["Well Name"].map(services.display_well_name),
     )
     ko_columns = ["HSE KO", "Integrity KO", "Facility KO"]
     matrix["Knockout Status"] = np.where(
@@ -3503,11 +3835,20 @@ def render_screening_matrix(
             int(matrix["Tier"].isin(["Excluded", "Defer / Abandon"]).sum()),
             border=True,
         )
+        st.metric(
+            "X/Y gaps filled",
+            int(
+                matrix["Coordinate Reconciliation"].eq(
+                    "Filled from controlled 47n.csv"
+                ).sum()
+            ),
+            border=True,
+        )
 
     if not workbook_only.empty:
         st.info(
             "Workbook-only coverage is preserved for audit: "
-            f"{', '.join(workbook_only.astype(str))}. It is not silently assigned to a "
+            f"{', '.join(workbook_only.map(services.display_well_name))}. It is not silently assigned to a "
             "different canonical folder.",
             icon=":material/info:",
         )
@@ -3861,13 +4202,24 @@ def render_readiness(master: pd.DataFrame, selected_record: logs.WellRecord) -> 
     detailed_events, _ = services.selected_schematic_detail(selected_record.well)
     related_detail = services.perforation_related_events(detailed_events)
     evidence = load_raw_evidence(selected_record.well)
+    controlled_evidence = services.selected_controlled_source_evidence(
+        selected_record.well
+    )
+
+    def status_has_evidence(code: str) -> bool:
+        return str(row.get(f"{code} Status", "")).strip().upper() in {
+            "AVAILABLE",
+            "PARTIAL: NOT COMPREHENSIVE",
+        }
 
     production_requirements = [
         (
             "Production history and latest test",
             *requirement_status(
-                integer_value(row.get("Production Files")) > 0,
-                f"{integer_value(row.get('Production Files'))} production workbook(s)",
+                integer_value(row.get("Production Files")) > 0
+                or status_has_evidence("REQ-03"),
+                f"REQ-03 {format_value(row.get('REQ-03 Status'))}; "
+                f"{integer_value(row.get('Production Files'))} local workbook(s)",
             ),
         ),
         (
@@ -3880,8 +4232,9 @@ def render_readiness(master: pd.DataFrame, selected_record: logs.WellRecord) -> 
         (
             "Well integrity status",
             *requirement_status(
-                format_value(row.get("Integrity Status")) != "N/A",
-                format_value(row.get("Integrity Status")),
+                format_value(row.get("Integrity Status")) != "N/A"
+                or status_has_evidence("REQ-13"),
+                f"{format_value(row.get('Integrity Status'))}; REQ-13 {format_value(row.get('REQ-13 Status'))}",
             ),
         ),
         (
@@ -3894,14 +4247,16 @@ def render_readiness(master: pd.DataFrame, selected_record: logs.WellRecord) -> 
         (
             "Open/cased-hole logs for bypassed zone review",
             *requirement_status(
-                integer_value(row.get("LAS Files")) > 0,
-                f"{integer_value(row.get('LAS Files'))} LAS file(s)",
+                integer_value(row.get("LAS Files")) > 0
+                or status_has_evidence("REQ-09"),
+                f"{integer_value(row.get('LAS Files'))} indexed log file(s); REQ-09 {format_value(row.get('REQ-09 Status'))}",
             ),
         ),
         (
             "Facility and access context",
             *requirement_status(
-                format_value(row.get("Existing Facility")) != "N/A",
+                format_value(row.get("Existing Facility")) != "N/A"
+                or status_has_evidence("REQ-16"),
                 f"{format_value(row.get('Existing Facility'))}; {format_value(row.get('Location Access'))}",
             ),
         ),
@@ -3918,7 +4273,8 @@ def render_readiness(master: pd.DataFrame, selected_record: logs.WellRecord) -> 
             "Tubing/casing/completion configuration",
             *requirement_status(
                 integer_value(row.get("Casing Strings")) > 0
-                or format_value(row.get("Completion Type")) != "N/A",
+                or format_value(row.get("Completion Type")) != "N/A"
+                or status_has_evidence("REQ-06"),
                 f"{integer_value(row.get('Casing Strings'))} casing string(s); "
                 f"{format_value(row.get('Completion Type'))}",
             ),
@@ -3934,48 +4290,52 @@ def render_readiness(master: pd.DataFrame, selected_record: logs.WellRecord) -> 
         (
             "Workover/intervention evidence",
             *requirement_status(
-                not evidence.empty
-                and evidence.get("Operation Summary", pd.Series(dtype=object))
-                .fillna("")
-                .astype(str)
-                .str.len()
-                .gt(0)
-                .any(),
-                f"{len(evidence)} normalized evidence row(s)",
+                not controlled_evidence.empty,
+                f"{len(controlled_evidence)} controlled evidence row(s); "
+                f"{len(evidence)} local normalized row(s)",
             ),
         ),
         (
             "Integrity documentation",
             *requirement_status(
-                format_value(row.get("Integrity Status")) != "N/A",
+                format_value(row.get("Integrity Status")) != "N/A"
+                or status_has_evidence("REQ-13"),
                 format_value(row.get("Integrity Status")),
             ),
         ),
         (
             "Operational feasibility context",
             *requirement_status(
-                format_value(row.get("Location Access")) != "N/A"
-                and format_value(row.get("Existing Facility")) != "N/A",
+                (
+                    format_value(row.get("Location Access")) != "N/A"
+                    and format_value(row.get("Existing Facility")) != "N/A"
+                )
+                or status_has_evidence("REQ-16"),
                 f"{format_value(row.get('Location Access'))}; "
                 f"{format_value(row.get('Existing Facility'))}",
             ),
         ),
     ]
 
-    metrics = st.columns(5)
+    metrics = st.columns(4)
     metrics[0].metric(
         "Phase 2 readiness", format_value(row.get("Phase 2 Readiness"), "%")
     )
     metrics[1].metric(
-        "Technical viability", format_value(row.get("Technical Viability"))
+        "Phase 3 readiness", format_value(row.get("Phase 3 Readiness"), "%")
     )
     metrics[2].metric(
-        "Uplift potential", format_value(row.get("Production Uplift Potential"))
+        "Technical viability", format_value(row.get("Technical Viability"))
     )
     metrics[3].metric(
+        "Uplift potential", format_value(row.get("Production Uplift Potential"))
+    )
+    metrics = st.columns(3)
+    metrics[0].metric(
         "Execution complexity", format_value(row.get("Execution Complexity"))
     )
-    metrics[4].metric("Screening tier", format_value(row.get("Priority Tier")))
+    metrics[1].metric("Screening tier", format_value(row.get("Priority Tier")))
+    metrics[2].metric("Phase 3 gate", format_value(row.get("Phase 3 Gate")))
 
     left, right = st.columns(2)
     with left:
@@ -4014,19 +4374,23 @@ def render_readiness(master: pd.DataFrame, selected_record: logs.WellRecord) -> 
                 "Phase 2 - Engineering pre-screen",
                 "CT reachability, zonal isolation feasibility, fluid compatibility, "
                 "cement/integrity confidence, and intervention category.",
-                "ENGINEERING INPUT REQUIRED",
+                row.get("Phase 3 Gate")
+                if row.get("Phase 2 Candidate") == "READY FOR REVIEW"
+                else "COMPLETE PHASE 2 EVIDENCE",
             ),
             (
                 "Phase 3 - Design engineering",
                 "Per-well objective, methodology, tool string, pressure/fluid models, "
                 "execution sequence, HSE controls, costs, and uplift forecast.",
-                "AFTER CANDIDATE APPROVAL",
+                row.get("Phase 3 Gate"),
             ),
             (
                 "Phase 3 - Execution readiness",
                 "Rig/rigless plan, equipment, personnel, consumables, PSL services, "
                 "schedule, logistics, QA/QC, SIMOPS, and risk assessment.",
-                "AFTER DESIGN ACCEPTANCE",
+                "AFTER ENGINEERING BASIS ACCEPTANCE"
+                if row.get("Phase 3 Gate") == "ENGINEERING BASIS REVIEW"
+                else "INPUTS REQUIRED",
             ),
         ],
         columns=["Stage", "Dashboard decision support", "Current gate"],
@@ -4080,8 +4444,6 @@ def main() -> None:
     selected_record, _ = selected_record_controls(inventory)
     with st.sidebar:
         st.metric("Canonical wells", len(inventory), border=True)
-        st.metric("Selected logs", len(selected_record.las_files), border=True)
-        st.metric("Selected scans", len(selected_record.scanned_files), border=True)
         if services.ONLINE_MODE:
             st.caption(
                 "Cloud mode uses packaged, read-only controlled sources. Uploaded "

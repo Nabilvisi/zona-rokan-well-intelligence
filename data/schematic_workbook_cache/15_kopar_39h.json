@@ -2,6 +2,7 @@
   "sheet_name": "Kopar 39H  ",
   "orientation": "H",
   "image_format": "png",
+  "sheet_render_file": "15_kopar_39h_sheet.png",
   "casing": [
     {
       "Hole Details": "20\"",
@@ -68,9 +69,9 @@
       "Interval": "4920-4927 ft MD",
       "Top (ft)": 4920.0,
       "Base (ft)": 4927.0,
-      "Status": "",
+      "Status": "12.25",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Menggala",
+      "Temuan": "Menggala 12.25",
       "Depth (feet)": "4920-4927 ft MD",
       "Source Row": 27
     },

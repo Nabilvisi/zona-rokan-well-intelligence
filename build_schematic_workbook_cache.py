@@ -78,7 +78,10 @@ def parse_sheet(worksheet: Any) -> tuple[list[dict[str, object]], list[dict[str,
     casing_column = columns.get("CASING")
     md_column = columns.get("CASING DEPTH (MD)")
     tvd_column = columns.get("CASING DEPTH (TVD)")
-    status_column = hole_column - 1 if hole_column is not None and hole_column > 0 else None
+    # Completion status (Open/Closed/NZBP) is stored in the workbook's
+    # ``Hole Details`` column on the same row as the interval.  The previous
+    # parser looked one column to the left and therefore lost the status.
+    status_column = hole_column
 
     def value_at(row: tuple[Any, ...], column: int | None) -> Any:
         return row[column] if column is not None and column < len(row) else None
@@ -90,7 +93,9 @@ def parse_sheet(worksheet: Any) -> tuple[list[dict[str, object]], list[dict[str,
         hole_text = clean_text(value_at(row, hole_column))
         md_value = pd.to_numeric(value_at(row, md_column), errors="coerce")
         tvd_value = pd.to_numeric(value_at(row, tvd_column), errors="coerce")
-        if casing_text or hole_text or pd.notna(md_value) or pd.notna(tvd_value):
+        # Hole details also contains completion-state labels.  Do not count
+        # those rows as casing strings unless casing or depth evidence exists.
+        if casing_text or pd.notna(md_value) or pd.notna(tvd_value):
             casing_rows.append(
                 {
                     "Hole Details": hole_text,
@@ -167,6 +172,7 @@ def main() -> None:
                 "sheet_name": worksheet.title,
                 "orientation": orientation(worksheet.title),
                 "image_format": image_format,
+                "sheet_render_file": f"{stem}_sheet.png",
                 "casing": casing,
                 "intervals": intervals,
             }
@@ -182,6 +188,7 @@ def main() -> None:
                     "image_available": bool(image_name),
                     "data_file": data_name,
                     "image_file": image_name,
+                    "sheet_render_file": f"{stem}_sheet.png",
                 }
             )
     finally:

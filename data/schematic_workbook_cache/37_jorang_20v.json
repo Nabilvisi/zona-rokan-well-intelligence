@@ -2,6 +2,7 @@
   "sheet_name": "Jorang 20V",
   "orientation": "V",
   "image_format": "png",
+  "sheet_render_file": "37_jorang_20v_sheet.png",
   "casing": [
     {
       "Hole Details": "17.5\"",
@@ -22,24 +23,6 @@
       "Source Row": 26
     },
     {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 38
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 40
-    },
-    {
       "Hole Details": "",
       "Casing": "Production 7\"",
       "Top (ft)": 0.0,
@@ -47,42 +30,6 @@
       "Casing Depth (MD)": 3600,
       "Casing Depth (TVD)": null,
       "Source Row": 41
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 42
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 44
-    },
-    {
-      "Hole Details": "NZBP",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 46
-    },
-    {
-      "Hole Details": "NZBP",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 48
     }
   ],
   "intervals": [
@@ -92,9 +39,9 @@
       "Interval": "4776-4788",
       "Top (ft)": 4776.0,
       "Base (ft)": 4788.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "4776-4788",
       "Source Row": 38
     },
@@ -104,9 +51,9 @@
       "Interval": "4808-4818",
       "Top (ft)": 4808.0,
       "Base (ft)": 4818.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "4808-4818",
       "Source Row": 40
     },
@@ -116,9 +63,9 @@
       "Interval": "5190-5200",
       "Top (ft)": 5190.0,
       "Base (ft)": 5200.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "5190-5200",
       "Source Row": 42
     },
@@ -128,9 +75,9 @@
       "Interval": "5152-5162",
       "Top (ft)": 5152.0,
       "Base (ft)": 5162.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "Open",
       "Depth (feet)": "5152-5162",
       "Source Row": 44
     },
@@ -140,9 +87,9 @@
       "Interval": "5208-5230",
       "Top (ft)": 5208.0,
       "Base (ft)": 5230.0,
-      "Status": "",
+      "Status": "NZBP",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "NZBP",
       "Depth (feet)": "5208-5230",
       "Source Row": 46
     },
@@ -152,9 +99,9 @@
       "Interval": "5238-5246",
       "Top (ft)": 5238.0,
       "Base (ft)": 5246.0,
-      "Status": "",
+      "Status": "NZBP",
       "Kegiatan": "Perforation interval",
-      "Temuan": "",
+      "Temuan": "NZBP",
       "Depth (feet)": "5238-5246",
       "Source Row": 48
     }

@@ -2,6 +2,7 @@
   "sheet_name": "Intan 4V",
   "orientation": "V",
   "image_format": "png",
+  "sheet_render_file": "35_intan_4v_sheet.png",
   "casing": [
     {
       "Hole Details": "17.5\"",
@@ -13,51 +14,6 @@
       "Source Row": 11
     },
     {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 32
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 34
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 36
-    },
-    {
-      "Hole Details": "Open",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 38
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 40
-    },
-    {
       "Hole Details": "",
       "Casing": "Production 7\"",
       "Top (ft)": 0.0,
@@ -65,60 +21,6 @@
       "Casing Depth (MD)": 3297,
       "Casing Depth (TVD)": null,
       "Source Row": 41
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 42
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 44
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 46
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 48
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 50
-    },
-    {
-      "Hole Details": "Closed",
-      "Casing": "",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 52
     }
   ],
   "intervals": [
@@ -128,9 +30,9 @@
       "Interval": "2824-2832",
       "Top (ft)": 2824.0,
       "Base (ft)": 2832.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Open",
       "Depth (feet)": "2824-2832",
       "Source Row": 32
     },
@@ -140,9 +42,9 @@
       "Interval": "2842-2845",
       "Top (ft)": 2842.0,
       "Base (ft)": 2845.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Open",
       "Depth (feet)": "2842-2845",
       "Source Row": 34
     },
@@ -152,9 +54,9 @@
       "Interval": "2899-2910",
       "Top (ft)": 2899.0,
       "Base (ft)": 2910.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Closed",
       "Depth (feet)": "2899-2910",
       "Source Row": 36
     },
@@ -164,9 +66,9 @@
       "Interval": "2910-2925",
       "Top (ft)": 2910.0,
       "Base (ft)": 2925.0,
-      "Status": "",
+      "Status": "Open",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Open",
       "Depth (feet)": "2910-2925",
       "Source Row": 38
     },
@@ -176,9 +78,9 @@
       "Interval": "2951-2988",
       "Top (ft)": 2951.0,
       "Base (ft)": 2988.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Closed",
       "Depth (feet)": "2951-2988",
       "Source Row": 40
     },
@@ -188,9 +90,9 @@
       "Interval": "3000-3010",
       "Top (ft)": 3000.0,
       "Base (ft)": 3010.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Closed",
       "Depth (feet)": "3000-3010",
       "Source Row": 42
     },
@@ -200,9 +102,9 @@
       "Interval": "3036-3042",
       "Top (ft)": 3036.0,
       "Base (ft)": 3042.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Closed",
       "Depth (feet)": "3036-3042",
       "Source Row": 44
     },
@@ -212,9 +114,9 @@
       "Interval": "3053-3061",
       "Top (ft)": 3053.0,
       "Base (ft)": 3061.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Closed",
       "Depth (feet)": "3053-3061",
       "Source Row": 46
     },
@@ -224,9 +126,9 @@
       "Interval": "3114-3120",
       "Top (ft)": 3114.0,
       "Base (ft)": 3120.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Closed",
       "Depth (feet)": "3114-3120",
       "Source Row": 48
     },
@@ -236,9 +138,9 @@
       "Interval": "3174-3183",
       "Top (ft)": 3174.0,
       "Base (ft)": 3183.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Closed",
       "Depth (feet)": "3174-3183",
       "Source Row": 50
     },
@@ -248,9 +150,9 @@
       "Interval": "3193-3199",
       "Top (ft)": 3193.0,
       "Base (ft)": 3199.0,
-      "Status": "",
+      "Status": "Closed",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap",
+      "Temuan": "Bekasap Closed",
       "Depth (feet)": "3193-3199",
       "Source Row": 52
     }

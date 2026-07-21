@@ -2,6 +2,7 @@
   "sheet_name": "Minas 00526V",
   "orientation": "V",
   "image_format": "png",
+  "sheet_render_file": "16_minas_00526v_sheet.png",
   "casing": [
     {
       "Hole Details": "17.5\"",
@@ -20,9 +21,9 @@
       "Interval": "2287-2296",
       "Top (ft)": 2287.0,
       "Base (ft)": 2296.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "2287-2296",
       "Source Row": 32
     },
@@ -32,9 +33,9 @@
       "Interval": "2318-2335",
       "Top (ft)": 2318.0,
       "Base (ft)": 2335.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "2318-2335",
       "Source Row": 34
     },
@@ -44,9 +45,9 @@
       "Interval": "2341-2344",
       "Top (ft)": 2341.0,
       "Base (ft)": 2344.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "2341-2344",
       "Source Row": 36
     },
@@ -56,9 +57,9 @@
       "Interval": "2356-2361",
       "Top (ft)": 2356.0,
       "Base (ft)": 2361.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "2356-2361",
       "Source Row": 38
     }

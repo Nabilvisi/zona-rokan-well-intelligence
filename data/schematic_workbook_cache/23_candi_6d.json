@@ -2,6 +2,7 @@
   "sheet_name": "Candi 6D",
   "orientation": "D",
   "image_format": "png",
+  "sheet_render_file": "23_candi_6d_sheet.png",
   "casing": [
     {
       "Hole Details": "12.25",
@@ -38,9 +39,9 @@
       "Interval": "2687-2703",
       "Top (ft)": 2687.0,
       "Base (ft)": 2703.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "2687-2703",
       "Source Row": 19
     },
@@ -50,9 +51,9 @@
       "Interval": "2726-2744",
       "Top (ft)": 2726.0,
       "Base (ft)": 2744.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "2726-2744",
       "Source Row": 21
     },
@@ -62,9 +63,9 @@
       "Interval": "2840-2865",
       "Top (ft)": 2840.0,
       "Base (ft)": 2865.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "2840-2865",
       "Source Row": 23
     },
@@ -74,9 +75,9 @@
       "Interval": "3196-3204",
       "Top (ft)": 3196.0,
       "Base (ft)": 3204.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "3196-3204",
       "Source Row": 25
     },
@@ -86,9 +87,9 @@
       "Interval": "3221-3231",
       "Top (ft)": 3221.0,
       "Base (ft)": 3231.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "3221-3231",
       "Source Row": 27
     },
@@ -98,9 +99,9 @@
       "Interval": "3265-3272",
       "Top (ft)": 3265.0,
       "Base (ft)": 3272.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "3265-3272",
       "Source Row": 29
     },
@@ -110,9 +111,9 @@
       "Interval": "3284-3292",
       "Top (ft)": 3284.0,
       "Base (ft)": 3292.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "3284-3292",
       "Source Row": 31
     },
@@ -122,9 +123,9 @@
       "Interval": "3392-3400",
       "Top (ft)": 3392.0,
       "Base (ft)": 3400.0,
-      "Status": "Open",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Open",
+      "Temuan": "",
       "Depth (feet)": "3392-3400",
       "Source Row": 33
     }

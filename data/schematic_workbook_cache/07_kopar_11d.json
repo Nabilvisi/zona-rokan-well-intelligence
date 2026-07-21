@@ -2,6 +2,7 @@
   "sheet_name": "Kopar 11D",
   "orientation": "D",
   "image_format": "png",
+  "sheet_render_file": "07_kopar_11d_sheet.png",
   "casing": [
     {
       "Hole Details": "12.25",
