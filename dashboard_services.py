@@ -66,7 +66,7 @@ COORDINATE_SOURCE = _local_or_packaged(
     "47n.csv",
 )
 ONLINE_MODE = DATA_AVAILABILITY_WORKBOOK.parent == PACKAGED_SOURCE_ROOT
-CLOUD_DEPLOYMENT_VERSION = "2026-07-29.1"
+CLOUD_DEPLOYMENT_VERSION = "2026-07-30.1"
 # Kept for the optional legacy generators, but dashboard results are read from the
 # controlled sources above.
 SCHEMATIC_ROOT = WORKSPACE_ROOT / "Data Nations" / "Final things" / "Zona_Rokan_Well_Schematics"
@@ -223,7 +223,7 @@ def well_matches(
 def display_well_name(value: object) -> str:
     """Return a clean user-facing source label without changing canonical identity."""
     if well_signature(value) == ("BNKO", 14):
-        return "Bangko-0014"
+        return "Bangko-00014"
     return clean_text(value)
 
 
@@ -337,10 +337,6 @@ def load_portable_inventory_rows() -> pd.DataFrame:
         lambda row: well_signature(row.get("Well"), row.get("Field")),
         axis=1,
     )
-    rows = rows.loc[
-        signatures.map(lambda value: value != ("BNKO", 14))
-    ].copy()
-    signatures = signatures.loc[rows.index]
     rows = rows.loc[rows["Well"].map(normalize_well).ne("")]
     signatures = signatures.loc[rows.index]
     rows["Field"] = signatures.map(

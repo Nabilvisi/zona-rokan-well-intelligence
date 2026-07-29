@@ -21,7 +21,7 @@ import dashboard_services as services
 import well_log_core as logs
 
 
-EXPECTED_CLOUD_DEPLOYMENT_VERSION = "2026-07-29.1"
+EXPECTED_CLOUD_DEPLOYMENT_VERSION = "2026-07-30.1"
 if (
     getattr(services, "CLOUD_DEPLOYMENT_VERSION", "")
     != EXPECTED_CLOUD_DEPLOYMENT_VERSION
@@ -556,7 +556,7 @@ def selected_record_controls(
 def render_executive(master: pd.DataFrame, selected_record: logs.WellRecord) -> None:
     hero(
         "Integrated Well Reactivation Command Center",
-        "Canonical 100-well portfolio view combining production context, data readiness, "
+        f"Canonical {len(master)}-well portfolio view combining production context, data readiness, "
         "controlled well coordinates, LAS availability, schematic coverage, perforation "
         "history, and a transparent three-pillar screening score.",
     )
