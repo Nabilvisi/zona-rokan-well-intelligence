@@ -66,7 +66,7 @@ COORDINATE_SOURCE = _local_or_packaged(
     "47n.csv",
 )
 ONLINE_MODE = DATA_AVAILABILITY_WORKBOOK.parent == PACKAGED_SOURCE_ROOT
-CLOUD_DEPLOYMENT_VERSION = "2026-07-30.1"
+CLOUD_DEPLOYMENT_VERSION = "2026-07-30.2"
 # Kept for the optional legacy generators, but dashboard results are read from the
 # controlled sources above.
 SCHEMATIC_ROOT = WORKSPACE_ROOT / "Data Nations" / "Final things" / "Zona_Rokan_Well_Schematics"
