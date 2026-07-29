@@ -17,10 +17,10 @@
       "Hole Details": "8.5\"",
       "Casing": "Production 7\"",
       "Top (ft)": 0.0,
-      "Base (ft)": 4846,
-      "Casing Depth (MD)": 4846,
+      "Base (ft)": 5237,
+      "Casing Depth (MD)": 5237,
       "Casing Depth (TVD)": null,
-      "Source Row": 32
+      "Source Row": 31
     },
     {
       "Hole Details": "LS",
@@ -29,7 +29,7 @@
       "Base (ft)": null,
       "Casing Depth (MD)": null,
       "Casing Depth (TVD)": null,
-      "Source Row": 37
+      "Source Row": 33
     }
   ],
   "intervals": [
@@ -115,7 +115,7 @@
       "Kegiatan": "Perforation interval",
       "Temuan": "",
       "Depth (feet)": "5170-5176",
-      "Source Row": 38
+      "Source Row": 35
     }
   ]
 }

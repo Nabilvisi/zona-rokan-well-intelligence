@@ -149,30 +149,6 @@
       "Temuan": "8.5\"",
       "Depth (feet)": "2655-2658",
       "Source Row": 35
-    },
-    {
-      "Formation": "",
-      "Sand": "",
-      "Interval": "2574-2583",
-      "Top (ft)": 2574.0,
-      "Base (ft)": 2583.0,
-      "Status": "",
-      "Kegiatan": "Perforation interval",
-      "Temuan": "",
-      "Depth (feet)": "2574-2583",
-      "Source Row": 37
-    },
-    {
-      "Formation": "",
-      "Sand": "",
-      "Interval": "2594-2608",
-      "Top (ft)": 2594.0,
-      "Base (ft)": 2608.0,
-      "Status": "",
-      "Kegiatan": "Perforation interval",
-      "Temuan": "",
-      "Depth (feet)": "2594-2608",
-      "Source Row": 39
     }
   ]
 }

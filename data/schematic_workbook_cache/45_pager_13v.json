@@ -2,7 +2,7 @@
   "sheet_name": "Pager-13V",
   "orientation": "V",
   "image_format": "png",
-  "sheet_render_file": "46_pager_13v_sheet.png",
+  "sheet_render_file": "45_pager_13v_sheet.png",
   "casing": [
     {
       "Hole Details": "",
@@ -15,12 +15,21 @@
     },
     {
       "Hole Details": "",
+      "Casing": "obstruction cutting debris",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 43
+    },
+    {
+      "Hole Details": "",
       "Casing": "Production 7\"",
       "Top (ft)": 0.0,
       "Base (ft)": 4226,
       "Casing Depth (MD)": 4226,
       "Casing Depth (TVD)": null,
-      "Source Row": 41
+      "Source Row": 59
     }
   ],
   "intervals": [

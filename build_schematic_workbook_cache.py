@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import warnings
 from pathlib import Path
@@ -12,7 +13,12 @@ from openpyxl import load_workbook
 
 
 APP_DIR = Path(__file__).resolve().parent
-WORKBOOK = APP_DIR.parents[1] / "Data Nations" / "well schematic Rokan.xlsx"
+WORKBOOK = Path(
+    os.environ.get(
+        "ZONA_ROKAN_SCHEMATIC_WORKBOOK",
+        APP_DIR / "data" / "controlled_sources" / "well schematic Rokan.xlsx",
+    )
+).expanduser()
 CACHE_DIR = APP_DIR / "data" / "schematic_workbook_cache"
 
 

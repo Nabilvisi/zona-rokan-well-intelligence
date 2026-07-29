@@ -17,10 +17,19 @@
       "Hole Details": "8.5\"",
       "Casing": "Production 7\"",
       "Top (ft)": 0.0,
-      "Base (ft)": 4846,
-      "Casing Depth (MD)": 4846,
+      "Base (ft)": 5581,
+      "Casing Depth (MD)": 5581,
       "Casing Depth (TVD)": null,
       "Source Row": 35
+    },
+    {
+      "Hole Details": "Top of Cement",
+      "Casing": "4896",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 39
     },
     {
       "Hole Details": "CIBP",
@@ -29,16 +38,7 @@
       "Base (ft)": null,
       "Casing Depth (MD)": null,
       "Casing Depth (TVD)": null,
-      "Source Row": 39
-    },
-    {
-      "Hole Details": "Top of Cement",
-      "Casing": "5132",
-      "Top (ft)": 0.0,
-      "Base (ft)": null,
-      "Casing Depth (MD)": null,
-      "Casing Depth (TVD)": null,
-      "Source Row": 41
+      "Source Row": 40
     }
   ],
   "intervals": [
@@ -168,9 +168,9 @@
       "Interval": "4796-4800",
       "Top (ft)": 4796.0,
       "Base (ft)": 4800.0,
-      "Status": "CIBP",
+      "Status": "Top of Cement",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Bangko CIBP",
+      "Temuan": "Bangko Top of Cement",
       "Depth (feet)": "4796-4800",
       "Source Row": 39
     },
@@ -180,9 +180,9 @@
       "Interval": "5217-5228",
       "Top (ft)": 5217.0,
       "Base (ft)": 5228.0,
-      "Status": "Top of Cement",
+      "Status": "",
       "Kegiatan": "Perforation interval",
-      "Temuan": "Menggala Top of Cement",
+      "Temuan": "Menggala",
       "Depth (feet)": "5217-5228",
       "Source Row": 41
     },

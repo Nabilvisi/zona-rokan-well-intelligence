@@ -29,7 +29,7 @@
       "Base (ft)": 2780,
       "Casing Depth (MD)": 2780,
       "Casing Depth (TVD)": null,
-      "Source Row": 41
+      "Source Row": 39
     },
     {
       "Hole Details": "Closed",
@@ -45,18 +45,6 @@
     {
       "Formation": "Bekasap",
       "Sand": "Bekasap",
-      "Interval": "2833-2845",
-      "Top (ft)": 2833.0,
-      "Base (ft)": 2845.0,
-      "Status": "NZBP",
-      "Kegiatan": "Perforation interval",
-      "Temuan": "Bekasap NZBP",
-      "Depth (feet)": "2833-2845",
-      "Source Row": 38
-    },
-    {
-      "Formation": "Bekasap",
-      "Sand": "Bekasap",
       "Interval": "2718-2732",
       "Top (ft)": 2718.0,
       "Base (ft)": 2732.0,
@@ -64,7 +52,7 @@
       "Kegiatan": "Perforation interval",
       "Temuan": "Bekasap Closed",
       "Depth (feet)": "2718-2732",
-      "Source Row": 40
+      "Source Row": 38
     },
     {
       "Formation": "Bekasap",
@@ -76,6 +64,18 @@
       "Kegiatan": "Perforation interval",
       "Temuan": "Bekasap Closed",
       "Depth (feet)": "2806-2818",
+      "Source Row": 40
+    },
+    {
+      "Formation": "Bekasap",
+      "Sand": "Bekasap",
+      "Interval": "2833-2845",
+      "Top (ft)": 2833.0,
+      "Base (ft)": 2845.0,
+      "Status": "NZBP",
+      "Kegiatan": "Perforation interval",
+      "Temuan": "Bekasap NZBP",
+      "Depth (feet)": "2833-2845",
       "Source Row": 42
     },
     {

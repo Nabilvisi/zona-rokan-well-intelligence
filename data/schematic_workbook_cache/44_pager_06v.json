@@ -1,8 +1,8 @@
 {
   "sheet_name": "Pager-06V",
   "orientation": "V",
-  "image_format": "png",
-  "sheet_render_file": "45_pager_06v_sheet.png",
+  "image_format": "",
+  "sheet_render_file": "44_pager_06v_sheet.png",
   "casing": [
     {
       "Hole Details": "17.5\"",
@@ -23,13 +23,22 @@
       "Source Row": 29
     },
     {
-      "Hole Details": "NZBP",
+      "Hole Details": "",
+      "Casing": "Obstruction @",
+      "Top (ft)": 0.0,
+      "Base (ft)": null,
+      "Casing Depth (MD)": null,
+      "Casing Depth (TVD)": null,
+      "Source Row": 49
+    },
+    {
+      "Hole Details": "",
       "Casing": "Production 7\"",
       "Top (ft)": 0.0,
       "Base (ft)": 4172,
       "Casing Depth (MD)": 4172,
       "Casing Depth (TVD)": null,
-      "Source Row": 46
+      "Source Row": 51
     }
   ],
   "intervals": [

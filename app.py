@@ -21,7 +21,7 @@ import dashboard_services as services
 import well_log_core as logs
 
 
-EXPECTED_CLOUD_DEPLOYMENT_VERSION = "2026-07-21.3"
+EXPECTED_CLOUD_DEPLOYMENT_VERSION = "2026-07-29.1"
 if (
     getattr(services, "CLOUD_DEPLOYMENT_VERSION", "")
     != EXPECTED_CLOUD_DEPLOYMENT_VERSION
