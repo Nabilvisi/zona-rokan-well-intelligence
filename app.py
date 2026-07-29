@@ -21,7 +21,7 @@ import dashboard_services as services
 import well_log_core as logs
 
 
-EXPECTED_CLOUD_DEPLOYMENT_VERSION = "2026-07-30.2"
+EXPECTED_CLOUD_DEPLOYMENT_VERSION = "2026-07-30.3"
 if (
     getattr(services, "CLOUD_DEPLOYMENT_VERSION", "")
     != EXPECTED_CLOUD_DEPLOYMENT_VERSION
@@ -70,9 +70,10 @@ def load_master(
     source_tokens: tuple[tuple[str, int, int], ...],
 ) -> pd.DataFrame:
     del source_tokens  # Included in the cache key so controlled workbook edits refresh.
-    inventory = logs.scan_inventory(root_text)
-    if not inventory and services.ONLINE_MODE:
+    if services.ONLINE_MODE:
         inventory = load_portable_inventory(services.CLOUD_DEPLOYMENT_VERSION)
+    else:
+        inventory = logs.scan_inventory(root_text)
     master = services.build_master_table(inventory)
     if "Detailed History Available" not in master.columns:
         master["Detailed History Available"] = master.get(
@@ -4438,10 +4439,12 @@ def main() -> None:
         ):
             icon = ":material/check_circle:" if path.exists() else ":material/error:"
             st.caption(f"{icon} {label}")
-    inventory = logs.scan_inventory(root_text)
-    scan_issues = logs.inventory_scan_issues(root_text) if not services.ONLINE_MODE else []
-    if not inventory and services.ONLINE_MODE:
+    if services.ONLINE_MODE:
         inventory = load_portable_inventory(services.CLOUD_DEPLOYMENT_VERSION)
+        scan_issues = []
+    else:
+        inventory = logs.scan_inventory(root_text)
+        scan_issues = logs.inventory_scan_issues(root_text)
     if scan_issues:
         st.warning(
             f"Skipped {len(scan_issues)} unreadable data path(s). The dashboard is still "
